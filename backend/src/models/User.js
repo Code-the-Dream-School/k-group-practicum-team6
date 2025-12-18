@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, "Name is required"],
       trim: true,
+      maxlength: 50,
     },
 
     role: {
