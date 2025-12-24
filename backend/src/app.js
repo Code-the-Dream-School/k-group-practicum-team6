@@ -4,7 +4,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 
-const helloRoutes = require('./routes/hello.routes');
+const authRouter = require('./routes/auth');
+const entriesRouter = require('./routes/entries');
 
 const app = express();
 
@@ -21,11 +22,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Routes
-app.use('/api/hello', helloRoutes);
-
-// Root route
-app.get('/', (req, res) => {
-  res.send('Backend API is running');
-});
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/entries', entriesRouter);
 
 module.exports = app;
