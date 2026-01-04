@@ -1,11 +1,17 @@
 const express = require('express');
+require('./config/db.mongo');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 
+// Routers
 const authRouter = require('./routes/auth');
 const entriesRouter = require('./routes/entries');
+
+// Error handler
+const notFoundMiddleware = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
 
 const app = express();
 
@@ -24,5 +30,11 @@ app.use(limiter);
 // Routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/entries', entriesRouter);
+
+// 404
+app.use(notFoundMiddleware);
+// Error handler
+app.use(errorHandlerMiddleware);
+
 
 module.exports = app;
