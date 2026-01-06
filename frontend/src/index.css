@@ -28,15 +28,25 @@
     }
     .btn-style {
         @apply rounded-lg p-2 m-2 border-2 border-solid border-[black] 
-        hover:bg-red-700 cursor-pointer bg-white text-black
+        hover:bg-red-700 cursor-pointer bg-white text-black 
+        justify-center items-center
     }
      .entry-cont-style {
-         @apply flex relative justify-center gap-2 text-xl bg-blue-500
+         @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
          rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black]
     }
     .entry-title-style {
-        @apply m-5 justify-center relative top-[-30px] bg-white text-black
+        @apply flex m-5 justify-center items-center relative top-[-30px] bg-white text-black
         rounded-lg border-2 border-solid border-[black] p-1 
+    }
+    .new-entry-title-style {
+        @apply flex mt-5 justify-center items-center relative top-[-30px] bg-white text-black
+        rounded-lg border-2 border-solid border-[black] p-1 
+    }
+    .input-style {
+        @apply flex justify-center items-center border-2 border-solid border-[black]
+        border rounded-sm mb-2 placeholder:text-gray-200 placeholder:text-center
+        placeholder:items-center
     }
     .edit-style {
         @apply absolute left-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
