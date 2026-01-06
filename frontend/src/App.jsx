@@ -6,6 +6,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 const DashBoard = React.lazy(() => import("./pages/DashBoard"));
 const NewEntry = React.lazy(() => import("./pages/NewEntry"));
+const EditEntry = React.lazy(() => import("./pages/EditEntry"))
 
 const App = () => {
   return (
@@ -25,13 +26,24 @@ const App = () => {
         <Route
           path="/newentry"
           element={
-            <Suspense fallback={<div>Loading Entry form...</div>}>
+            <Suspense fallback={<div>Loading entry form...</div>}>
               <ProtectedRoute>
                 <NewEntry />
               </ProtectedRoute>
             </Suspense>
           }
         />
+        <Route
+          path="/editentry"
+          element={
+            <Suspense fallback={<div>Loading entry editing...</div>}>
+              <ProtectedRoute>
+                <EditEntry/>
+              </ProtectedRoute>
+            </Suspense>
+          }
+        />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
