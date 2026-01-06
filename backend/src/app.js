@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors');
 require('./config/db.mongo');
 const cors = require('cors');
 const helmet = require('helmet');
