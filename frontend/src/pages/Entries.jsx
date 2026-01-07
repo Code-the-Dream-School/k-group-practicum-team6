@@ -33,10 +33,16 @@ const Entries = () => {
             <button className="btn-style">Entry 1</button>
             <button className="btn-style">Entry 2</button>
           </div>
-       
         </div>
         <div className="footer-style">
-          <button className="btn-style">Sort</button>
+          <select
+            className="dropdown-style">
+            <option value="default">Sort</option>
+            <option value="Date">Date</option>
+            <option value="Subject">Subject</option>
+            <option value="Duration">Duration</option>
+            <option value="Mood">Mood</option>
+          </select>
           <button className="btn-style">Search</button>
           <button className="btn-style">Pagination</button>
         </div>

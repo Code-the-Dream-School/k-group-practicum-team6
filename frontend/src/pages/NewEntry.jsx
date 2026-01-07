@@ -26,21 +26,34 @@ const NewEntry = () => {
         <div className="entry-cont-style">
           <div>
             <h1 className="new-entry-title-style">New Entry</h1>
-            <input className="input-style" type="text" placeholder="Date"/>
-            <input className="input-style" type="text" placeholder="Entry subject(s)"/>
-            <input className="input-style" type="text" placeholder="Duration"/>
-            <input className="input-style" type="text" placeholder="Mood"/>
-            <input className="input-style" type="text" placeholder="Focus Level"/>
-            <input className="input-style" type="text" placeholder="Details"/>
+            <input className="input-style" type="text" placeholder="Date" />
+            <input
+              className="input-style"
+              type="text"
+              placeholder="Entry subject(s)"
+            />
+            <input className="input-style" type="text" placeholder="Duration" />
+            <input className="input-style" type="text" placeholder="Mood" />
+            <input
+              className="input-style"
+              type="text"
+              placeholder="Focus Level"
+            />
+            <input className="input-style" type="text" placeholder="Details" />
             <div className="flex relative left-[20px]">
-                <button className="btn-style">Save</button>
-                <button className="btn-style">Cancel</button>
+              <button className="btn-style">Save</button>
+              <button className="btn-style">Cancel</button>
             </div>
           </div>
-           
         </div>
         <div className="footer-style">
-          <button className="btn-style">Sort</button>
+          <select className="dropdown-style">
+            <option value="default">Sort</option>
+            <option value="Date">Date</option>
+            <option value="Subject">Subject</option>
+            <option value="Duration">Duration</option>
+            <option value="Mood">Mood</option>
+          </select>
           <button className="btn-style">Search</button>
           <button className="btn-style">Pagination</button>
         </div>

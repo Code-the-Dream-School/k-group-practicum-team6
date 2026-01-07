@@ -22,6 +22,11 @@
          @apply flex justify-center gap-1 text-xl bg-blue-500 rounded-lg 
          m-1 border-2 border-solid border-[black] mt-2
     }
+    .dropdown-style {
+        @apply bg-white rounded-lg text-black
+         m-2.25 border-2 border-solid border-[black] 
+         items-center justify-center 
+    }
     .title-style {
         @apply flex mb-2 justify-center text-[25px] text-white
           bg-blue-500 border-2 border-solid border-[black] rounded-lg
