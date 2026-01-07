@@ -4,7 +4,19 @@ const connectMongo = require('./src/config/db.mongo');
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-  connectMongo(process.env.MONGO_URI);
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+const start = async () => {
+  try {
+    await connectMongo(process.env.MONGO_URI);
+    app.listen(PORT, console.log(`Server running on http://localhost:${PORT}`));
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+start();
+
+// app.listen(PORT, () => {
+//   connectMongo(process.env.MONGO_URI);
+//   console.log(`Server running on http://localhost:${PORT}`);
+// });
