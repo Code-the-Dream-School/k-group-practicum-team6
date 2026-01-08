@@ -1,14 +1,16 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError } = require("../errors");
-// const CustomAPIError = require("../errors/custom-error");
-// const { createCustomError, CustomAPIError } = require("../errors/custom-error");
-const bcrypt = require("bcryptjs");
 
 //-- Register new user
 const register = async (req, res) => {
   const user = await User.create({ ...req.body });
-  res.status(StatusCodes.CREATED).json({ user });
+  const token = user.createJWT();   // createJWT method is from User model
+
+  res.status(StatusCodes.CREATED).json({
+    user: { user: user.name },
+    token
+  });
 }
 
 //-- Login user
