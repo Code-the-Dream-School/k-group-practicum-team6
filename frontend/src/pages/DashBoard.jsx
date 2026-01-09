@@ -1,7 +1,10 @@
+import { useState } from "react";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
 import authService from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
 const DashBoard = () => {
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -9,6 +12,17 @@ const DashBoard = () => {
     authService.removeUsername();
     navigate("/"); // redirect to login page after logout
   };
+
+  const handleModal = () => {
+    if (!openModal) {
+      setOpenModal(true);
+    console.log("Modal opened!!");
+    }
+    else {
+      setOpenModal(false);
+      console.log("Modal closed!!")
+    }
+  }
 
   return (
     <>
@@ -25,16 +39,21 @@ const DashBoard = () => {
         {/* placeholder entries */}
         <div>
           <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 1</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
+            <Button
+              onClick={handleModal}
+              className="btn-style"
+            >
+              View Entries
+            </Button>
+            {/* <button className="edit-style">Edit</button>
+            <button className="delete-style">Delete</button> */}
           </div>
 
-          <div className="entry-cont-style">
+          {/* <div className="entry-cont-style">
             <p className="entry-title-style">Entry 2</p>
             <button className="edit-style">Edit</button>
             <button className="delete-style">Delete</button>
-          </div>
+          </div> */}
         </div>
         <div className="footer-style">
           <select className="dropdown-style">

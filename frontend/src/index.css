@@ -32,9 +32,15 @@
           bg-blue-500 border-2 border-solid border-[black] rounded-lg
     }
     .btn-style {
-        @apply rounded-lg p-2 m-2 border-2 border-solid border-[black] 
-        hover:bg-red-700 cursor-pointer bg-white text-black 
-        justify-center items-center
+        @apply bg-white text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
+        hover:bg-red-700 cursor-pointer justify-center items-center;
+    }
+    .btn-style {
+        background-color: white !important;
+        color: black !important;
+    }
+    .btn-style:hover {
+        background-color: #b91c1c !important; /* tailwind red-700 */
     }
      .entry-cont-style {
          @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
