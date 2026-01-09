@@ -9,6 +9,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 
+const authenticateUser = require("./middleware/authentication");
+
 // Routers
 const authRouter = require('./routes/auth');
 const entriesRouter = require('./routes/entries');
@@ -33,7 +35,7 @@ app.use(limiter);
 
 // Routes
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/entries', entriesRouter);
+app.use('/api/v1/entries', authenticateUser, entriesRouter);
 
 // 404
 app.use(notFoundMiddleware);

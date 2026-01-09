@@ -15,8 +15,3 @@ const start = async () => {
 }
 
 start();
-
-// app.listen(PORT, () => {
-//   connectMongo(process.env.MONGO_URI);
-//   console.log(`Server running on http://localhost:${PORT}`);
-// });
