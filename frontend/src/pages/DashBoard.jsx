@@ -16,11 +16,11 @@ const DashBoard = () => {
   const handleModal = () => {
     if (!openModal) {
       setOpenModal(true);
-    console.log("Modal opened!!");
+      console.log("Modal opened!!");
     }
     else {
       setOpenModal(false);
-      console.log("Modal closed!!")
+      console.log("Modal closed!!");
     }
   }
 
@@ -32,29 +32,30 @@ const DashBoard = () => {
         <div className="header-style">
           <button className="btn-style">+ New Entry</button>
           <button className="btn-style">View</button>
-          <button className="btn-style" onClick={handleLogout}>
-            Log out
-          </button>
+          <button className="btn-style" onClick={handleLogout}>Log out</button>
         </div>
         {/* placeholder entries */}
         <div>
           <div className="entry-cont-style">
-            <Button
-              onClick={handleModal}
-              className="btn-style"
-            >
-              View Entries
-            </Button>
+            <Button onClick={handleModal} className="btn-style">View Entries</Button>
             {/* <button className="edit-style">Edit</button>
             <button className="delete-style">Delete</button> */}
+            
           </div>
-
+              <Modal show={openModal} onClose={() => setOpenModal(false)}>
+                <ModalHeader>Open</ModalHeader>
+                <ModalBody>Content</ModalBody>
+                <ModalFooter >
+                  <Button className="btn-style" onClick={handleModal}>Close</Button>
+                  </ModalFooter>
+              </Modal>
           {/* <div className="entry-cont-style">
             <p className="entry-title-style">Entry 2</p>
             <button className="edit-style">Edit</button>
             <button className="delete-style">Delete</button>
           </div> */}
         </div>
+        
         <div className="footer-style">
           <select className="dropdown-style">
             <option value="default">Sort</option>
