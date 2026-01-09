@@ -1,7 +1,7 @@
 import authService from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-const DashBoard = () => {
+const Entries = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -14,7 +14,7 @@ const DashBoard = () => {
     <>
       <div className="master-cont">
         {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Welcome to the Dashboard</h1>
+        <h1 className="title-style">User Entries</h1>
         <div className="header-style">
           <button className="btn-style">+ New Entry</button>
           <button className="btn-style">View</button>
@@ -23,21 +23,20 @@ const DashBoard = () => {
           </button>
         </div>
         {/* placeholder entries */}
-        <div>
+        <div
+          className="bg-blue-500
+         rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black]"
+        >
+          {/* Change to `${}'s entries` */}
+          <h1 className="title-style">User Entries</h1>
           <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 1</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
-          </div>
-
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 2</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
+            <button className="btn-style">Entry 1</button>
+            <button className="btn-style">Entry 2</button>
           </div>
         </div>
         <div className="footer-style">
-          <select className="dropdown-style">
+          <select
+            className="dropdown-style">
             <option value="default">Sort</option>
             <option value="Date">Date</option>
             <option value="Subject">Subject</option>
@@ -51,4 +50,4 @@ const DashBoard = () => {
     </>
   );
 };
-export default DashBoard;
+export default Entries;

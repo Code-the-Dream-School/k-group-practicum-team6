@@ -1,7 +1,7 @@
 import authService from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-const DashBoard = () => {
+const NewEntry = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -14,7 +14,7 @@ const DashBoard = () => {
     <>
       <div className="master-cont">
         {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Welcome to the Dashboard</h1>
+        <h1 className="title-style">New Entry</h1>
         <div className="header-style">
           <button className="btn-style">+ New Entry</button>
           <button className="btn-style">View</button>
@@ -23,17 +23,27 @@ const DashBoard = () => {
           </button>
         </div>
         {/* placeholder entries */}
-        <div>
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 1</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
-          </div>
-
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 2</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
+        <div className="entry-cont-style">
+          <div>
+            <h1 className="new-entry-title-style">New Entry</h1>
+            <input className="input-style" type="text" placeholder="Date" />
+            <input
+              className="input-style"
+              type="text"
+              placeholder="Entry subject(s)"
+            />
+            <input className="input-style" type="text" placeholder="Duration" />
+            <input className="input-style" type="text" placeholder="Mood" />
+            <input
+              className="input-style"
+              type="text"
+              placeholder="Focus Level"
+            />
+            <input className="input-style" type="text" placeholder="Details" />
+            <div className="flex relative left-[20px]">
+              <button className="btn-style">Save</button>
+              <button className="btn-style">Cancel</button>
+            </div>
           </div>
         </div>
         <div className="footer-style">
@@ -51,4 +61,4 @@ const DashBoard = () => {
     </>
   );
 };
-export default DashBoard;
+export default NewEntry;
