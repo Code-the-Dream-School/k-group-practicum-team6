@@ -1,70 +1,95 @@
 @import "tailwindcss";
 
 @layer components {
-    .master-cont {
-        @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md
-    }
-    .lgn-reg-field {
-        @apply w-full px-4 py-2 mb-4 border border-gray-200 rounded-lg 
-        focus:outline-none focus:border-blue-500 text-black;
-    }
-    .error-success {
-        @apply text-green-600 mb-4;
-    }
-    .error-message {
-        @apply text-red-600 mb-4;
-    }
-    .header-style {
-         @apply flex justify-center gap-1 text-[20px] bg-blue-500 rounded-lg 
-         m-1 border-2 border-solid border-[black]
-    }
-    .footer-style {
-         @apply flex justify-center gap-1 text-xl bg-blue-500 rounded-lg 
-         m-1 border-2 border-solid border-[black] mt-2
-    }
-    .dropdown-style {
-        @apply bg-white rounded-lg text-black
-         m-2.25 border-2 border-solid border-[black] 
-         items-center justify-center 
-    }
-    .title-style {
-        @apply flex mb-2 justify-center text-[25px] text-white
-          bg-blue-500 border-2 border-solid border-[black] rounded-lg
-    }
-    .btn-style {
-        @apply bg-white text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
-        hover:bg-red-700 cursor-pointer justify-center items-center;
-    }
-    .btn-style {
-        background-color: white !important;
-        color: black !important;
-    }
-    .btn-style:hover {
-        background-color: #b91c1c !important; /* tailwind red-700 */
-    }
-     .entry-cont-style {
-         @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
-         rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black]
-    }
-    .entry-title-style {
-        @apply flex m-5 justify-center items-center relative top-[-30px] bg-white text-black
-        rounded-lg border-2 border-solid border-[black] p-1 
-    }
-    .new-entry-title-style {
-        @apply flex mt-5 justify-center items-center relative top-[-30px] bg-white text-black
-        rounded-lg border-2 border-solid border-[black] p-1 
-    }
-    .input-style {
-        @apply flex justify-center items-center border-2 border-solid border-[black]
-        border rounded-sm mb-2 placeholder:text-gray-200 placeholder:text-center
-        placeholder:items-center
-    }
-    .edit-style {
-        @apply absolute left-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer
-    }
-    .delete-style {
-        @apply absolute right-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer
-    }
+  .master-cont {
+    @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md;
   }
+  .lgn-reg-field {
+    @apply w-full px-4 py-2 mb-4 border border-gray-200 rounded-lg 
+        focus:outline-none focus:border-blue-500 text-black;
+  }
+  .error-success {
+    @apply text-green-600 mb-4;
+  }
+  .error-message {
+    @apply text-red-600 mb-4;
+  }
+  .header-style {
+    @apply flex justify-center gap-1 text-[20px] bg-blue-500 rounded-lg 
+         m-1 border-2 border-solid border-[black];
+  }
+  .footer-style {
+    @apply flex justify-center gap-1 text-xl bg-blue-500 rounded-lg 
+         m-1 border-2 border-solid border-[black] mt-2;
+  }
+  .dropdown-style {
+    @apply bg-white rounded-lg text-black
+         m-2.25 border-2 border-solid border-[black] 
+         items-center justify-center;
+  }
+  .title-style {
+    @apply flex mb-2 justify-center text-[25px] text-white
+          bg-blue-500 border-2 border-solid border-[black] rounded-lg;
+  }
+  .user-title-style {
+    @apply flex justify-center text-[35px] text-white
+          bg-blue-500 text-3xl mb-4;
+  }
+  .btn-style {
+    @apply bg-white text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
+        hover:bg-red-700 cursor-pointer justify-center items-center;
+  }
+  .btn-style {
+    background-color: white !important;
+    color: black !important;
+  }
+  .btn-style:hover {
+    background-color: #b91c1c !important; /* tailwind red-700 */
+  }
+  .entry-cont-style {
+    @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
+         rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black];
+  }
+  .user-entry-cont-style {
+    @apply bg-blue-500 rounded-lg m-4 p-3 border-2 border-black justify-center flex text-2xl;
+  }
+  .entry-title-style {
+    @apply flex m-5 justify-center items-center relative top-[-30px] bg-white text-black
+        rounded-lg border-2 border-solid border-[black] p-1;
+  }
+  .new-entry-title-style {
+    @apply flex mt-5 justify-center items-center relative top-[-30px] bg-white text-black
+        rounded-lg border-2 border-solid border-[black] p-1;
+  }
+  .input-style {
+    @apply flex justify-center items-center border-2 border-solid border-[black]
+        border rounded-sm mb-2 placeholder:text-gray-200 placeholder:text-center
+        placeholder:items-center;
+  }
+  .edit-style {
+    @apply absolute left-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
+        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer;
+  }
+  .delete-style {
+    @apply absolute right-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
+        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer;
+  }
+}
+
+/* Override Flowbite ModalBody padding - remove top and bottom padding */
+div[role="dialog"] [class*="p-6"],
+div[role="dialog"] [class*="p-4"],
+div[role="dialog"] > div > div[class*="flex-1"],
+div[role="dialog"] > div > div > div,
+div[role="dialog"] p {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-top: 1 !important;
+}
+
+/* Target ModalBody specifically with any padding class */
+div[role="dialog"] > div > div[class*="overflow-auto"],
+div[role="dialog"] > div > div[class*="flex-1"][class*="overflow"] {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
