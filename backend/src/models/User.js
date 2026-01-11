@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
   },
 
   { timestamps: true }
-});
+);
 
 
 //-- Mongo Middleware to hash the password

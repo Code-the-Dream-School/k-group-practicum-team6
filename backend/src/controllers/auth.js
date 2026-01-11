@@ -8,7 +8,7 @@ const register = async (req, res) => {
   const token = user.createJWT();   // createJWT method is from '../models/User'
 
   res.status(StatusCodes.CREATED).json({
-    user: { user: user.name },
+    user: { name: user.name },
     token
   });
 }
