@@ -6,7 +6,7 @@
   }
   
   .master-cont-2 {
-    @apply w-full max-w-md p-2 bg-white rounded-lg shadow-md 
+    @apply w-full max-w-md p-1 bg-white rounded-lg shadow-md 
     relative left-[600px] top-[150px];
   }
 
@@ -128,20 +128,13 @@
   }
 }
 
-/* Override Flowbite ModalBody padding - remove top and bottom padding */
-div[role="dialog"] [class*="p-6"],
-div[role="dialog"] [class*="p-4"],
-div[role="dialog"] > div > div[class*="flex-1"],
-div[role="dialog"] > div > div > div,
-div[role="dialog"] p {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 1 !important;
+.custom-modal [class*="modal"] > div {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-/* Target ModalBody specifically with any padding class */
-div[role="dialog"] > div > div[class*="overflow-auto"],
-div[role="dialog"] > div > div[class*="flex-1"][class*="overflow"] {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+/* Force modal content to have no extra space */
+div[role="dialog"] > div {
+  width: fit-content !important;
+  margin: auto !important;
 }
