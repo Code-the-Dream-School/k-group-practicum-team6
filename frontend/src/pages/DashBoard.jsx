@@ -28,41 +28,21 @@ const DashBoard = () => {
         {/* existing entries */}
         <div>
           <div className="entry-cont-style">
-            <Button onClick={handleModal} className="btn-style">
-              View Entries
-            </Button>
+            <Button onClick={handleModal} className="btn-style text-xl">View Entries</Button>
           </div>
           {/* User entries */}
-          <Modal
-            show={openModal}
-            onClose={handleModal}
-            size="md"
+          <Modal show={openModal} onClose={handleModal} size="md"
             theme={{
               // override default bg
-              content: {
-                base: "main-modal",
-              },
+              content: { base: "main-modal", },
               body: { base: "p-0 pt-0 pb-0" },
-            }}
-          >
+            }}>
             <ModalHeader>
-              <Button
-                className="btn-style absolute x-btn"
-                onClick={handleModal}
-              >
-                {" "}
-                X{" "}
-              </Button>
+              <Button className="btn-style absolute x-btn" onClick={handleModal}>X</Button>
             </ModalHeader>
             <ModalBody
-              style={{
-                paddingTop: 0,
-                paddingBottom: 0,
-                marginTop: 0,
-                padding: "0 0.25rem",
-              }}
-              className="px-1 !pt-0 !pb-0  !mt-0"
-            >
+              style={{ paddingTop: 0, paddingBottom: 0, marginTop: 0, padding: "0 0.25rem" }}
+              className="px-1 !pt-0 !pb-0  !mt-0">
               <Entries />
             </ModalBody>
           </Modal>

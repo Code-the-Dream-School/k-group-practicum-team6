@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const Entries = () => {
-  // add navigation
+  const navigate = useNavigate();
   // handler for selecting entries
-  // another handler(s) for editing and deleting entries
+  const handleEdit = () => {
+     navigate("/editentry");
+  }
+  // another handler(s) for  deleting entries
   return (
     <>
       <div className="entry-master-cont">
@@ -10,10 +15,15 @@ const Entries = () => {
 
         {/* placeholder entries */}
         <div>
-          <div className="user-entry-cont-style">
+          <div className="solo-entry-style">
             {/* change to have each entry and edit and delete buttons */}
-            <button className="btn-style">Entry 1</button>
-            <button className="btn-style">Entry 2</button>
+            <div className="solo-entry">
+              <button className="btn-style" onClick={handleEdit}>Edit</button>
+              <p className="relative top-[15px]">Entry 1</p>
+              <button className="btn-style">Delete</button>
+            </div>
+            
+            
           </div>
         </div>
       </div>
