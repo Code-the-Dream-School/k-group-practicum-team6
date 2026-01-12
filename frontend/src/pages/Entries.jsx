@@ -4,7 +4,7 @@ const Entries = () => {
   // another handler(s) for editing and deleting entries
   return (
     <>
-      <div className="bg-blue-500 rounded-lg p-1 m-1 border-2 border-solid border-[black]">
+      <div className="entry-master-cont">
         {/* Change to `${}'s entries` */}
         <h1 className="user-title-style">User Entries</h1>
 

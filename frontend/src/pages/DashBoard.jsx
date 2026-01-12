@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal, ModalBody, ModalFooter } from "flowbite-react";
+import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
 import Header from "../Hooks/Header";
 import Footer from "../Hooks/Footer";
 import Entries from "./Entries";
@@ -19,7 +19,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <div className="master-cont">
+      <div className="master-cont-2">
         {/* change to `Welcome ${name}`! */}
         <h1 className="title-style">Welcome to the Dashboard</h1>
         <Header />
@@ -39,10 +39,21 @@ const DashBoard = () => {
             size="md"
             theme={{
               // override default bg
-              content: { base: "bg-transparent shadow-none" },
+              content: {
+                base: "main-modal",
+              },
               body: { base: "p-0 pt-0 pb-0" },
             }}
           >
+            <ModalHeader>
+              <Button
+                className="btn-style absolute x-btn"
+                onClick={handleModal}
+              >
+                {" "}
+                X{" "}
+              </Button>
+            </ModalHeader>
             <ModalBody
               style={{
                 paddingTop: 0,
@@ -50,20 +61,11 @@ const DashBoard = () => {
                 marginTop: 0,
                 padding: "0 0.25rem",
               }}
-              className="px-1 !pt-0 !pb-0 !mt-0"
+              className="px-1 !pt-0 !pb-0  !mt-0"
             >
-              <Entries/>
+              <Entries />
             </ModalBody>
-            <ModalFooter>
-              <Button
-                className="btn-style absolute top-1 right-2 pt-0.25 pb-0.25 pr-1 pl-1 bg-transparent text-xl text-white rounded"
-                onClick={handleModal}
-              >
-                X
-              </Button>
-            </ModalFooter>
           </Modal>
-
         </div>
         <Footer />
       </div>
