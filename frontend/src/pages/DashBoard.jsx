@@ -49,7 +49,7 @@ const DashBoard = () => {
                 marginTop: 0,
                 padding: "0 0.25rem",
               }}
-              className="px-1 !pt-0 !pb-0 !mb-0 !mt-0 relative"
+              className="modal-body"
             >
               <Button
                 className="absolute btn-style x-btn"

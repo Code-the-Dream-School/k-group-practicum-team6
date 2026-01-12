@@ -2,7 +2,8 @@ import { useNavigate } from "react-router-dom";
 
 const Entries = () => {
   const navigate = useNavigate();
-  // handler for selecting entries
+
+  // may need a handler for selecting entries or mapping user entries
   const handleEdit = () => {
      navigate("/editentry");
   }

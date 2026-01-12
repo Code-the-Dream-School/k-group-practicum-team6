@@ -84,6 +84,10 @@
     @apply bg-transparent shadow-none relative bottom-[150px] right-[50px]
   }
 
+  .modal-body {
+    @apply px-1 !pt-0 !pb-0 !mb-0 !mt-0 relative overflow-hidden
+  }
+
   .entry-cont-style {
     @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
          rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black];
