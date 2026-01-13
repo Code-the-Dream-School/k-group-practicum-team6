@@ -81,6 +81,10 @@
   }
 
   .main-modal {
+    @apply bg-transparent shadow-none
+  }
+
+  .main-modal-2 {
     @apply bg-transparent shadow-none relative bottom-[150px] right-[50px]
   }
 

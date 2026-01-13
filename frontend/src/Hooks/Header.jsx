@@ -1,7 +1,7 @@
 import authService from "../services/authService";
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({setNewEntriesModal}) {
     const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <>
       <div className="header-style">
-    <button className="btn-style">+ New Entry</button>
+    <button className="btn-style" onClick={() => setNewEntriesModal(true)}>+ New Entry</button>
     <button className="btn-style">View</button>
     <button className="btn-style" onClick={handleLogout}>
       Log out

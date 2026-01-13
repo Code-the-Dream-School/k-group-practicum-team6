@@ -3,42 +3,57 @@ import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
 import Header from "../Hooks/Header";
 import Footer from "../Hooks/Footer";
 import Entries from "./Entries";
+import NewEntry from "./NewEntry";
 
 const DashBoard = () => {
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleModal = () => {
-    if (!openModal) {
-      setOpenModal(true);
-      console.log("Modal opened!!");
-    } else {
-      setOpenModal(false);
-      console.log("Modal closed!!");
-    }
-  };
+  const [newEntriesModal, setNewEntriesModal] = useState(false);
+  const [entriesModal, setEntriesModal] = useState(false);
 
   return (
     <>
       <div className="master-cont-2">
         {/* change to `Welcome ${name}`! */}
         <h1 className="title-style">Welcome to the Dashboard</h1>
-        <Header />
+
         {/* + New Entry */}
+        <Header setNewEntriesModal={setNewEntriesModal} />
+        <Modal
+          show={newEntriesModal}
+          onClose={() => setNewEntriesModal(false)}
+          size="md"
+          theme={{
+            content: { base: "main-modal" },
+            body: { base: "p-0 pt-0 pb-0" },
+          }}
+        >
+          <ModalBody>
+            <Button
+              className="absolute btn-style x-btn"
+              onClick={() => setNewEntriesModal(false)}
+            >
+              X
+            </Button>
+            <NewEntry />
+          </ModalBody>
+        </Modal>
 
         {/* existing entries */}
         <div>
           <div className="entry-cont-style">
-            <Button onClick={handleModal} className="btn-style text-xl">
+            <Button
+              onClick={() => setEntriesModal(true)}
+              className="btn-style text-xl"
+            >
               View Entries
             </Button>
           </div>
           {/* User entries */}
           <Modal
-            show={openModal}
-            onClose={handleModal}
+            show={entriesModal}
+            onClose={() => setEntriesModal(false)}
             size="md"
             theme={{
-              content: { base: "main-modal" },
+              content: { base: "main-modal-2" },
               body: { base: "p-0 pt-0 pb-0" },
             }}
           >
@@ -53,7 +68,7 @@ const DashBoard = () => {
             >
               <Button
                 className="absolute btn-style x-btn"
-                onClick={handleModal}
+                onClick={() => setEntriesModal(false)}
               >
                 X
               </Button>
