@@ -1,5 +1,8 @@
 import {useState} from "react";
 
+
+
+const EntryForm = () => {
 const [date, setDate] = useState("");
 const [subject, setSubject] = useState("");
 const [hours, setHours] = useState("0");
@@ -8,8 +11,6 @@ const [isDurationOpen, setIsDurationOpen] = useState(false);
 const [mood, setMood] = useState("");
 const [focusLevel, setFocusLevel] = useState("");
 const [details, setDetails] = useState("");
-
-const EntryForm = () => {
 
     let durationContent;
 
