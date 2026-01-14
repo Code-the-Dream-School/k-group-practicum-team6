@@ -12,6 +12,21 @@ const [mood, setMood] = useState("");
 const [focusLevel, setFocusLevel] = useState("");
 const [details, setDetails] = useState("");
 
+const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const entryData = {
+        date,
+        subject,
+        hours,
+        minutes,
+        mood,
+        focusLevel,
+        details
+    };
+    console.log("Entry Data Submitted: ", entryData);
+}
+
     let durationContent;
 
     if (isDurationOpen) {
@@ -43,6 +58,7 @@ const [details, setDetails] = useState("");
     } else {
       durationContent = (
         <button
+          type="button"
           className="input-style w-full bg-white text-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
           onClick={() => setIsDurationOpen(true)}
         >
@@ -54,6 +70,7 @@ const [details, setDetails] = useState("");
 
     return (
         <div>
+          <form onSubmit={handleSubmit}>
             <input 
                 type="text" 
                 placeholder="Date" 
@@ -108,10 +125,11 @@ const [details, setDetails] = useState("");
 
 
             <div className="flex relative left-[20px]">
-              <button className="btn-style">Save</button>
-              <button className="btn-style">Cancel</button>
+              <button type="submit" className="btn-style">Save</button>
+              <button type="button" className="btn-style">Cancel</button>
             </div>
 
+          </form>
 
 
         </div>
