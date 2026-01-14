@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
       match: [/^\S+@\S+\.\S+$/, "Please use a valid email address"],
     },
 
-    passwordHash: {
+    password: {
       type: String,
       required: [true, "Password is required"],
       minlength: 6,
@@ -42,14 +42,18 @@ const UserSchema = new mongoose.Schema({
 //-- Mongo Middleware to hash the password
 UserSchema.pre("save", async function() {
   const salt = await bcrypt.genSalt(10);
-  this.passwordHash = await bcrypt.hash(this.passwordHash, salt);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
 //-- Create Mongo Middleware methods to use in controller
 //-- Method: createJWT to get the token
 UserSchema.methods.createJWT = function() {
   return token = jwt.sign(
-    { userId: this._id, name: this.name },  // _id and name are from 'this' Mongo User document
+    {
+      userId: this._id,  // _id and name are from 'this' Mongo User document
+      name: this.name,
+      role: this.role,
+    },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_LIFETIME });
 };
@@ -58,7 +62,7 @@ UserSchema.methods.createJWT = function() {
 UserSchema.methods.comparePassword = async function(candidatePassword) {
   const isMatch = await bcrypt.compare(
     candidatePassword,  // password from user logging in: '../controllers/auth'
-    this.passwordHash   // hashed password stored in database: MongoDB User document
+    this.password       // hashed password stored in database: MongoDB User document
   );
   return isMatch;
 }
