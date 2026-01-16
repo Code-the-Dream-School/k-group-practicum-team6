@@ -1,64 +1,148 @@
 @import "tailwindcss";
 
 @layer components {
-    .master-cont {
-        @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md
-    }
-    .lgn-reg-field {
-        @apply w-full px-4 py-2 mb-4 border border-gray-200 rounded-lg 
-        focus:outline-none focus:border-blue-500 text-black;
-    }
-    .error-success {
-        @apply text-green-600 mb-4;
-    }
-    .error-message {
-        @apply text-red-600 mb-4;
-    }
-    .header-style {
-         @apply flex justify-center gap-1 text-[20px] bg-blue-500 rounded-lg 
-         m-1 border-2 border-solid border-[black]
-    }
-    .footer-style {
-         @apply flex justify-center gap-1 text-xl bg-blue-500 rounded-lg 
-         m-1 border-2 border-solid border-[black] mt-2
-    }
-    .dropdown-style {
-        @apply bg-white rounded-lg text-black
-         m-2.25 border-2 border-solid border-[black] 
-         items-center justify-center 
-    }
-    .title-style {
-        @apply flex mb-2 justify-center text-[25px] text-white
-          bg-blue-500 border-2 border-solid border-[black] rounded-lg
-    }
-    .btn-style {
-        @apply rounded-lg p-2 m-2 border-2 border-solid border-[black] 
-        hover:bg-red-700 cursor-pointer bg-white text-black 
-        justify-center items-center
-    }
-     .entry-cont-style {
-         @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
-         rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black]
-    }
-    .entry-title-style {
-        @apply flex m-5 justify-center items-center relative top-[-30px] bg-white text-black
-        rounded-lg border-2 border-solid border-[black] p-1 
-    }
-    .new-entry-title-style {
-        @apply flex mt-5 justify-center items-center relative top-[-30px] bg-white text-black
-        rounded-lg border-2 border-solid border-[black] p-1 
-    }
-    .input-style {
-        @apply flex justify-center items-center border-2 border-solid border-[black]
-        border rounded-sm mb-2 placeholder:text-gray-200 placeholder:text-center
-        placeholder:items-center
-    }
-    .edit-style {
-        @apply absolute left-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer
-    }
-    .delete-style {
-        @apply absolute right-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer
-    }
+  .master-cont {
+    @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md;
   }
+  
+  .master-cont-2 {
+    @apply w-full max-w-md p-1 bg-white rounded-lg shadow-md 
+    relative left-[600px] top-[150px];
+  }
+
+  .entry-master-cont {
+    @apply bg-blue-500 rounded-lg p-1 m-1 border-2 border-solid border-[black]
+  }
+
+  .lgn-reg-field {
+    @apply w-full px-4 py-2 mb-4 border border-gray-200 rounded-lg 
+        focus:outline-none focus:border-blue-500 text-black;
+  }
+
+  .error-success {
+    @apply text-green-600 mb-4;
+  }
+
+  .error-message {
+    @apply text-red-600 mb-4;
+  }
+
+  .header-style {
+    @apply flex justify-center gap-1 text-[20px] bg-blue-500 rounded-lg 
+         m-1 border-2 border-solid border-[black];
+  }
+
+  .footer-style {
+    @apply flex justify-center gap-1 text-xl bg-blue-500 rounded-lg 
+         m-1 border-2 border-solid border-[black] mt-2;
+  }
+
+  .dropdown-style {
+    @apply bg-white rounded-lg text-black
+         m-2.25 border-2 border-solid border-[black] 
+         items-center justify-center;
+  }
+  
+  .title-style {
+    @apply flex mb-2 justify-center text-[25px] text-white
+          bg-blue-500 border-2 border-solid border-[black] rounded-lg;
+  }
+
+  .user-title-style {
+    @apply flex justify-center text-[35px] text-white
+          bg-blue-500 text-3xl mb-4;
+  }
+
+  .btn-style {
+    @apply bg-white text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
+        hover:bg-red-700 cursor-pointer justify-center items-center;
+  }
+
+  .btn-style {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  .btn-style:hover {
+    background-color: #b91c1c !important; /* tailwind red-700 */
+  }
+
+ .x-btn {
+    @apply top-1 right-2 pt-0.5 pb-0.5 pr-2 pl-2 bg-transparent text-xl text-white rounded;
+  }
+
+  .x-btn {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  .x-btn:hover {
+    background-color: #b91c1c !important; /* tailwind red-700 */
+  }
+
+  .main-modal {
+    @apply bg-transparent shadow-none
+  }
+
+  .main-modal-2 {
+    @apply bg-transparent shadow-none relative bottom-[150px] right-[50px]
+  }
+
+  .modal-body {
+    @apply px-1 !pt-0 !pb-0 !mb-0 !mt-0 relative overflow-hidden
+  }
+
+  .entry-cont-style {
+    @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
+         rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black];
+  }
+
+  .user-entry-cont-style {
+    @apply bg-blue-500 rounded-lg m-4 p-3 border-2 border-black justify-center flex text-2xl;
+  }
+
+  .entry-title-style {
+    @apply flex m-5 justify-center items-center relative top-[-30px] bg-white text-black
+        rounded-lg border-2 border-solid border-[black] p-1;
+  }
+
+  .new-entry-title-style {
+    @apply flex mt-5 justify-center items-center relative top-[-30px] bg-white text-black
+        rounded-lg border-2 border-solid border-[black] p-1;
+  }
+
+  .solo-entry {
+    @apply flex border-2 border-solid border-[black] rounded-lg bg-blue-500
+  }
+
+  .solo-entry-style {
+    @apply bg-white rounded-lg m-4 p-3 border-2 border-black justify-center flex text-2xl;
+  }
+
+  .input-style {
+    @apply flex justify-center items-center border-2 border-solid border-[black]
+        border rounded-sm mb-2 placeholder:text-gray-200 placeholder:text-center
+        placeholder:items-center;
+  }
+
+  .edit-style {
+    @apply absolute left-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
+        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer;
+  }
+
+  .delete-style {
+    @apply absolute right-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
+        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer;
+  }
+}
+
+.custom-modal [class*="modal"] > div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Force modal content to have no extra space */
+div[role="dialog"] > div {
+  width: fit-content !important;
+  margin: auto !important;
+}

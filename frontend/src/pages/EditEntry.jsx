@@ -12,9 +12,9 @@ const EditEntry = () => {
 
   return (
     <>
-      <div className="master-cont">
-        {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Edit Entry</h1>
+      <div className="master-cont-2">
+        {/* placeholder entries */}
+        <h1 className="title-style">New Entry</h1>
         <div className="header-style">
           <button className="btn-style">+ New Entry</button>
           <button className="btn-style">View</button>
@@ -22,7 +22,6 @@ const EditEntry = () => {
             Log out
           </button>
         </div>
-        {/* placeholder entries */}
         <div className="entry-cont-style">
           <div>
             <h1 className="new-entry-title-style">Edit Entry</h1>

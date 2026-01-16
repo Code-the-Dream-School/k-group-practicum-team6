@@ -1,52 +1,82 @@
-import authService from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
+import Header from "../Hooks/Header";
+import Footer from "../Hooks/Footer";
+import Entries from "./Entries";
+import NewEntry from "./NewEntry";
 
 const DashBoard = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    authService.removeToken();
-    authService.removeUsername();
-    navigate("/"); // redirect to login page after logout
-  };
+  const [newEntriesModal, setNewEntriesModal] = useState(false);
+  const [entriesModal, setEntriesModal] = useState(false);
 
   return (
     <>
-      <div className="master-cont">
+      <div className="master-cont-2">
         {/* change to `Welcome ${name}`! */}
         <h1 className="title-style">Welcome to the Dashboard</h1>
-        <div className="header-style">
-          <button className="btn-style">+ New Entry</button>
-          <button className="btn-style">View</button>
-          <button className="btn-style" onClick={handleLogout}>
-            Log out
-          </button>
-        </div>
-        {/* placeholder entries */}
+
+        {/* + New Entry */}
+        <Header setNewEntriesModal={setNewEntriesModal} />
+        <Modal
+          show={newEntriesModal}
+          onClose={() => setNewEntriesModal(false)}
+          size="md"
+          theme={{
+            content: { base: "main-modal" },
+            body: { base: "p-0 pt-0 pb-0" },
+          }}
+        >
+          <ModalBody>
+            <Button
+              className="absolute btn-style x-btn"
+              onClick={() => setNewEntriesModal(false)}
+            >
+              X
+            </Button>
+            <NewEntry />
+          </ModalBody>
+        </Modal>
+
+        {/* existing entries */}
         <div>
           <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 1</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
+            <Button
+              onClick={() => setEntriesModal(true)}
+              className="btn-style text-xl"
+            >
+              View Entries
+            </Button>
           </div>
-
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 2</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
-          </div>
+          {/* User entries */}
+          <Modal
+            show={entriesModal}
+            onClose={() => setEntriesModal(false)}
+            size="md"
+            theme={{
+              content: { base: "main-modal-2" },
+              body: { base: "p-0 pt-0 pb-0" },
+            }}
+          >
+            <ModalBody
+              style={{
+                paddingTop: 0,
+                paddingBottom: 0,
+                marginTop: 0,
+                padding: "0 0.25rem",
+              }}
+              className="modal-body"
+            >
+              <Button
+                className="absolute btn-style x-btn"
+                onClick={() => setEntriesModal(false)}
+              >
+                X
+              </Button>
+              <Entries />
+            </ModalBody>
+          </Modal>
         </div>
-        <div className="footer-style">
-          <select className="dropdown-style">
-            <option value="default">Sort</option>
-            <option value="Date">Date</option>
-            <option value="Subject">Subject</option>
-            <option value="Duration">Duration</option>
-            <option value="Mood">Mood</option>
-          </select>
-          <button className="btn-style">Search</button>
-          <button className="btn-style">Pagination</button>
-        </div>
+        <Footer />
       </div>
     </>
   );
