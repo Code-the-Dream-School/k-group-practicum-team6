@@ -9,6 +9,8 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 
+const cookieParser = require("cookie-parser");
+
 const authenticateUser = require("./middleware/authentication");
 
 // Routers
@@ -22,9 +24,15 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 // To get access to req.body for POST routes
 app.use(express.json());
 
+// Parse cookies
+app.use(cookieParser());
+
 // Security & best‑practice middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",    // Need to update for deployment
+  credentials: true                   // If frontend is on a different origin and cookies are sent with XHR/fetch.
+}));
 app.use(morgan("dev"));
 
 const limiter = rateLimit({
