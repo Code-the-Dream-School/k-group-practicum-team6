@@ -11,9 +11,10 @@ const DashBoard = () => {
 
   return (
     <>
+    
       <div className="master-cont-2">
         {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Welcome to the Dashboard</h1>
+        <h1 className="title-style">Welcome, Team 6</h1>
 
         {/* + New Entry */}
         <Header setNewEntriesModal={setNewEntriesModal} />
