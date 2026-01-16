@@ -1,6 +1,4 @@
-import {useState} from "react";
-
-
+import { useState } from "react";
 
 const EntryForm = () => {
 const [date, setDate] = useState("");
@@ -31,7 +29,7 @@ const handleSubmit = (e) => {
 
     if (isDurationOpen) {
       durationContent = (
-        <div className="input-style flex gap-2 items-center bg-white text-black">
+        <div className="input-style flex gap-2 items-center bg-white text-black ">
           <select
             value={hours}
             onChange={(e) => setHours(e.target.value)}
@@ -59,7 +57,7 @@ const handleSubmit = (e) => {
       durationContent = (
         <button
           type="button"
-          className="input-style w-full bg-white text-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+          className="input-style w-full bg-white text-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
           onClick={() => setIsDurationOpen(true)}
         >
           Duration
@@ -76,7 +74,7 @@ const handleSubmit = (e) => {
                 placeholder="Date" 
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="input-style bg-white placeholder-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
             <input
@@ -84,7 +82,7 @@ const handleSubmit = (e) => {
               placeholder="Entry subject(s)"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="input-style bg-white placeholder-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
             {durationContent}
@@ -92,7 +90,7 @@ const handleSubmit = (e) => {
             <select
               value={mood}
               onChange={(e) => setMood(e.target.value)}
-              className="input-style w-full bg-white text-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+              className="input-style w-full bg-white text-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
             >
               <option value="">Mood</option>
               <option value="1">1</option>
@@ -105,7 +103,7 @@ const handleSubmit = (e) => {
             <select
               value={focusLevel}
               onChange={(e) => setFocusLevel(e.target.value)}
-              className="input-style w-full bg-white text-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+              className="input-style w-full bg-white text-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
             >
               <option value="">Focus Level</option>
               <option value="1">1</option>
@@ -120,12 +118,12 @@ const handleSubmit = (e) => {
               placeholder="Details"
               value={details}
               onChange={(e) => setDetails(e.target.value)}
-              className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="input-style bg-white placeholder-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
 
             <div className="flex relative left-[20px]">
-              <button type="submit" className="btn-style">Save</button>
+              <button type="submit" className="btn-style" disabled={!date}>Save</button>
               <button type="button" className="btn-style">Cancel</button>
             </div>
 
