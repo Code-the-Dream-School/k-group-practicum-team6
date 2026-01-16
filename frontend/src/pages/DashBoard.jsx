@@ -14,8 +14,7 @@ const DashBoard = () => {
     
       <div className="master-cont-2">
         {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Welcome, Team 6</h1>
-
+       
         {/* + New Entry */}
         <Header setNewEntriesModal={setNewEntriesModal} />
         <Modal

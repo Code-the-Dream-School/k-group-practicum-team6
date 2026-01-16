@@ -38,14 +38,13 @@
   }
 
   .dropdown-style {
-    @apply bg-blue-500 rounded-lg text-white
+    @apply bg-blue-700 rounded-lg text-white
          m-2.25 border-2 border-solid border-[black] 
          items-center justify-center;
   }
   
   .title-style {
-    @apply flex mb-2 justify-center text-[25px] text-black
-          bg-white border-2 border-solid border-[black] rounded-lg;
+    @apply flex m-2 justify-center text-4xl m-4 rounded-lg;
   }
 
   .user-title-style {
@@ -54,8 +53,8 @@
   }
 
   .btn-style {
-    @apply bg-blue-500 text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
-        hover:bg-red-700 cursor-pointer justify-center items-center;
+    @apply bg-blue-700 text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
+         cursor-pointer justify-center items-center;
   }
 
   .btn-style {
@@ -65,6 +64,11 @@
 
   .btn-style:hover {
     background-color: #b91c1c !important; /* tailwind red-700 */
+  }
+
+  .new-entry {
+    @apply bg-black text-white rounded-lg p-2 m-2 border-2 border-solid border-[black]
+         cursor-pointer justify-center items-center hover:bg-red-700;
   }
 
  .x-btn {
