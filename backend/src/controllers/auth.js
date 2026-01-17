@@ -49,10 +49,11 @@ const login = async (req, res) => {
   attachTokenCookie(res, token);    // send token in cookie
 
   res.status(StatusCodes.OK).json({
-    name: { name: user.name },
+    user: { name: user.name },
   });
 }
 
+//-- Logout
 const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -62,9 +63,17 @@ const logout = (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Logged out" });
 };
 
+//-- Me: get current user
+const me = async (req, res) => {
+  res.status(StatusCodes.OK).json({
+    user: req.user,   // req.user is from authenticateUser
+  })
+}
+
 
 module.exports = {
   register,
   login,
-  logout
+  logout,
+  me
 }
