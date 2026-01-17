@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
-import Header from "../hooks/Header";
-import Footer from "../hooks/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Entries from "./Entries";
 import NewEntry from "./NewEntry";
 

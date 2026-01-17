@@ -1,4 +1,4 @@
-import { useUser } from "./useUser";
+import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
 import authApi from "../utils/authApi";
 
