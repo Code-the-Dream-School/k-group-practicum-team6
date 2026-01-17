@@ -68,7 +68,7 @@ export default function AuthForm() {
       <FormInput control={control} name="email" placeholder="Email"/>
       <FormInput control={control} name="password" placeholder="Password" secureTextEntry />
       {!isLogin && <FormInput control={control} name="confirmPassword" placeholder="Confirm Password" secureTextEntry />}
-      <Pressable style={styles.button} onPress={handleSubmit(onSubmit)}>
+      <Pressable style={({pressed})=>[styles.button, pressed && styles.pressed]} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonText}>{isLogin ? 'Sign In' : 'Register'}</Text>
       </Pressable>
       <Pressable onPress={toggleMode}>
@@ -80,6 +80,10 @@ export default function AuthForm() {
 
 const styles = StyleSheet.create({
   button: { backgroundColor: '#007bff', padding: 15, borderRadius: 8, alignItems: 'center', marginTop: 10 },
+  pressed: {
+    opacity: 0.6,
+    transform: [{ scale: 0.97 }],
+  },
   buttonText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
   link: { color: '#3b82f6', marginTop: 16, textAlign: 'center' },
 });
