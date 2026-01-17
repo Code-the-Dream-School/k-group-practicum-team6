@@ -57,8 +57,8 @@ const authApi = {
     return res.json();
   },
 
-  async getCurrentUser() {
-    const res = await fetch("http://localhost:4000/me", {
+  async me() {
+    const res = await fetch(`${API_URL}/auth/me`, {
       credentials: "include",
     });
 
@@ -67,7 +67,7 @@ const authApi = {
   },
 
   async logout() {
-    await fetch("http://localhost:4000/auth/logout", {
+    await fetch(`${API_URL}/auth/logout`, {
       method: "POST",
       credentials: "include",
     });

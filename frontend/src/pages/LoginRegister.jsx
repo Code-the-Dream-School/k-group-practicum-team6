@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
 
 import authApi from "../utils/authApi";
-import authService from "../services/authService";
 
 const LoginRegister = () => {
   const [isRegister, setIsRegister] = useState(false);
@@ -14,15 +14,16 @@ const LoginRegister = () => {
   });
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { user, login, loading } = useUser();
 
   // Redirect to dashboard if already logged in
   useEffect(() => {
-    if (authService.isLoggedIn()) {
+    if (!loading && user) {
       navigate("/dashboard");
     }
-  }, [navigate]);
+  }, [navigate, user, loading]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -34,13 +35,13 @@ const LoginRegister = () => {
     e.preventDefault();
     setError("");
     setMessage("");
-    setLoading(true);
+    setSubmitting(true);
 
     try {
       if (isRegister) {
         if (formData.password !== formData.confirmPassword) {
           setError("Passwords do not match");
-          setLoading(false);
+          setSubmitting(false);
           return;
         }
         await authApi.register(formData);
@@ -57,13 +58,12 @@ const LoginRegister = () => {
           email: formData.email,
           password: formData.password,
         });
-        authService.saveToken(data.token);
-        navigate("/dashboard");
+        login(data);
       }
     } catch (err) {
       setError(err.message);
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -122,10 +122,14 @@ const LoginRegister = () => {
           )}
           <button
             type="submit"
-            disabled={loading}
-            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+            disabled={submitting}
+            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer flex justify-center items-center"
           >
-            {loading ? "Please wait..." : isRegister ? "Register" : "Login"}
+            {submitting ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            ) : (
+              isRegister ? "Register" : "Login"
+            )}
           </button>
         </form>
         <button
