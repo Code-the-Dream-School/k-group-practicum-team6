@@ -31,56 +31,12 @@ const DashBoard = () => {
           }}
         >
           <ModalBody>
-            {/* <Button
-              className="absolute btn-style "
-              onClick={() => setNewEntriesModal(false)}
-            >
-              X
-            </Button> */}
             <NewEntry setNewEntriesModal={setNewEntriesModal}/>
           </ModalBody>
         </Modal>
 
         {/* user entries */}
-          <Entries/>
-        {/* <div>
-          <div className="entry-cont-style">
-            <Button
-              onClick={() => setEntriesModal(true)}
-              className="btn-style text-xl"
-            >
-              View Entries
-            </Button>
-          </div> */}
-     
-          {/* <Modal
-            show={entriesModal}
-            onClose={() => setEntriesModal(false)}
-            size="md"
-            theme={{
-              content: { base: "main-modal-2" },
-              body: { base: "p-0 pt-0 pb-0" },
-            }}
-          >
-            <ModalBody
-              style={{
-                paddingTop: 0,
-                paddingBottom: 0,
-                marginTop: 0,
-                padding: "0 0.25rem",
-              }}
-              className="modal-body"
-            >
-              <Button
-                className="absolute btn-style x-btn"
-                onClick={() => setEntriesModal(false)}
-              >
-                X
-              </Button>
-              <Entries />
-            </ModalBody>
-          </Modal> */}
-        {/* </div> */}
+          <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
         <Footer />
       </div>
     </>
