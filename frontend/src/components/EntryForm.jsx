@@ -57,7 +57,7 @@ const handleSubmit = (e) => {
       durationContent = (
         <button
           type="button"
-          className="input-style w-full bg-white text-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+          className="input-style w-full bg-white text-black border-2 border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
           onClick={() => setIsDurationOpen(true)}
         >
           Duration
@@ -74,7 +74,7 @@ const handleSubmit = (e) => {
                 placeholder="Date" 
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="input-style bg-white placeholder-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="input-style bg-white placeholder-black border-2 border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
             <input
@@ -82,7 +82,7 @@ const handleSubmit = (e) => {
               placeholder="Entry subject(s)"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="input-style bg-white placeholder-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="input-style bg-white placeholder-black border-2 border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
             {durationContent}
@@ -90,7 +90,7 @@ const handleSubmit = (e) => {
             <select
               value={mood}
               onChange={(e) => setMood(e.target.value)}
-              className="input-style w-full bg-white text-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+              className="input-style w-full bg-white text-black border-2 border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
             >
               <option value="">Mood</option>
               <option value="1">1</option>
@@ -103,7 +103,7 @@ const handleSubmit = (e) => {
             <select
               value={focusLevel}
               onChange={(e) => setFocusLevel(e.target.value)}
-              className="input-style w-full bg-white text-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+              className="input-style w-full bg-white text-black border-2 border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
             >
               <option value="">Focus Level</option>
               <option value="1">1</option>
@@ -118,7 +118,7 @@ const handleSubmit = (e) => {
               placeholder="Details"
               value={details}
               onChange={(e) => setDetails(e.target.value)}
-              className="input-style bg-white placeholder-black border border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="input-style bg-white placeholder-black border-2 border-black rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
 
 

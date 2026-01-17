@@ -77,14 +77,14 @@
   }
 
  .x-btn {
-    @apply relative top-[60px] left-[250px] p-1 m-0
+    @apply relative bottom-[30px] left-[245px] p-1 pr-2 pl-2 m-0
     bg-transparent text-xl text-black rounded-lg border-2 border-black; 
   }
-/* 
+
   .x-btn {
     background-color: white !important;
     color: black !important;
-  } */
+  }
 
   .x-btn:hover {
     background-color: #b91c1c !important; /* tailwind red-700 */
@@ -105,7 +105,7 @@
 
   .entry-cont-style {
     @apply flex relative text-black justify-center items-center gap-2 text-xl
-         rounded-lg m-0 p-12;
+         rounded-lg m-0 p-8;
   }
 
   .user-entry-cont-style {
@@ -118,7 +118,7 @@
   }
 
   .new-entry-title-style {
-    @apply flex mt-5 justify-center items-center relative top-[-30px] bg-white text-black
+    @apply flex mt-5 justify-center items-center relative top-[-30px] bg-blue-700 text-white
         rounded-lg border-2 border-solid border-[black] p-1;
   }
 

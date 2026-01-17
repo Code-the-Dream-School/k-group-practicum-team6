@@ -31,13 +31,13 @@ const DashBoard = () => {
           }}
         >
           <ModalBody>
-            <Button
-              className="absolute btn-style x-btn"
+            {/* <Button
+              className="absolute btn-style "
               onClick={() => setNewEntriesModal(false)}
             >
               X
-            </Button>
-            <NewEntry />
+            </Button> */}
+            <NewEntry setNewEntriesModal={setNewEntriesModal}/>
           </ModalBody>
         </Modal>
 
