@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUser";
+import useRouter from "../utils/useRouter";
 
 import authApi from "../utils/authApi";
 
 const LoginRegister = () => {
+  const router = useRouter();
   const [isRegister, setIsRegister] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -15,15 +16,14 @@ const LoginRegister = () => {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const navigate = useNavigate();
   const { user, login, loading } = useUser();
 
   // Redirect to dashboard if already logged in
   useEffect(() => {
     if (!loading && user) {
-      navigate("/dashboard");
+      router.toDashboard();
     }
-  }, [navigate, user, loading]);
+  }, [router, user, loading]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -44,7 +44,11 @@ const LoginRegister = () => {
           setSubmitting(false);
           return;
         }
-        await authApi.register(formData);
+        await authApi.register({
+          name: formData.username,
+          email: formData.email,
+          password: formData.password,
+        });
         setMessage("Registration successful. Please login.");
         setIsRegister(false);
         setFormData({
@@ -77,8 +81,16 @@ const LoginRegister = () => {
         {message && <div className="error-success">{message}</div>}
         <form onSubmit={handleSubmit}>
           {isRegister && (
+            <>
+            <label
+            htmlFor="username"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Username
+          </label>
             <input
               type="text"
+              id="username"
               name="username"
               placeholder="Username"
               value={formData.username}
@@ -86,10 +98,17 @@ const LoginRegister = () => {
               required
               className="lgn-reg-field"
             />
+            </>
           )}
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Email
+          </label>
           <input
             type="email"
+            id="email"
             name="email"
             placeholder="Email"
             value={formData.email}
@@ -98,9 +117,15 @@ const LoginRegister = () => {
             autoComplete="email"
             className="lgn-reg-field"
           />
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Password
+          </label>
           <input
             type="password"
+            id="password"
             name="password"
             placeholder="Password"
             value={formData.password}
@@ -110,15 +135,20 @@ const LoginRegister = () => {
             className="lgn-reg-field"
           />
           {isRegister && (
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-              className="lgn-reg-field"
-            />
+            <>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirm Password</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                autoComplete="new-password"
+                className="lgn-reg-field"
+              />
+            </>
           )}
           <button
             type="submit"
@@ -127,8 +157,10 @@ const LoginRegister = () => {
           >
             {submitting ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+            ) : isRegister ? (
+              "Register"
             ) : (
-              isRegister ? "Register" : "Login"
+              "Login"
             )}
           </button>
         </form>
@@ -139,7 +171,12 @@ const LoginRegister = () => {
             setIsRegister(!isRegister);
             setError("");
             setMessage("");
-            setFormData({ username: "", email: "", password: "", confirmPassword: "" });
+            setFormData({
+              username: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            });
           }}
         >
           {isRegister
@@ -152,6 +189,3 @@ const LoginRegister = () => {
 };
 
 export default LoginRegister;
-
-
-
