@@ -13,12 +13,11 @@ export default function Header({setNewEntriesModal}) {
   return (
     <>
       <div className="flex">
-    {/* <button className="btn-style" onClick={() => setNewEntriesModal(true)}>+ New Entry</button> */}
-     <h1 className="relative left-[25px] top-[20px] text-2xl">Welcome, Team 6!</h1>
-     <h1 className="title-style relative left-[175px]">Brain Log</h1>
-    <button className="btn-style relative left-[315px]" onClick={handleLogout}>
+      <h1 className="relative left-[25px] top-[20px] text-2xl">Welcome, Team 6!</h1>
+      <h1 className="title-style relative left-[175px]">Brain Log</h1>
+     <button className="btn-style relative left-[427px]" onClick={handleLogout}>
       Log out
-    </button>
+     </button>
   </div>
     </>
   )

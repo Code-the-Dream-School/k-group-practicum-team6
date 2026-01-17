@@ -12,21 +12,19 @@ const Entries = () => {
     <>
       <div className="entry-master-cont">
         {/* Change to `${}'s entries` */}
-        <h1 className="user-title-style">User Entries</h1>
-
         {/* placeholder entries */}
-        <div>
-          <div className="solo-entry-style">
+          <div className="solo-entry-style flex">
             {/* change to have each entry and edit and delete buttons */}
-            <div className="solo-entry">
               <button className="btn-style" onClick={handleEdit}>Edit</button>
               <p className="relative top-[15px]">Entry 1</p>
               <button className="btn-style">Delete</button>
-            </div>
+          
             
-            
+              <button className="btn-style" onClick={handleEdit}>Edit</button>
+              <p className="relative top-[15px]">Entry 2</p>
+              <button className="btn-style">Delete</button>
           </div>
-        </div>
+
       </div>
     </>
   );

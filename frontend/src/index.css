@@ -6,12 +6,12 @@
   }
   
   .master-cont-2 {
-    @apply w-225 h-225 p-1 bg-blue-500 rounded-lg shadow-md 
-    relative left-[450px] top-[50px];
+    @apply w-225 h-200 p-1 bg-blue-500 rounded-lg shadow-md 
+    relative left-[450px] top-[10px] border-4 border-solid border-[black];
   }
 
   .entry-master-cont {
-    @apply bg-white rounded-lg p-1 m-1 border-2 border-solid border-[black]
+    @apply bg-blue-600 rounded-lg p-1 m-1 border-2 border-solid border-[black]
   }
 
   .lgn-reg-field {

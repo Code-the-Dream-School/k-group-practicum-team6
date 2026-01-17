@@ -11,12 +11,16 @@ const DashBoard = () => {
 
   return (
     <>
-    
       <div className="master-cont-2">
         {/* change to `Welcome ${name}`! */}
-       
-        {/* + New Entry */}
+
         <Header setNewEntriesModal={setNewEntriesModal} />
+        <div className="flex m-2">
+           <h2 className="relative top-[30px]">Recent Entries</h2>
+           <button className="btn-style relative left-[647px]" 
+           onClick={() => setNewEntriesModal(true)}>+ New Entry</button>
+        </div>
+        
         <Modal
           show={newEntriesModal}
           onClose={() => setNewEntriesModal(false)}
