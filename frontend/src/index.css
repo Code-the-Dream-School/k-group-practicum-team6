@@ -6,6 +6,11 @@
   }
   
   .master-cont-2 {
+    @apply  text-black p-0 m-0 bg-blue-500 rounded-lg shadow-md 
+     border-4 border-solid border-[black];
+  }
+  
+  .dash-cont {
     @apply w-225 h-200 p-1 bg-blue-500 rounded-lg shadow-md 
     relative left-[450px] top-[10px] border-4 border-solid border-[black];
   }
@@ -52,6 +57,11 @@
           bg-white text-3xl mb-4;
   }
 
+  .new-entry {
+    @apply bg-black text-white rounded-lg p-2 m-2 border-2 border-solid border-[black]
+         cursor-pointer justify-center items-center hover:bg-red-700;
+  }
+
   .btn-style {
     @apply bg-blue-700 text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
          cursor-pointer justify-center items-center;
@@ -66,22 +76,19 @@
     background-color: #b91c1c !important; /* tailwind red-700 */
   }
 
-  .new-entry {
-    @apply bg-black text-white rounded-lg p-2 m-2 border-2 border-solid border-[black]
-         cursor-pointer justify-center items-center hover:bg-red-700;
-  }
-
  .x-btn {
-    @apply top-1 right-2 pt-0.5 pb-0.5 pr-2 pl-2 bg-transparent text-xl text-black rounded;
+    @apply relative top-[60px] left-[250px] p-1 m-0
+    bg-transparent text-xl text-black rounded-lg border-2 border-black; 
   }
-
+/* 
   .x-btn {
     background-color: white !important;
     color: black !important;
-  }
+  } */
 
   .x-btn:hover {
     background-color: #b91c1c !important; /* tailwind red-700 */
+    cursor: pointer;
   }
 
   .main-modal {
@@ -97,8 +104,8 @@
   }
 
   .entry-cont-style {
-    @apply flex relative justify-center items-center gap-2 text-xl bg-white
-         rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black];
+    @apply flex relative text-black justify-center items-center gap-2 text-xl
+         rounded-lg m-0 p-12;
   }
 
   .user-entry-cont-style {
@@ -120,7 +127,7 @@
   }
 
   .solo-entry-style {
-    @apply bg-white rounded-lg m-4 p-3 border-2 border-black justify-center flex text-2xl;
+    @apply bg-white rounded-lg m-4 p-3 border-2 border-black flex text-2xl;
   }
 
   .input-style {
@@ -130,16 +137,18 @@
   }
 
   .edit-style {
-    @apply absolute left-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer;
+    @apply text-black text-base relative left-[625px] bottom-[24px]
+    hover:text-xl cursor-pointer;
   }
 
   .delete-style {
-    @apply absolute right-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer;
+    @apply relative left-[635px] bottom-[24px] text-base
+        text-black hover:text-xl cursor-pointer;
   }
 }
-
+ /* .edit-delete {
+     @apply text-black text-sm m-2 relative bottom-[16px] left-[250px] cursor-pointer
+  } */
 .custom-modal [class*="modal"] > div {
   margin: 0 !important;
   padding: 0 !important;
@@ -149,4 +158,5 @@
 div[role="dialog"] > div {
   width: fit-content !important;
   margin: auto !important;
+  background: transparent !important;
 }

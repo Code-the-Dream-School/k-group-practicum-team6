@@ -123,7 +123,7 @@ const handleSubmit = (e) => {
 
 
             <div className="flex relative left-[20px]">
-              <button type="submit" className="btn-style" disabled={!date}>Save</button>
+              <button type="submit" className="btn-style">Save</button>
               <button type="button" className="btn-style">Cancel</button>
             </div>
 

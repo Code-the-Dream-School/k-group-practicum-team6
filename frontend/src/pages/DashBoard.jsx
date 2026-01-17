@@ -11,7 +11,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <div className="master-cont-2">
+      <div className="dash-cont">
         {/* change to `Welcome ${name}`! */}
 
         <Header setNewEntriesModal={setNewEntriesModal} />
@@ -41,8 +41,9 @@ const DashBoard = () => {
           </ModalBody>
         </Modal>
 
-        {/* existing entries */}
-        <div>
+        {/* user entries */}
+          <Entries/>
+        {/* <div>
           <div className="entry-cont-style">
             <Button
               onClick={() => setEntriesModal(true)}
@@ -50,9 +51,9 @@ const DashBoard = () => {
             >
               View Entries
             </Button>
-          </div>
-          {/* User entries */}
-          <Modal
+          </div> */}
+     
+          {/* <Modal
             show={entriesModal}
             onClose={() => setEntriesModal(false)}
             size="md"
@@ -78,8 +79,8 @@ const DashBoard = () => {
               </Button>
               <Entries />
             </ModalBody>
-          </Modal>
-        </div>
+          </Modal> */}
+        {/* </div> */}
         <Footer />
       </div>
     </>

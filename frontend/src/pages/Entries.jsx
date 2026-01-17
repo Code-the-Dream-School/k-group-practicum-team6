@@ -10,21 +10,16 @@ const Entries = () => {
   // another handler(s) for  deleting entries
   return (
     <>
-      <div className="entry-master-cont">
-        {/* Change to `${}'s entries` */}
+      <div className="">
         {/* placeholder entries */}
-          <div className="solo-entry-style flex">
-            {/* change to have each entry and edit and delete buttons */}
-              <button className="btn-style" onClick={handleEdit}>Edit</button>
-              <p className="relative top-[15px]">Entry 1</p>
-              <button className="btn-style">Delete</button>
-          
-            
-              <button className="btn-style" onClick={handleEdit}>Edit</button>
-              <p className="relative top-[15px]">Entry 2</p>
-              <button className="btn-style">Delete</button>
+          <div className="solo-entry-style">
+            <div className="">
+              <h1 className="text-black">Entry 1</h1>
+              <p className="text-black text-lg">Content here</p> 
+            </div>
+            <button className="edit-style" onClick={handleEdit}>Edit</button>
+            <button className="delete-style">Delete</button>         
           </div>
-
       </div>
     </>
   );
