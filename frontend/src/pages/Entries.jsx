@@ -17,7 +17,7 @@ const Entries = ({ entriesModal,setEntriesModal }) => {
               <p className="text-black text-lg">Content here</p> 
               
             </div>
- <button className="edit-style" onClick={() => setEntriesModal(true)}>Edit</button>
+            <button className="edit-style" onClick={() => setEntriesModal(true)}>Edit</button>
             <button className="delete-style">Delete</button> 
                  <Modal
           show={entriesModal}

@@ -15,6 +15,29 @@ const DashBoard = () => {
         {/* change to `Welcome ${name}`! */}
 
         <Header setNewEntriesModal={setNewEntriesModal} />
+        <div className="flex justify-around">
+          <div className="analytics">
+              <p>Time Spent</p>
+              <br/>
+              <p>__ hrs __ mins</p>
+              <br/>
+              <p>Total Study Time</p>
+          </div>
+          <div className="analytics">
+              <p>Average Focus</p>
+              <br/>
+              <p>4/5</p>
+              <br/>
+              <p>Across all sessions</p>
+          </div>
+              <div className="analytics">
+              <p>Overall Mood</p>
+              <br/>
+              <p>Great!!</p>
+              <br/>
+              <p>Pretty, pretty good</p>
+          </div>
+        </div>
         <div className="flex m-2">
            <h2 className="relative top-[30px]">Recent Entries</h2>
            <button className="btn-style relative left-[647px]" 

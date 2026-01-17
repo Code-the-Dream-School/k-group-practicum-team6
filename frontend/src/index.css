@@ -91,6 +91,10 @@
     cursor: pointer;
   }
 
+  .analytics {
+    @apply p-4 border-2 border-solid border-[black] rounded-lg;
+  }
+
   .main-modal {
     @apply bg-transparent shadow-none
   }
