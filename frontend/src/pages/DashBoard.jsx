@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
 import Header from "../Hooks/Header";
 import Footer from "../Hooks/Footer";
+
 import Entries from "./Entries";
 import NewEntry from "./NewEntry";
 
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
   const [entriesModal, setEntriesModal] = useState(false);
-
+  
   return (
     <>
       <div className="dash-cont">
@@ -39,8 +40,8 @@ const DashBoard = () => {
           </div>
         </div>
         <div className="flex m-2">
-           <h2 className="relative top-[30px]">Recent Entries</h2>
-           <button className="btn-style relative left-[647px]" 
+           <h2 className="relative top-[30px] left-[8px] font-bold">Recent Entries</h2>
+           <button className="btn-style relative left-[629px] top-[20px]" 
            onClick={() => setNewEntriesModal(true)}>+ New Entry</button>
         </div>
         
@@ -59,7 +60,9 @@ const DashBoard = () => {
         </Modal>
 
         {/* user entries */}
-          <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
+        <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
+       
+    
         <Footer />
       </div>
     </>
