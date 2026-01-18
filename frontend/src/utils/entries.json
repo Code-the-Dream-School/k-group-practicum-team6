@@ -1,0 +1,136 @@
+[
+  {
+    "_id": "1",
+    "subject": "Mathematics",
+    "duration": "68",
+    "mood": "meh",
+    "focus": "2",
+    "details": "Studied the pythagorean theorem",
+    "date": "2025-12-04"
+  },
+  {
+    "_id": "2",
+    "subject":"Literature",
+    "duration": "80",
+    "mood": "overwhelmed",
+    "focus": "3",
+    "details": "Read 5 pages of Julius Caesar by Shakespeare",
+    "date": "2025-12-03"
+  },
+  {
+    "_id": "3",
+    "subject": "Grammar",
+    "duration": "32",
+    "mood": "enthusiastic",
+    "focus": "5",
+    "details": "Reviewed subject verb agreement",
+    "date": "2025-12-01"
+  }, 
+  {
+    "_id": "4",
+    "subject": "Spanish",
+    "duration": "71",
+    "mood": "giddy",
+    "focus": "7",
+    "details": "Used Duolingo to practice my enunciation",
+    "date": "2025-12-02"
+  },
+  {
+    "_id": "5",
+    "subject": "React",
+    "duration": "44",
+    "mood": "burnt out",
+    "focus": "6",
+    "details": "Practiced creating useState in React",
+    "date": "2025-12-05"
+  },
+    {
+    "_id": "6",
+    "subject": "Chemistry",
+    "duration": "35",
+    "mood": "happy",
+    "focus": "7",
+    "details": "I finally understand how to cancel units!",
+    "date": "2026-01-04"
+  },
+  {
+    "_id": "7",
+    "subject":"Astronomy",
+    "duration": "59",
+    "mood": "lost",
+    "focus": "1",
+    "details": "Astrophysics: I don't remember anything I read",
+    "date": "2026-01-03"
+  },
+  {
+    "_id": "8",
+    "subject": "Statistics",
+    "duration": "21",
+    "mood": "upset",
+     "focus": "2",
+    "details": "Statistical Inference: I regret taking this class!",
+    "date": "2026-01-02"
+  }, 
+  {
+    "_id": "9",
+    "subject": "Italian",
+    "duration": "93",
+    "mood": "giddy",
+    "focus": "8",
+    "details": "Used Duolingo to work on nouns",
+    "date": "2026-01-06"
+  },
+  {
+    "_id": "10",
+    "subject": "Python",
+    "duration": "44",
+    "mood": "burnt out",
+     "focus": "4",
+    "details": "Using classes in Python to build Pong",
+    "date": "2026-01-05"
+  },
+    {
+    "_id": "11",
+    "subject": "Biology",
+    "duration": "68",
+    "mood": "bored",
+    "focus": "6",
+    "details": "Studied animal classifications",
+    "date": "2025-12-04"
+  },
+  {
+    "_id": "12",
+    "subject":"Literature",
+    "duration": "80",
+    "mood": "overwhelmed",
+    "focus": "1",
+    "details": "Read 5 pages of Julius Caesar by Shakespeare",
+    "date": "2025-12-03"
+  },
+  {
+    "_id": "13",
+    "subject": "Grammar",
+    "duration": "32",
+    "mood": "enthusiastic",
+    "focus": "9",
+    "details": "Reviewed subject verb agreement",
+    "date": "2025-12-01"
+  }, 
+  {
+    "_id": "14",
+    "subject": "Language",
+    "duration": "71",
+    "mood": "giddy",
+    "focus": "10",
+    "details": "Used Duolingo to practice my enunciation",
+    "date": "2025-12-02"
+  },
+  {
+    "_id": "15",
+    "subject": "Programming",
+    "duration": "44",
+    "mood": "burnt out",
+    "focus": "8",
+    "details": "Practiced creating useState in React"
+  }
+]

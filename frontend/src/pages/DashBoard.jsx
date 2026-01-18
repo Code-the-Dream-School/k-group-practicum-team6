@@ -11,12 +11,39 @@ const DashBoard = () => {
 
   return (
     <>
-      <div className="master-cont-2">
+      <div className="dash-cont">
         {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Welcome to the Dashboard</h1>
 
-        {/* + New Entry */}
         <Header setNewEntriesModal={setNewEntriesModal} />
+        <div className="flex justify-around">
+          <div className="analytics">
+              <p>Time Spent</p>
+              <br/>
+              <p>__ hrs __ mins</p>
+              <br/>
+              <p>Total Study Time</p>
+          </div>
+          <div className="analytics">
+              <p>Average Focus</p>
+              <br/>
+              <p>4/5</p>
+              <br/>
+              <p>Across all sessions</p>
+          </div>
+              <div className="analytics">
+              <p>Overall Mood</p>
+              <br/>
+              <p>Great!!</p>
+              <br/>
+              <p>Pretty, pretty good</p>
+          </div>
+        </div>
+        <div className="flex m-2">
+           <h2 className="relative top-[30px]">Recent Entries</h2>
+           <button className="btn-style relative left-[647px]" 
+           onClick={() => setNewEntriesModal(true)}>+ New Entry</button>
+        </div>
+        
         <Modal
           show={newEntriesModal}
           onClose={() => setNewEntriesModal(false)}
@@ -27,55 +54,12 @@ const DashBoard = () => {
           }}
         >
           <ModalBody>
-            <Button
-              className="absolute btn-style x-btn"
-              onClick={() => setNewEntriesModal(false)}
-            >
-              X
-            </Button>
-            <NewEntry />
+            <NewEntry setNewEntriesModal={setNewEntriesModal}/>
           </ModalBody>
         </Modal>
 
-        {/* existing entries */}
-        <div>
-          <div className="entry-cont-style">
-            <Button
-              onClick={() => setEntriesModal(true)}
-              className="btn-style text-xl"
-            >
-              View Entries
-            </Button>
-          </div>
-          {/* User entries */}
-          <Modal
-            show={entriesModal}
-            onClose={() => setEntriesModal(false)}
-            size="md"
-            theme={{
-              content: { base: "main-modal-2" },
-              body: { base: "p-0 pt-0 pb-0" },
-            }}
-          >
-            <ModalBody
-              style={{
-                paddingTop: 0,
-                paddingBottom: 0,
-                marginTop: 0,
-                padding: "0 0.25rem",
-              }}
-              className="modal-body"
-            >
-              <Button
-                className="absolute btn-style x-btn"
-                onClick={() => setEntriesModal(false)}
-              >
-                X
-              </Button>
-              <Entries />
-            </ModalBody>
-          </Modal>
-        </div>
+        {/* user entries */}
+          <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
         <Footer />
       </div>
     </>

@@ -68,8 +68,8 @@ const LoginRegister = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-blue-500">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md border-2 border-solid border-[black]">
         <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">
           BrainLog
         </h2>
@@ -84,7 +84,7 @@ const LoginRegister = () => {
               value={formData.username}
               onChange={handleChange}
               required
-              className="lgn-reg-field"
+              className="lgn-reg-field border-2 border-solid border-[black]"
             />
           )}
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
@@ -96,7 +96,7 @@ const LoginRegister = () => {
             onChange={handleChange}
             required
             autoComplete="email"
-            className="lgn-reg-field"
+            className="lgn-reg-field border-2 border-solid border-[black]"
           />
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
           <input
@@ -107,7 +107,7 @@ const LoginRegister = () => {
             onChange={handleChange}
             required
             autoComplete={isRegister ? "new-password" : "current-password"}
-            className="lgn-reg-field"
+            className="lgn-reg-field border-2 border-solid border-[black]"
           />
           {isRegister && (
             <input
@@ -117,20 +117,22 @@ const LoginRegister = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              className="lgn-reg-field"
+              className="lgn-reg-field border-2 border-solid border-[black]"
             />
           )}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md 
+            hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer 
+            border-2 border-solid border-[black]"
           >
             {loading ? "Please wait..." : isRegister ? "Register" : "Login"}
           </button>
         </form>
         <button
           type="button"
-          className="w-full text-center mt-4 text-blue-500 hover:text-blue-700 cursor-pointer"
+          className="w-full text-center mt-4 text-blue-500 hover:text-blue-700 cursor-pointer "
           onClick={() => {
             setIsRegister(!isRegister);
             setError("");
