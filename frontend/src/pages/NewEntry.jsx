@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import authService from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUser";
+import useRouter from "../utils/useRouter";
 import EntryForm from "../components/EntryForm";
+import authApi from "../utils/authApi";
 
 
 
@@ -9,12 +9,13 @@ const NewEntry = () => {
   
 
 
-  const navigate = useNavigate();
+  const router = useRouter();
+  const { logout } = useUser();
 
-  const handleLogout = () => {
-    authService.removeToken();
-    authService.removeUsername();
-    navigate("/"); // redirect to login page after logout
+  const handleLogout = async () => {
+    await authApi.logout();
+    logout();
+    router.toLogin(); // redirect to login page after logout
   };
 
   
