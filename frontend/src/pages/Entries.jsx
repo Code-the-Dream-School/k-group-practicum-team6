@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
 
 import EditEntries from "./EditEntry";
 import jsonData from "../utils/entries";
-import Footer from "../Hooks/Footer";
+import Footer from "../components/Footer";
 
 const Entries = ({ entriesModal, setEntriesModal }) => {
   const [entries, setEntries] = useState(jsonData);
