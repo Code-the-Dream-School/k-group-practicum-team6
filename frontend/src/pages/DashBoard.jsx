@@ -4,6 +4,7 @@ import Header from "../Hooks/Header";
 import Footer from "../Hooks/Footer";
 import Entries from "./Entries";
 import NewEntry from "./NewEntry";
+import NewEntryModal from "../components/NewEntryModal";
 
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
@@ -27,13 +28,7 @@ const DashBoard = () => {
           }}
         >
           <ModalBody>
-            <Button
-              className="absolute btn-style x-btn"
-              onClick={() => setNewEntriesModal(false)}
-            >
-              X
-            </Button>
-            <NewEntry />
+            <NewEntryModal onClose={() => setNewEntriesModal(false)} />
           </ModalBody>
         </Modal>
 
