@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginRegister from "./pages/LoginRegister";
 import NotFoundPage from "./pages/NotFoundPage";
-
-const DashBoard = React.lazy(() => import("./pages/DashBoard"));
+import DashBoard from "./pages/DashBoard";
 const NewEntry = React.lazy(() => import("./pages/NewEntry"));
 const EditEntry = React.lazy(() => import("./pages/EditEntry"));
 const UserEntries = React.lazy(() => import("./pages/Entries"));
@@ -17,17 +16,15 @@ const App = () => {
         <Route
           path="/dashboard"
           element={
-            <Suspense fallback={<div>Loading Dashboard...</div>}>
-              <ProtectedRoute>
-                <DashBoard />
-              </ProtectedRoute>
-            </Suspense>
+            <ProtectedRoute>
+              <DashBoard />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/newentry"
           element={
-            <Suspense fallback={<div>Loading entry form...</div>}>
+            <Suspense fallback={<div></div>}>
               <ProtectedRoute>
                 <NewEntry />
               </ProtectedRoute>
@@ -37,7 +34,7 @@ const App = () => {
         <Route
           path="/editentry"
           element={
-            <Suspense fallback={<div>Loading entry editing...</div>}>
+            <Suspense fallback={<div></div>}>
               <ProtectedRoute>
                 <EditEntry />
               </ProtectedRoute>
@@ -47,7 +44,7 @@ const App = () => {
         <Route
           path="/userentries"
           element={
-            <Suspense fallback={<div>Loading user entries...</div>}>
+            <Suspense fallback={<div></div>}>
               <ProtectedRoute>
                 <UserEntries />
               </ProtectedRoute>
