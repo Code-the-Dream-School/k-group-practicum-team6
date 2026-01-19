@@ -11,7 +11,7 @@
   }
   
   .dash-cont {
-    @apply w-225 h-200 p-1 bg-blue-500 rounded-lg shadow-md 
+    @apply w-225 h-240 p-1 bg-blue-500 rounded-lg shadow-md 
     relative left-[450px] top-[10px] border-4 border-solid border-[black];
   }
 
@@ -131,7 +131,7 @@
   }
 
   .solo-entry-style {
-    @apply bg-white rounded-lg m-4 p-3 border-2 border-black flex text-2xl;
+    @apply bg-white rounded-lg m-4 p-3 border-2 border-black flex text-xl h-26;
   }
 
   .input-style {

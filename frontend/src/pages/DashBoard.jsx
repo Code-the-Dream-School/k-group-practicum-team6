@@ -41,7 +41,7 @@ const DashBoard = () => {
         </div>
         <div className="flex m-2">
            <h2 className="relative top-[30px] left-[8px] font-bold">Recent Entries</h2>
-           <button className="btn-style relative left-[629px] top-[20px]" 
+           <button className="btn-style relative left-[629px] top-[15px]" 
            onClick={() => setNewEntriesModal(true)}>+ New Entry</button>
         </div>
         

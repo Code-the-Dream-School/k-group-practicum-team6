@@ -12,7 +12,7 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const indexOfFirstEntry = (currentPage - 1) * itemsPerPage;
@@ -22,7 +22,6 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
   // may need a handler for selecting entries
   // another handler(s) for  deleting entries
 
-  //add pagination here
   const handlePreviousPage = (page) => {
      if (page > 1) setSearchParams({ page: currentPage - 1 })
   }
@@ -47,10 +46,6 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
             <ul>
              {/* placeholder entries */}
              {currentEntries.map((item, index) => (
-          /* Hints: 
-            1. call json data using item (i.e item.subject) 
-            2. key can be index or item._id
-          */
               <div key={item._id || index}>
                 <li className="solo-entry-style">
                   <div className="text-black">
@@ -96,7 +91,7 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
           <div className="flex items-center justify-center space-x-3">
              <button className="cursor-pointer" 
              onClick={() => handlePreviousPage(currentPage)} 
-             disabled={currentPage === 1}>Previous</button>
+             disabled={currentPage === 1}></button>
              <span>Page {currentPage} of {totalPages} </span>
               <button className="cursor-pointer" 
               onClick={() => handleNextPage(currentPage)}
