@@ -63,7 +63,7 @@ const DashBoard = () => {
         <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
        
     
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );

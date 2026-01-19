@@ -1,14 +1,44 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router";
 import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
+
 import EditEntries from "./EditEntry";
 import jsonData from "../utils/entries";
+import Footer from "../Hooks/Footer";
 
 const Entries = ({ entriesModal, setEntriesModal }) => {
   const [entries, setEntries] = useState(jsonData);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const itemsPerPage = 10;
+
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+  const indexOfFirstEntry = (currentPage - 1) * itemsPerPage;
+  const indexOfLastEntry = indexOfFirstEntry + itemsPerPage;
+  const currentEntries = entries.slice(indexOfFirstEntry, indexOfLastEntry);
+  const totalPages = Math.ceil(entries.length / itemsPerPage);
   // may need a handler for selecting entries
   // another handler(s) for  deleting entries
+
   //add pagination here
+  const handlePreviousPage = (page) => {
+     if (page > 1) setSearchParams({ page: currentPage - 1 })
+  }
+
+  const handleNextPage = (page) => {
+    if (page < totalPages) setSearchParams({ page: currentPage + 1 })
+  }
+
+  useEffect(() => {
+    if (totalPages > 0) {
+       if (currentPage < 1 || currentPage > totalPages) {
+          navigate("/");
+       }
+    }
+  },[currentPage, totalPages, navigate]);
+
   return (
     <>
       <div>
@@ -16,13 +46,13 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
           <div>
             <ul>
              {/* placeholder entries */}
-             {entries.map((item, index) => (
+             {currentEntries.map((item, index) => (
           /* Hints: 
             1. call json data using item (i.e item.subject) 
             2. key can be index or item._id
           */
-              <div>
-                <li key={item._id || index} className="solo-entry-style">
+              <div key={item._id || index}>
+                <li className="solo-entry-style">
                   <div className="text-black">
                     <div className="flex justify-between items-center">
                     <div className="flex items-center">
@@ -63,6 +93,18 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
           </ModalBody>
         </Modal>              
           </div>
+          <div className="flex items-center justify-center space-x-3">
+             <button className="cursor-pointer" 
+             onClick={() => handlePreviousPage(currentPage)} 
+             disabled={currentPage === 1}>Previous</button>
+             <span>Page {currentPage} of {totalPages} </span>
+              <button className="cursor-pointer" 
+              onClick={() => handleNextPage(currentPage)}
+              disabled={currentPage === totalPages}>Next</button>
+              {/* Not working with footer right now */}
+              {/* <Footer/> */}
+          </div>
+         
       </div>
     </>
   );
