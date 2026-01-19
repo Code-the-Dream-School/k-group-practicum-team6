@@ -11,7 +11,7 @@
   }
   
   .dash-cont {
-    @apply w-225 h-200 p-1 bg-blue-500 rounded-lg shadow-md 
+    @apply w-225 h-240 p-1 bg-blue-500 rounded-lg shadow-md 
     relative left-[450px] top-[10px] border-4 border-solid border-[black];
   }
 
@@ -131,7 +131,7 @@
   }
 
   .solo-entry-style {
-    @apply bg-white rounded-lg m-4 p-3 border-2 border-black flex text-2xl;
+    @apply bg-white rounded-lg m-4 p-3 border-2 border-black flex text-xl h-26;
   }
 
   .input-style {
@@ -140,19 +140,29 @@
         placeholder:items-center;
   }
 
+  .mood-focus {
+    @apply ml-3 text-white text-base bg-blue-700 border-2 border-solid border-[black] rounded-lg p-0.5 pl-1 pr-1
+  }
+
   .edit-style {
-    @apply text-black text-base relative left-[625px] bottom-[24px]
+    @apply text-black text-base absolute right-[100px] hover:text-xl cursor-pointer;
+  }
+  
+  .delete-style {
+    @apply text-black text-base absolute right-[50px] hover:text-xl cursor-pointer;
+  }
+
+  /* .edit-style {
+    @apply text-black text-base relative left-[450px] top-[2px]
     hover:text-xl cursor-pointer;
   }
 
   .delete-style {
-    @apply relative left-[635px] bottom-[24px] text-base
+    @apply relative left-[450px] top-[2px] text-base
         text-black hover:text-xl cursor-pointer;
-  }
-}
- /* .edit-delete {
-     @apply text-black text-sm m-2 relative bottom-[16px] left-[250px] cursor-pointer
   } */
+}
+
 .custom-modal [class*="modal"] > div {
   margin: 0 !important;
   padding: 0 !important;
