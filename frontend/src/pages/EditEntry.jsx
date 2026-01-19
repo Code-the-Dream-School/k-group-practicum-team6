@@ -1,18 +1,8 @@
-import authService from "../services/authService";
-import { useNavigate } from "react-router-dom";
 import React from "react";
 import EntryForm from "../components/EntryForm";
 
 const EditEntry = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    authService.removeToken();
-    authService.removeUsername();
-    navigate("/"); // redirect to login page after logout
-  };
-
-    const existingEntry = {
+  const existingEntry = {
     date: "2025-01-10",
     subject: "React",
     hours: "1",
@@ -22,26 +12,18 @@ const EditEntry = () => {
     details: "Worked on EntryForm component",
   };
 
-   const handleUpdateEntry = (entryData) => {
+  const handleUpdateEntry = (entryData) => {
     console.log("Updating entry:", entryData);
-
   };
-
 
   return (
     <>
-
-        <div className="master-cont">
-          <div>
-            <h1 className="new-entry-title-style">Edit Entry</h1>
-            <EntryForm
-              initialData={existingEntry}
-              onSubmit={handleUpdateEntry}  
-            />
-          
-          </div>
+      <div className="master-cont">
+        <div>
+          <h1 className="new-entry-title-style">Edit Entry</h1>
+          <EntryForm initialData={existingEntry} onSubmit={handleUpdateEntry} />
         </div>
-        
+      </div>
     </>
   );
 };
