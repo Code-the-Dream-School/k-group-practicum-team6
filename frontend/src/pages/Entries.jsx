@@ -88,10 +88,10 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
           </ModalBody>
         </Modal>              
           </div>
-          <div className="flex items-center justify-center space-x-3">
+          <div className=" flex items-center justify-center space-x-3 text-black footer-style">
              <button className="cursor-pointer" 
              onClick={() => handlePreviousPage(currentPage)} 
-             disabled={currentPage === 1}></button>
+             disabled={currentPage === 1}>Previous</button>
              <span>Page {currentPage} of {totalPages} </span>
               <button className="cursor-pointer" 
               onClick={() => handleNextPage(currentPage)}

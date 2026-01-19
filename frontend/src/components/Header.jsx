@@ -2,7 +2,7 @@ import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
 import authApi from "../utils/authApi";
 
-export default function Header({setNewEntriesModal}) {
+export default function Header() {
     const router = useRouter();
     const { logout } = useUser();
 
