@@ -40,8 +40,8 @@ const DashBoard = () => {
           </div>
         </div>
         <div className="flex m-2">
-           <h2 className="relative top-[30px] left-[8px] font-bold">Recent Entries</h2>
-           <button className="btn-style relative left-[695px] top-[15px]" 
+           <h2 className="relative top-[10px] left-[8px] font-bold">Recent Entries</h2>
+           <button className="btn-style relative left-[695px] top-[-10px]" 
            onClick={() => setNewEntriesModal(true)}><FilePlusCorner/></button>
         </div>
         

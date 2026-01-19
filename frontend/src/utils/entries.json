@@ -6,7 +6,7 @@
     "mood": "mood: meh",
     "focus": "focus: 2/5",
     "details": "Studied the pythagorean theorem",
-    "date": "2025-12-04"
+    "date": "12-04-2025"
   },
   {
     "_id": "2",
@@ -15,7 +15,7 @@
     "mood": "mood: overwhelmed",
     "focus": "focus: 3/5",
     "details": "Read 5 pages of Julius Caesar by Shakespeare",
-    "date": "2025-12-03"
+    "date": "12-03-2025"
   },
   {
     "_id": "3",
@@ -24,7 +24,7 @@
     "mood": "mood: enthusiastic",
     "focus": "focus: 5/5",
     "details": "Reviewed subject verb agreement",
-    "date": "2025-12-01"
+    "date": "12-01-2025"
   }, 
   {
     "_id": "4",
@@ -33,7 +33,7 @@
     "mood": "mood: giddy",
     "focus": "focus: 4/5",
     "details": "Used Duolingo to practice my enunciation",
-    "date": "2025-12-02"
+    "date": "12-02-2025"
   },
   {
     "_id": "5",
@@ -42,7 +42,7 @@
     "mood": "mood: burnt out",
     "focus": "focus: 5/5",
     "details": "Practiced creating useState in React",
-    "date": "2025-12-05"
+    "date": "12-05-2025"
   },
     {
     "_id": "6",
@@ -51,7 +51,7 @@
     "mood": "mood: happy",
     "focus": "focus: 5/5",
     "details": "I finally understand how to cancel units!",
-    "date": "2026-01-04"
+    "date": "01-04-2026"
   },
   {
     "_id": "7",
@@ -60,7 +60,7 @@
     "mood": "mood: lost",
     "focus": "focus: 1/5",
     "details": "Astrophysics: I don't remember anything I read",
-    "date": "2026-01-03"
+    "date": "01-03-2026"
   },
   {
     "_id": "8",
@@ -69,7 +69,7 @@
     "mood": "mood: upset",
      "focus": "focus: 2/5",
     "details": "Statistical Inference: I regret taking this class!",
-    "date": "2026-01-02"
+    "date": "01-02-2026"
   }, 
   {
     "_id": "9",
@@ -78,7 +78,7 @@
     "mood": "mood: awesome",
     "focus": "focus: 3/5",
     "details": "Used Duolingo to work on nouns",
-    "date": "2026-01-06"
+    "date": "01-06-2026"
   },
   {
     "_id": "10",
@@ -87,7 +87,7 @@
     "mood": "mood: burnt out",
      "focus": "focus: 4/5",
     "details": "Using classes in Python to build Pong",
-    "date": "2026-01-05"
+    "date": "01-05-2026"
   },
     {
     "_id": "11",
@@ -96,7 +96,7 @@
     "mood": "mood: bored",
     "focus": "focus: 2/5",
     "details": "Studied animal classifications",
-    "date": "2025-12-04"
+    "date": "02-04-2026"
   },
   {
     "_id": "12",
@@ -105,7 +105,7 @@
     "mood": "mood: overwhelmed",
     "focus": "focus: 1/5",
     "details": "Read 5 pages of Julius Caesar by Shakespeare",
-    "date": "2025-12-03"
+    "date": "02-01-2026"
   },
   {
     "_id": "13",
@@ -114,7 +114,7 @@
     "mood": "mood: enthusiastic",
     "focus": "focus: 5/5",
     "details": "Reviewed subject verb agreement",
-    "date": "2025-12-01"
+    "date": "02-03-2026"
   }, 
   {
     "_id": "14",
@@ -123,7 +123,7 @@
     "mood": "mood: stoked",
     "focus": "focus: 5/5",
     "details": "Used Duolingo to practice my enunciation",
-    "date": "2025-12-02"
+    "date": "02-02-2026"
   },
   {
     "_id": "15",
@@ -131,6 +131,7 @@
     "duration": "44",
     "mood": "mood: Exhausted",
     "focus": "focus: 1/5",
-    "details": "Practiced creating useState in React"
+    "details": "Practiced creating useState in React",
+    "date": "02-05-2026"
   }
  ] 

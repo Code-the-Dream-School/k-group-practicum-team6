@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
-import { CircleArrowLeft, CircleArrowRight, SquarePen, Trash } from "lucide-react"; 
+import { CircleArrowLeft, CircleArrowRight, SquarePen, Trash, CalendarDays, Hourglass } from "lucide-react"; 
 
 import EditEntries from "./EditEntry";
 import jsonData from "../utils/entries";
@@ -48,8 +48,8 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
              {/* placeholder entries */}
              {currentEntries.map((item, index) => (
               <div key={item._id || index}>
-                <li className="solo-entry-style">
-                  <div className="text-black">
+                <li className="solo-entry-style relative bottom-[25px]">
+                  <div className="text-black m-1">
                     <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <h1 className="font-bold">{item.subject}</h1>
@@ -61,9 +61,11 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
                       <button className="delete-style"><Trash/></button>
                     </div>
                 </div>
-                    <div className="flex">
+                    <div className="flex space-x-3 mt-1 mb-1">
+                      <CalendarDays/>
                       <p className="text-lg">{item.date}</p>
-                      <p className="text-lg ml-3">{item.duration}m</p>
+                      <Hourglass/>
+                      <p className="text-lg">{item.duration}m</p>
                     </div>
                     <p className="text-lg">{item.details}</p>
                   </div> 
@@ -89,8 +91,8 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
           </ModalBody>
         </Modal>              
           </div>
-          <div className=" flex items-center justify-center space-x-3 
-          bg-blue-700 text-white footer-style">
+          <div className=" flex relative right-[12px] bottom-[22px] items-center justify-center space-x-3 
+             bg-blue-500 w-225 text-white footer-style">
              <button className="cursor-pointer" 
              onClick={() => handlePreviousPage(currentPage)} 
              disabled={currentPage === 1}><CircleArrowLeft/></button>
