@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
+import { CircleArrowLeft, CircleArrowRight, SquarePen, Trash } from "lucide-react"; 
 
 import EditEntries from "./EditEntry";
 import jsonData from "../utils/entries";
@@ -56,8 +57,8 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
                       <h2 className="mood-focus">{item.focus}</h2>
                     </div>
                     <div className="flex items-center space-x-3">
-                    <button className="edit-style" onClick={() => setEntriesModal(true)}>Edit</button>
-                      <button className="delete-style">Delete</button>
+                    <button className="edit-style" onClick={() => setEntriesModal(true)}><SquarePen/></button>
+                      <button className="delete-style"><Trash/></button>
                     </div>
                 </div>
                     <div className="flex">
@@ -92,11 +93,13 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
           bg-blue-700 text-white footer-style">
              <button className="cursor-pointer" 
              onClick={() => handlePreviousPage(currentPage)} 
-             disabled={currentPage === 1}>Previous</button>
+             disabled={currentPage === 1}><CircleArrowLeft/></button>
+
              <span>Page {currentPage} of {totalPages} </span>
+
               <button className="cursor-pointer" 
               onClick={() => handleNextPage(currentPage)}
-              disabled={currentPage === totalPages}>Next</button>
+              disabled={currentPage === totalPages}><CircleArrowRight/></button>
               {/* Not working with footer right now */}
               {/* <Footer/> */}
           </div>
