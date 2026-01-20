@@ -29,11 +29,11 @@ Students often forget what they’ve studied, how long they spent, and what insi
 ## 🛠 Tech Stack
 
 ### Frontend
-- React
+- React / React Native
 - JavaScript (ES6+)
 - HTML5
 - CSS3 / Tailwind / Bootstrap
-- Vite or Create React App
+- Vite React App
 
 ### Backend
 - Node.js
@@ -52,14 +52,14 @@ Students often forget what they’ve studied, how long they spent, and what insi
 ## 📁 Project Structure
 
 ```text
-project-root/
+K-GROUP-PRACTICUM-TEAM6/
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
+│   │   ├── assets/
 │   │   ├── pages/
-│   │   ├── hooks/
+│   │   ├── components/
 │   │   ├── services/        
-│   │   ├── styles/
+│   │   ├── routes/
 │   │   ├── utils/
 │   │   ├── App.jsx
 │   │   └── main.jsx
@@ -67,14 +67,15 @@ project-root/
 │   └── package.json
 │
 ├── backend/
-│   ├── controllers/
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   ├── config/
-│   ├── app.js
-│   ├── server.js
-│   └── package.json
+|    ├── src/
+|   │   │   ├── controllers/
+|   │   │   ├── routes/
+|   │   │   ├── models/
+|   │   │   ├── middleware/        
+|   │   │   ├── config/
+|   │   │   └── app.js
+|   │   ├── server.js
+|   │   └── package.json
 │
 └── README.md
 ```
