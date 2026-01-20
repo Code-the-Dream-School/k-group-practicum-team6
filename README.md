@@ -140,15 +140,15 @@ npm start
 
 ## 🔐 API Overview
 
-### Example Endpoints
+### Endpoints
 
 ```text
 POST   /api/auth/register
 POST   /api/auth/login
-GET    /api/items
-POST   /api/items
-PUT    /api/items/:id
-DELETE /api/items/:id
+GET    /api/ -> getAllEntries
+POST   /api/ -> createEntry
+PATCH  /api/:id -> updateEntry
+DELETE /api/:id -> deleteEntry
 ```
 
 ## 🤝 Team & Collaboration
@@ -159,11 +159,11 @@ DELETE /api/items/:id
 - Name — Role
 
 ### Workflow
-- GitHub Issues for task tracking
+- Jira tickets for task tracking
 - Feature branches for development
-- Pull Requests required for all merges
-- Code reviews before merging to `main`
-
+- Approved Pull Requests required for all merges
+- Code reviews before merging to `dev`
+- Update `main` when MVP is in production
 
 ## 🧩 Development Process
 
@@ -187,8 +187,7 @@ DELETE /api/items/:id
 
 ## 🙌 Acknowledgments
 
-- Mentors: Dan Polityka, Tommy Armstrong, and Amandeep Dhothar
-- Instructors
+- Mentors/Instructors: Dan Polityka, Tommy Armstrong, and Amandeep Dhothar
 - Open-source libraries and tools: Flowbite, Lucide
 
 ## 📄 License
