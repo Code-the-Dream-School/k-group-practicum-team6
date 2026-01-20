@@ -213,8 +213,8 @@ const handleSubmit = (e) => {
                 Details
               </label>
 
-              <input
-              type="text"
+              <textarea
+              type="text area"
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
