@@ -18,18 +18,23 @@ const entryApi = {
   },
 
   async createEntry(data) {
-    const res = await fetch(`${API_URL}/entries`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(data),
-    });
+    try {
+      const res = await fetch(`${API_URL}/entries`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(data),
+      });
 
-    const newEntryData = await res.json();
-    console.log(newEntryData);
-    return newEntryData;
+      if (!res.ok) throw new Error("Failed to create new entry.");
+
+      return await res.json();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   },
 
   async getEntry(id) {
