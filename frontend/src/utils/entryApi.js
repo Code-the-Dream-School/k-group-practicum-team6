@@ -38,14 +38,19 @@ const entryApi = {
   },
 
   async getEntry(id) {
-    const res = await fetch(`${API_URL}/entries/${id}`, {
-      method: "GET",
-      credentials: "include",
-    });
+    try {
+      const res = await fetch(`${API_URL}/entries/${id}`, {
+        method: "GET",
+        credentials: "include",
+      });
 
-    const entryData = await res.json();
-    console.log(entryData);
-    return entryData;
+      if (!res.ok) throw new Error("Entry not found.");
+
+      return await res.json();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   },
 
   async updateEntry(id, data) {
