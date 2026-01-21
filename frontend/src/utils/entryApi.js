@@ -38,11 +38,19 @@ const entryApi = {
     return entryData;
   },
 
-  async updateEntry(id) {
+  async updateEntry(id, data) {
     const res = await fetch(`${API_URL}/entries/${id}`, {
       method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
       credentials: "include",
+      body: JSON.stringify(data),
     });
+
+    const updatedEntryData = await res.json();
+    console.log(updatedEntryData);
+    return updatedEntryData;
   },
 
   async deleteEntry(id) {
