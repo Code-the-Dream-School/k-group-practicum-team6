@@ -6,6 +6,10 @@ const entryApi = {
       method: "GET",
       credentials: "include",
     });
+
+    const entriesData = await res.json();
+    console.log(entriesData);
+    return entriesData;
   },
 
   async createEntry(data) {
@@ -18,9 +22,9 @@ const entryApi = {
       body: JSON.stringify(data),
     });
 
-    const entryData = await res.json();
-    console.log(entryData);
-    return entryData;
+    const newEntryData = await res.json();
+    console.log(newEntryData);
+    return newEntryData;
   },
 
   async getEntry(id) {
@@ -28,6 +32,10 @@ const entryApi = {
       method: "GET",
       credentials: "include",
     });
+
+    const entryData = await res.json();
+    console.log(entryData);
+    return entryData;
   },
 
   async updateEntry(id) {
