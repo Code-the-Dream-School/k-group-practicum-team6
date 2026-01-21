@@ -1,4 +1,5 @@
 import {useState} from "react";
+import { FaTimes } from "react-icons/fa"; 
 
 
 
@@ -109,6 +110,13 @@ const handleSubmit = (e) => {
       )
     }
 
+    const getSelectTextColor = (value) => {
+      if (value === "") {
+        return "text-gray-400";
+      }
+      return "text-gray-900";
+    };
+
 
     return (
       <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-xl relative">
@@ -119,9 +127,10 @@ const handleSubmit = (e) => {
               type="button"
               onClick={onCancel}
               className="absolute top-3 right-3
-                        text-gray-400 hover:text-gray-700"
+                        text-gray-400 hover:text-red-500
+                        transition-colors"
             >
-                  ❌
+              <FaTimes color="currentColor" size={20}/>
             </button>
 
             <div className="flex flex-col gap-1">
@@ -138,6 +147,8 @@ const handleSubmit = (e) => {
                             rounded-lg
                             px-3 py-2
                             text-sm
+                            text-gray-900
+                            placeholder-gray-400
                             focus:ring-2 focus:ring-blue-400"
               />
   
@@ -153,7 +164,15 @@ const handleSubmit = (e) => {
               placeholder="Entry subject"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="text-sm text-gray-400 input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="text-sm 
+                      text-gray-900 input-style 
+                      placeholder:text-gray-400
+                      bg-white
+                      border border-gray-300 
+                      rounded-lg px-4 py-2 
+                      shadow-sm hover:shadow-md 
+                      focus:outline-none focus:ring-2 
+                      focus:ring-blue-400"
               />
             </div>
 
@@ -176,7 +195,7 @@ const handleSubmit = (e) => {
                   <select
                    value={mood}
                    onChange={(e) => setMood(e.target.value)}
-                   className="text-sm text-gray-400 input-style w-full bg-white  border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
+                   className={`text-sm ${getSelectTextColor(mood)} input-style w-full bg-white  border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left`}
                   >
                     <option value="">Mood</option>
                     <option value="1">1</option>
@@ -194,9 +213,12 @@ const handleSubmit = (e) => {
                   <select
                     value={focusLevel}
                     onChange={(e) => setFocusLevel(e.target.value)}
-                    className="text-sm text-gray-400 input-style w-full bg-white  border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left"
-                  >
-                     <option value="">Focus Level</option>
+                    className={`input-style text-sm ${getSelectTextColor(focusLevel)}  w-full bg-white  
+                              border border-gray-300 rounded-lg px-4 py-2 
+                              shadow-sm hover:shadow-md 
+                              focus:outline-none focus:ring-2 focus:ring-blue-400 
+                              text-left`}>
+                     <option value="" text-gray-400>Focus Level</option>
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
@@ -214,7 +236,6 @@ const handleSubmit = (e) => {
               </label>
 
               <textarea
-              type="text area"
               value={details}
               onChange={(e) => setDetails(e.target.value)}
               className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
