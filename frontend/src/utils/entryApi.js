@@ -2,14 +2,19 @@ import { API_URL } from "../config/api";
 
 const entryApi = {
   async getAllEntries() {
-    const res = await fetch(`${API_URL}/entries`, {
-      method: "GET",
-      credentials: "include",
-    });
+    try {
+      const res = await fetch(`${API_URL}/entries`, {
+        method: "GET",
+        credentials: "include",
+      });
 
-    const entriesData = await res.json();
-    console.log(entriesData);
-    return entriesData;
+      if (!res.ok) throw new Error("Could not fetch entries.");
+
+      return await res.json();
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
   },
 
   async createEntry(data) {
