@@ -74,14 +74,19 @@ const entryApi = {
   },
 
   async deleteEntry(id) {
-    const res = await fetch(`${API_URL}/entries/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    try {
+      const res = await fetch(`${API_URL}/entries/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
-    const result = await res.json();
-    console.log(result);
-    return result;
+      if (!res.ok) throw new Error("Failed to delete entry.");
+
+      return await res.json();
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
   },
 };
 
