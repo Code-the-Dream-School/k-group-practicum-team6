@@ -1,31 +1,7 @@
-import { useUser } from "../hooks/useUser";
-import useRouter from "../utils/useRouter";
 import EntryForm from "../components/EntryForm";
 import authApi from "../utils/authApi";
 
-
-
-const NewEntry = () => {
-  
-  const handleCreateEntry = (entryData) => {
-    console.log("Creating entry with data: ", entryData);
-    
-  };
-
-
-  const router = useRouter();
-  const { logout } = useUser();
-
-  const handleLogout = async () => {
-    await authApi.logout();
-    logout();
-    router.toLogin(); // redirect to login page after logout
-  };
-
-  
-
-  
-
+const NewEntry = ({ setNewEntriesModal }) => {
   return (
     <>
       <div className="master-cont">
@@ -35,11 +11,21 @@ const NewEntry = () => {
         <div className="master-cont">
           <div>
             <EntryForm onSubmit={handleCreateEntry} />
-
+          </div>
           </div>
         </div>
-
-      </div>
+      {/* Brittany`s old modal UI */}
+      {/* <div className="master-cont-2">
+        <div className="entry-cont-style">
+          <div>
+            <button className="x-btn" onClick={() => setNewEntriesModal(false)}>
+              X{" "}
+            </button>
+            <h1 className="new-entry-title-style m-0">New Entry</h1>
+            <EntryForm />
+          </div>
+        </div>
+      </div> */}
     </>
   );
 };

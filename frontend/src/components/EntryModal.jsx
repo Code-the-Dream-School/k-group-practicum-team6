@@ -1,18 +1,22 @@
 import Modal from './Modal';
-import EntryForm from '../components/EntryForm';
+import EntryForm from './EntryForm';
 import { FaTimes } from 'react-icons/fa';
 
-const EditEntryModal = ({ entry, onClose, onSave }) => {
-  const handleUpdateEntry = (updatedData) => {
-    onSave(updatedData); 
-    onClose();          
+const EntryModal = ({ mode = "new", entry, onClose, onSave }) => {
+  // 3-й вариант: переменная для заголовка
+  let titleText = "New Entry";
+  if (mode === "edit") titleText = "Edit Entry";
+
+  const handleSubmit = (formData) => {
+    onSave(formData);
+    onClose();
   };
 
   return (
     <Modal onClose={onClose}>
       <div className="relative bg-white p-6 space-y-4 w-[550px] rounded-xl">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-gray-800">Edit Entry</h1>
+          <h1 className="text-xl font-semibold text-gray-800">{titleText}</h1>
 
           <button
             type="button"
@@ -21,14 +25,14 @@ const EditEntryModal = ({ entry, onClose, onSave }) => {
           >
             <FaTimes
               size={20}
-              className="text-gray-400 group-hover:text-red-500 transition-colors pointer-events-none"
+              className="text-gray-400 group-hover:text-red-500 transition-colors"
             />
           </button>
         </div>
 
         <EntryForm
           initialData={entry}
-          onSubmit={handleUpdateEntry}
+          onSubmit={handleSubmit}
           onCancel={onClose}
         />
       </div>
@@ -36,5 +40,4 @@ const EditEntryModal = ({ entry, onClose, onSave }) => {
   );
 };
 
-export default EditEntryModal;
-
+export default EntryModal;

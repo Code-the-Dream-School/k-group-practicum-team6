@@ -1,7 +1,8 @@
-import {useState} from "react";
-import { FaTimes } from "react-icons/fa"; 
 
 
+
+
+import { useState } from "react";
 
 const EntryForm = ({initialData, onSubmit, onCancel}) => {
  
@@ -74,7 +75,7 @@ const handleSubmit = (e) => {
 
     if (isDurationOpen) {
       durationContent = (
-        <div className="input-style flex gap-2 items-center bg-white text-black">
+        <div className="input-style flex gap-2 items-center bg-white text-black ">
           <select
             value={hours}
             onChange={(e) => setHours(e.target.value)}
@@ -123,15 +124,7 @@ const handleSubmit = (e) => {
       
           <form className="relative bg-gray-50 p-6 rounded-xl space-y-5" onSubmit={handleSubmit}>
 
-            <button
-              type="button"
-              onClick={onCancel}
-              className="absolute top-3 right-3
-                        text-gray-400 hover:text-red-500
-                        transition-colors"
-            >
-              <FaTimes color="currentColor" size={20}/>
-            </button>
+
 
             <div className="flex flex-col gap-1">
               <label className="text-md text-gray-700 font-medium">
@@ -238,7 +231,7 @@ const handleSubmit = (e) => {
               <textarea
               value={details}
               onChange={(e) => setDetails(e.target.value)}
-              className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 min-h-[140px] resize-y"
               />
              </div>
 
