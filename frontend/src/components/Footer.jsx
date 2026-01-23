@@ -12,7 +12,7 @@ export default function Footer() {
             <option value="Mood">Mood</option>
           </select>
           <button className="btn-style">Search</button>
-          <button className="btn-style">Pagination</button>
+          {/* <button className="btn-style">Pagination</button> */}
         </div>
       </>
     );
