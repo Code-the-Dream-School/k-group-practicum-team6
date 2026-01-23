@@ -5,16 +5,19 @@ import * as yup from 'yup';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import FormInput from './FormInput';
-import { login, register } from '../../utils/authApi';
+import { useLogin, useRegister } from '../../hooks/useAuth';
 
+//Authentication form component
 export default function AuthForm() {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
+  const loginMutation = useLogin();
+  const registerMutation = useRegister();
 
   const defaultValues = { isLogin: true, name: '', email: '', password: '', confirmPassword: '' };
-  
 
-  //Form validation schema
+
+  //Form validation schema(Yup)
   const schema = yup.object({
     isLogin: yup.boolean(),
     name: yup.string().when('isLogin', (isLoginValue, schema) =>
@@ -28,22 +31,22 @@ export default function AuthForm() {
         : schema.oneOf([yup.ref('password')], 'Passwords do not match').required('Confirm password')
     ),
   });
-   
+
 
   // form control 
   const { control, handleSubmit, reset, setValue } = useForm({
     resolver: yupResolver(schema),
     defaultValues,
   });
-  
+
   // form submit function
   const onSubmit = async (data: any) => {
     try {
       if (isLogin) {
-        await login({ email: data.email, password: data.password });
-        router.replace('/dashboard');
+        await loginMutation.mutateAsync({ email: data.email, password: data.password });
+        router.replace('/(tabs)/dashboard');
       } else {
-        await register({ name: data.name, email: data.email, password: data.password });
+        await registerMutation.mutateAsync({ name: data.name, email: data.email, password: data.password });
         alert('Registered successfully!');
         setIsLogin(true);
         setValue('isLogin', true);
@@ -53,7 +56,7 @@ export default function AuthForm() {
       alert(err.message);
     }
   };
-  
+
   // toggle form between login and register
   const toggleMode = () => {
     const newMode = !isLogin;
@@ -65,10 +68,10 @@ export default function AuthForm() {
   return (
     <View style={{ width: '100%' }}>
       {!isLogin && <FormInput control={control} name="name" placeholder="Name" />}
-      <FormInput control={control} name="email" placeholder="Email"/>
+      <FormInput control={control} name="email" placeholder="Email" />
       <FormInput control={control} name="password" placeholder="Password" secureTextEntry />
       {!isLogin && <FormInput control={control} name="confirmPassword" placeholder="Confirm Password" secureTextEntry />}
-      <Pressable style={({pressed})=>[styles.button, pressed && styles.pressed]} onPress={handleSubmit(onSubmit)}>
+      <Pressable style={({ pressed }) => [styles.button, pressed && styles.pressed]} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonText}>{isLogin ? 'Sign In' : 'Register'}</Text>
       </Pressable>
       <Pressable onPress={toggleMode}>

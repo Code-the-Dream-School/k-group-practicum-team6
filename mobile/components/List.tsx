@@ -2,10 +2,10 @@ import React from 'react';
 import {
   View,
   Text,
-  FlatList,
   StyleSheet,
   Pressable,
 } from 'react-native';
+import { FlashList } from '@shopify/flash-list'
 
 export type EntrielItem = {
   id: string;
@@ -22,14 +22,14 @@ type Props = {
   onPressItem?: (item: EntrielItem) => void;
 };
 
-
-function Badge({
+// badge component
+const Badge = ({
   text,
   variant = 'focus',
 }: {
   text: string;
   variant?: 'mood' | 'focus';
-}) {
+}) => {
   return (
     <View
       style={[
@@ -59,10 +59,11 @@ export default function EntriesList({
   onPressItem,
 }: Props) {
   return (
-    <FlatList
+    <FlashList
       data={data}
       keyExtractor={(item) => item.id}
       contentContainerStyle={styles.list}
+      ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
       renderItem={({ item }) => (
         <Pressable
           onPress={() => onPressItem?.(item)}
@@ -99,7 +100,7 @@ export default function EntriesList({
 const styles = StyleSheet.create({
   list: {
     padding: 16,
-    gap: 12,
+    paddingBottom: 100,
   },
   card: {
     backgroundColor: '#fff',
