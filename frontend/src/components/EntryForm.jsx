@@ -4,9 +4,13 @@
 
 import { useState } from "react";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+
 const EntryForm = ({initialData, onSubmit, onCancel}) => {
  
-let initialDate = "";
+let initialDate = null;
 let initialSubject = "";
 let initialHours = "0";
 let initialMinutes = "0";
@@ -15,8 +19,8 @@ let initialFocusLevel = "";
 let initialDetails = "";
 
 if (initialData) {
-  if (initialData.date) {
-    initialDate = initialData.date;
+  if (initialData?.date) {
+    initialDate = new Date(initialData.date);
   }
 
   if (initialData.subject) {
@@ -130,7 +134,7 @@ const handleSubmit = (e) => {
               <label className="text-md text-gray-700 font-medium">
                 Date
               </label>
-              <input 
+              {/* <input 
                 type="text" 
                 placeholder="YYYY-MM-DD"
                 value={date}
@@ -143,7 +147,19 @@ const handleSubmit = (e) => {
                             text-gray-900
                             placeholder-gray-400
                             focus:ring-2 focus:ring-blue-400"
+              /> */}
+
+              <DatePicker
+                selected={date}
+                onChange={(d) => setDate(d)}
+                dateFormat="yyyy-MM-dd"
+                placeholderText="Select date"
+                className="
+                    bg-white border border-gray-300 rounded-lg
+                      px-3 py-2 text-sm
+                      focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
+
   
             </div>
 
