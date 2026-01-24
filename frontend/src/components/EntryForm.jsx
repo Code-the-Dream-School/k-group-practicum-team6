@@ -126,7 +126,7 @@ const handleSubmit = (e) => {
 
 
 
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
               <label className="text-md text-gray-700 font-medium">
                 Date
               </label>
@@ -145,7 +145,7 @@ const handleSubmit = (e) => {
                             focus:ring-2 focus:ring-blue-400"
               />
   
-            </div>
+            </div> */}
 
             <div className="flex flex-col gap-1">
               <label className="text-md text-gray-700 font-medium">
