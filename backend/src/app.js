@@ -29,11 +29,30 @@ app.use(cookieParser());
 
 // Security & best‑practice middleware
 app.use(helmet());
-app.use(cors({
-  origin: "http://localhost:5173",    // Need to update for deployment
-  credentials: true                   // If frontend is on a different origin and cookies are sent with XHR/fetch.
-}));
 app.use(morgan("dev"));
+
+// Set CORS to allow for mobile also
+const allowedOrigins = process.env.CLIENT_URLS
+  ? process.env.CLIENT_URLS.split(",")
+  : [];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // mobile/native requests (because we dont have origin on mobile)
+      if (!origin) return callback(null, true);
+
+      // allow the web origins
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // Deny
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    credentials: true,
+  })
+);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
