@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Entries from "./Entries";
 import NewEntry from "./NewEntry";
-import EntryModal from "../components/EntryModal";
+import EntryModal from "../components/EntryModel";
 
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
