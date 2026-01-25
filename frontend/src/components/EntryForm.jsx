@@ -191,11 +191,11 @@ const handleSubmit = (e) => {
                    className={`text-sm ${getSelectTextColor(mood)} input-style w-full bg-white  border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left`}
                   >
                     <option value="">Mood</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="awful">awful</option>
+                    <option value="bad">bad</option>
+                    <option value="meh">meh</option>
+                    <option value="good">good</option>
+                    <option value="amazing">amazing</option>
                   </select>
                </div>
 
