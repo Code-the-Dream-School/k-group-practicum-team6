@@ -1,4 +1,4 @@
-import Modal from './Model';
+import Modal from './Modal';
 import EntryForm from './EntryForm';
 import { FaTimes } from "react-icons/fa"; 
 

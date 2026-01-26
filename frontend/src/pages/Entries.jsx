@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import { CircleArrowLeft, CircleArrowRight, SquarePen, Trash, CalendarDays, Hourglass } from "lucide-react"; 
-import EntryModal from "../components/EntryModel";
+import EntryModal from "../components/EntryModal";
 import jsonData from "../utils/entries";
 
 const Entries = () => {
