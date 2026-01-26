@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Entries from "./Entries";
 import NewEntry from "./NewEntry";
+import EntryModal from "../components/EntryModal";
 
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
@@ -39,11 +40,11 @@ const DashBoard = () => {
               <p>Pretty, pretty good</p>
           </div>
         </div>
-        <div className="flex m-2">
+         <div className="flex m-2">
            <h2 className="relative top-[10px] left-[8px] font-bold">Recent Entries</h2>
            <button className="btn-style relative left-[695px] top-[-10px]" 
            onClick={() => setNewEntriesModal(true)}><FilePlusCorner/></button>
-        </div>
+        </div> 
         
         <Modal
           show={newEntriesModal}
@@ -55,7 +56,12 @@ const DashBoard = () => {
           }}
         >
           <ModalBody>
-            <NewEntry setNewEntriesModal={setNewEntriesModal}/>
+            <EntryModal 
+            mode="new"
+            onClose={() => setNewEntriesModal(false)}
+            onSave={(data) => {
+              console.log("Create entry:", data);
+            }} />
           </ModalBody>
         </Modal>
 

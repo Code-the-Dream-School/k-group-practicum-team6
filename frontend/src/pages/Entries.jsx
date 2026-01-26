@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
 import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
 import { CircleArrowLeft, CircleArrowRight, SquarePen, Trash, CalendarDays, Hourglass } from "lucide-react"; 
-
-import EditEntries from "./EditEntry";
+import EntryModal from "../components/EntryModal";
 import jsonData from "../utils/entries";
 import Footer from "../components/Footer";
 
-const Entries = ({ entriesModal, setEntriesModal }) => {
+const Entries = ({}) => {
   const [entries, setEntries] = useState(jsonData);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedEntry, setSelectedEntry] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -39,6 +40,16 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
     }
   },[currentPage, totalPages, navigate]);
 
+    const handleEditClick = (entry) => {
+    setSelectedEntry(entry);
+    setEditModalOpen(true);
+  };
+
+  const handleSaveEdit = (updatedEntry) => {
+    console.log("Updated Entry:", updatedEntry);
+    setEditModalOpen(false);
+  };
+
   return (
     <>
       <div>
@@ -57,8 +68,16 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
                       <h2 className="mood-focus">{item.focus}</h2>
                     </div>
                     <div className="flex items-center space-x-3">
-                    <button className="edit-style" onClick={() => setEntriesModal(true)}><SquarePen/></button>
-                      <button className="delete-style"><Trash/></button>
+
+                    <button
+                      className="edit-style"
+                      onClick={() => 
+                        handleEditClick(item)}
+                    >
+                      <SquarePen />
+                    </button> 
+
+                    <button className="delete-style"><Trash/></button>
                     </div>
                 </div>
                     <div className="flex space-x-3 mt-1 mb-1">
@@ -73,23 +92,15 @@ const Entries = ({ entriesModal, setEntriesModal }) => {
               </div> 
             ))}
           </ul>
-        
-          <Modal
-          show={entriesModal}
-          onClose={() => setEntriesModal(false)}
-          size="md"
-          theme={{
-            content: { base: "main-modal" },
-            body: { base: "p-0 pt-0 pb-0" },
-          }}>
-          <ModalBody>
-              <button
-              className="x-btn relative top-[45px] left-[330px]"
-              onClick={() => setEntriesModal(false)}>
-              X </button> 
-            <EditEntries/>
-          </ModalBody>
-        </Modal>              
+          {editModalOpen && selectedEntry && (
+           <EntryModal
+            mode="edit"
+            entry={selectedEntry}
+            onClose={() => setEditModalOpen(false)}
+            onSave={handleSaveEdit}
+           />
+         )}
+             
           </div>
           <div className=" flex relative right-[12px] bottom-[22px] items-center justify-center space-x-3 
              bg-blue-500 w-225 text-white footer-style">
