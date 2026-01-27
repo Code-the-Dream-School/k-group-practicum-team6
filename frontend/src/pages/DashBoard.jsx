@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
+import { Modal, ModalBody } from "flowbite-react";
 import { FilePlusCorner } from "lucide-react";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Entries from "./Entries";
-import NewEntry from "./NewEntry";
 import EntryModal from "../components/EntryModal";
+import Stats from "../components/stats/Stats";
 
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
   const [entriesModal, setEntriesModal] = useState(false);
-  
+
   return (
     <>
       <div className="dash-cont">
@@ -18,34 +17,20 @@ const DashBoard = () => {
 
         <Header setNewEntriesModal={setNewEntriesModal} />
         <div className="flex justify-around">
-          <div className="analytics">
-              <p>Time Spent</p>
-              <br/>
-              <p>__ hrs __ mins</p>
-              <br/>
-              <p>Total Study Time</p>
-          </div>
-          <div className="analytics">
-              <p>Average Focus</p>
-              <br/>
-              <p>4/5</p>
-              <br/>
-              <p>Across all sessions</p>
-          </div>
-              <div className="analytics">
-              <p>Overall Mood</p>
-              <br/>
-              <p>Great!!</p>
-              <br/>
-              <p>Pretty, pretty good</p>
-          </div>
+          <Stats />
         </div>
-         <div className="flex m-2">
-           <h2 className="relative top-[10px] left-[8px] font-bold">Recent Entries</h2>
-           <button className="btn-style relative left-[695px] top-[-10px]" 
-           onClick={() => setNewEntriesModal(true)}><FilePlusCorner/></button>
-        </div> 
-        
+        <div className="flex m-2">
+          <h2 className="relative top-[10px] left-[8px] font-bold">
+            Recent Entries
+          </h2>
+          <button
+            className="btn-style relative left-[695px] top-[-10px]"
+            onClick={() => setNewEntriesModal(true)}
+          >
+            <FilePlusCorner />
+          </button>
+        </div>
+
         <Modal
           show={newEntriesModal}
           onClose={() => setNewEntriesModal(false)}
@@ -56,19 +41,22 @@ const DashBoard = () => {
           }}
         >
           <ModalBody>
-            <EntryModal 
-            mode="new"
-            onClose={() => setNewEntriesModal(false)}
-            onSave={(data) => {
-              console.log("Create entry:", data);
-            }} />
+            <EntryModal
+              mode="new"
+              onClose={() => setNewEntriesModal(false)}
+              onSave={(data) => {
+                console.log("Create entry:", data);
+              }}
+            />
           </ModalBody>
         </Modal>
 
         {/* user entries */}
-        <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
-       
-    
+        <Entries
+          entriesModal={entriesModal}
+          setEntriesModal={setEntriesModal}
+        />
+
         {/* <Footer /> */}
       </div>
     </>
