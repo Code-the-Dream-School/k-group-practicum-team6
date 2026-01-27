@@ -4,9 +4,6 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginRegister from "./pages/LoginRegister";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashBoard from "./pages/DashBoard";
-const NewEntry = React.lazy(() => import("./pages/NewEntry"));
-const EditEntry = React.lazy(() => import("./pages/EditEntry"));
-const UserEntries = React.lazy(() => import("./pages/Entries"));
 
 const App = () => {
   return (
@@ -19,36 +16,6 @@ const App = () => {
             <ProtectedRoute>
               <DashBoard />
             </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/newentry"
-          element={
-            <Suspense fallback={<div></div>}>
-              <ProtectedRoute>
-                <NewEntry />
-              </ProtectedRoute>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/editentry"
-          element={
-            <Suspense fallback={<div></div>}>
-              <ProtectedRoute>
-                <EditEntry />
-              </ProtectedRoute>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/userentries"
-          element={
-            <Suspense fallback={<div></div>}>
-              <ProtectedRoute>
-                <UserEntries />
-              </ProtectedRoute>
-            </Suspense>
           }
         />
         <Route path="*" element={<NotFoundPage />} />
