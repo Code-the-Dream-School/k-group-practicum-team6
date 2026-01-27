@@ -89,47 +89,12 @@ const handleFormSubmit = (data) => {
           <form className="relative bg-gray-50 p-6 rounded-xl space-y-5" onSubmit={handleSubmit(handleFormSubmit)}>
 
 
-
-            {/* <div className="flex flex-col gap-1">
-              <label className="text-md text-gray-700 font-medium">
-                Date
-              </label>
-              <input 
-                type="text" 
-                placeholder="YYYY-MM-DD"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="bg-white
-                            border border-gray-200
-                            rounded-lg
-                            px-3 py-2
-                            text-sm
-                            text-gray-900
-                            placeholder-gray-400
-                            focus:ring-2 focus:ring-blue-400"
-              />
-  
-            </div> */}
-
             <div className="flex flex-col gap-1">
               <label className="text-md text-gray-700 font-medium">
                 Subject
               </label>
 
               <input
-              // type="text"
-              // placeholder="Entry subject"
-              // value={subject}
-              // onChange={(e) => setSubject(e.target.value)}
-              // className="text-sm 
-              //         text-gray-900 input-style 
-              //         placeholder:text-gray-400
-              //         bg-white
-              //         border border-gray-300 
-              //         rounded-lg px-4 py-2 
-              //         shadow-sm hover:shadow-md 
-              //         focus:outline-none focus:ring-2 
-              //         focus:ring-blue-400"
               {...register("subject")}
               onKeyDown={(e) => {
                  if (e.key === "Enter") {

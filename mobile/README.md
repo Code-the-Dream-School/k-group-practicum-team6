@@ -1,6 +1,4 @@
-# Welcome to your Expo app 👋
-
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Welcome to BrainLog 👋
 
 ## Get started
 
@@ -16,35 +14,60 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+You need to create .env file wuth these lines:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+# WEB API URL — the API endpoint for the web app (running in the browser).
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+# Replace your_port with your server’s port number:
 
-## Get a fresh project
+EXPO_PUBLIC_WEB_API_URL=http://localhost:your_port/api/v1/auth
 
-When you're ready, run:
+# MOBILE API URL — the API endpoint for the mobile app (running on a device or emulator).
 
-```bash
-npm run reset-project
-```
+# Replace your_ip_address with your computer’s local IP address and your_port with your server’s port number:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+EXPO_PUBLIC_MOBILE_API_KEY=http://your_ip_address:your_port/api/v1/auth
 
-## Learn more
+## Important NOTES:
 
-To learn more about developing your project with Expo, look at the following resources:
+**WEB:**
+- To test the mobile version in the browser, change your browser’s resolution to a mobile screen size (e.g., using dev tools device toolbar).
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+**MOBILE:**
 
-## Join the community
+- Download the Expo Go app from the Apple App Store or Google Play Store.
 
-Join our community of developers creating universal apps.
+- Make sure your mobile device is connected to the same Wi-Fi network as your development machine.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Scan the QR code shown in your IDE or terminal with your phone’s camera.
+
+- This will open the project in Expo Go, allowing you to run the app on your device.
+
+## Features
+
+- **User Authentication**  
+  Login and registration with form validation and password confirmation.
+
+- **Persistent User Sessions**  
+  Manage logged-in state with React Query and Zustand.
+
+- **Dashboard with Entries List**  
+  Scrollable list of study sessions, showing title, date, duration, mood, and focus.
+
+- **Stats Screen**  
+  Overview of total study time, average focus, and overall mood in styled cards.
+
+- **Bottom Tab Navigation**  
+  Smooth tab navigation with custom styling and blur background.
+
+- **Responsive Layout**  
+  Works on both web and mobile, with mobile keyboard handling.
+
+- **API Integration**  
+  Connects to backend for login, registration, logout, and fetching user info.
+
+## Disclaimer
+
+This application is currently in **beta / testing mode**.  
+Some features may not work as expected, and you may encounter **bugs or incomplete functionality**.  
+Use at your own discretion, and feel free to report any issues or suggestions.

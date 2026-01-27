@@ -1,5 +1,5 @@
 import { LoginPayload, RegisterPayload, User } from '../interfaces/auth';
-import  API_URL  from './endpoint'
+import API_URL from './endpoint';
 
 async function handleResponse(res: Response) {
   if (!res.ok) {
@@ -9,7 +9,6 @@ async function handleResponse(res: Response) {
   return res.json();
 }
 
-// Login
 export async function login(payload: LoginPayload): Promise<User> {
   const res = await fetch(`${API_URL}/login`, {
     method: 'POST',
@@ -20,7 +19,6 @@ export async function login(payload: LoginPayload): Promise<User> {
   return handleResponse(res);
 }
 
-// Register
 export async function register(payload: RegisterPayload): Promise<User> {
   const res = await fetch(`${API_URL}/register`, {
     method: 'POST',
@@ -31,7 +29,6 @@ export async function register(payload: RegisterPayload): Promise<User> {
   return handleResponse(res);
 }
 
-// Logout
 export async function logout(): Promise<void> {
   await fetch(`${API_URL}/logout`, {
     method: 'POST',
@@ -39,15 +36,14 @@ export async function logout(): Promise<void> {
   });
 }
 
-// Get current user
+//Get the currently authenticated user
 export async function getMe(): Promise<User | null> {
   const res = await fetch(`${API_URL}/me`, {
     method: 'GET',
     credentials: 'include',
   });
-  console.log(res);
   if (res.status === 401) return null;
-  
+
   const data = await handleResponse(res);
   return data.user;
 }

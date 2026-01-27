@@ -2,18 +2,19 @@ const mongoose = require("mongoose");
 
 const EntrySchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
+    createdBy: {
+      // type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
-      index: true,
+      index: true,  // ???
     },
 
-    date: {
-      type: Date,
-      require: true,
-      default: Date.now,
-    },
+    // date: {
+    //   type: Date,
+    //   require: true,
+    //   default: Date.now,
+    // },
 
     subject: {
       type: String,
