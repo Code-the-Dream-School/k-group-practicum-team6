@@ -139,7 +139,6 @@ const handleFormSubmit = (data) => {
                     }}
                    className={`input-style ${getSelectTextColor("")}`}
                   >
-                    <option value="">Mood</option>
                     <option value="awful">awful</option>
                     <option value="bad">bad</option>
                     <option value="meh">meh</option>
@@ -163,7 +162,6 @@ const handleFormSubmit = (data) => {
                    }
                   }}
                   className="input-style">
-                     <option value="" text-gray-400>Focus Level</option>
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
