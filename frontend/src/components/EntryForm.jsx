@@ -2,7 +2,7 @@
 
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { entrySchema } from "../components/EntryFormValidation/entrySchema";  
@@ -14,18 +14,16 @@ const EntryForm = ({initialData, onSubmit, onCancel}) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(entrySchema),
-    defaultValues: {
-      subject: initialData?.subject || "",
-      hours: initialData?.hours || 0,
-      minutes: initialData?.minutes || 0,
-      mood: initialData?.mood || "",
-      focusLevel: initialData?.focusLevel || "",
-      details: initialData?.details || "",
-    },
+    defaultValues: initialData || {}
   });
+
+  useEffect(() => {
+    reset(initialData || {});
+  }, [initialData, reset]);
 
   const [isDurationOpen, setIsDurationOpen] = useState(false);
   
