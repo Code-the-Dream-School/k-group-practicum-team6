@@ -14,7 +14,6 @@ const EntryForm = ({initialData, onSubmit, onCancel}) => {
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(entrySchema),
