@@ -4,7 +4,6 @@ import { FilePlusCorner } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Entries from "./Entries";
-import NewEntry from "./NewEntry";
 import EntryModal from "../components/EntryModal";
 
 const DashBoard = () => {

@@ -4,7 +4,10 @@ export const entrySchema = yup.object({
   subject: yup.string().required("Subject is required"),
   hours: yup.number().transform((_, v) => (v === "" ? 0 : Number(v))),
   minutes: yup.number().transform((_, v) => (v === "" ? 0 : Number(v))),
-  mood: yup.string().required("Mood is required"),
+  mood: yup.string().oneOf(
+    ["awful", "bad", "meh", "good", "amazing"],
+    "Mood is required"
+  ).required("Mood is required"),
   focusLevel: yup.number().transform((_, v) => (v === "" ? undefined : Number(v))).required("Focus level is required"),
   details: yup.string()
 })
