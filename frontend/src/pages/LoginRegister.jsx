@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
+import { Button, Card, Label, TextInput } from "flowbite-react";
 
 import authApi from "../utils/authApi";
 
@@ -73,22 +74,17 @@ const LoginRegister = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-blue-500">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md border-2 border-solid border-[black]">
-        <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">
+      <Card>
+        <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">
           BrainLog
         </h2>
         {error && <div className="error-message">{error}</div>}
         {message && <div className="error-success">{message}</div>}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
           {isRegister && (
             <>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Username
-              </label>
-              <input
+              <Label htmlFor="username">Username</Label>
+              <TextInput
                 type="text"
                 id="username"
                 name="username"
@@ -96,17 +92,11 @@ const LoginRegister = () => {
                 value={formData.username}
                 onChange={handleChange}
                 required
-                className="lgn-reg-field border-2 border-solid border-[black]"
               />
             </>
           )}
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
-          <input
+          <Label htmlFor="email">Email</Label>
+          <TextInput
             type="email"
             id="email"
             name="email"
@@ -115,15 +105,9 @@ const LoginRegister = () => {
             onChange={handleChange}
             required
             autoComplete="email"
-            className="lgn-reg-field border-2 border-solid border-[black]"
           />
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <input
+          <Label htmlFor="password">Password</Label>
+          <TextInput
             type="password"
             id="password"
             name="password"
@@ -132,10 +116,9 @@ const LoginRegister = () => {
             onChange={handleChange}
             required
             autoComplete={isRegister ? "new-password" : "current-password"}
-            className="lgn-reg-field border-2 border-solid border-[black]"
           />
           {isRegister && (
-            <input
+            <TextInput
               type="password"
               name="confirmPassword"
               id="confirmPassword"
@@ -144,14 +127,13 @@ const LoginRegister = () => {
               autoComplete="new-password"
               onChange={handleChange}
               required
-              className="lgn-reg-field border-2 border-solid border-[black]"
             />
           )}
-          <button
+          <Button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md 
-            hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer 
+            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md
+            hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer
             border-2 border-solid border-[black]"
           >
             {submitting ? (
@@ -161,9 +143,9 @@ const LoginRegister = () => {
             ) : (
               "Login"
             )}
-          </button>
+          </Button>
         </form>
-        <button
+        <Button
           type="button"
           className="w-full text-center mt-4 text-blue-500 hover:text-blue-700 cursor-pointer "
           onClick={() => {
@@ -181,8 +163,8 @@ const LoginRegister = () => {
           {isRegister
             ? "Already have an account? Login"
             : "Don't have an account? Register"}
-        </button>
-      </div>
+        </Button>
+      </Card>
     </div>
   );
 };
