@@ -18,11 +18,21 @@ const EntryForm = ({initialData, onSubmit, onCancel}) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(entrySchema),
-    defaultValues: initialData || {}
+    defaultValues: {
+    subject: "",
+    hours: 0,
+    minutes: 0,
+    mood: "",
+    focusLevel: "",
+    details: "",
+    ...initialData,
+  },
   });
 
   useEffect(() => {
-    reset(initialData || {});
+    if (initialData) {
+      reset(initialData);
+    }
   }, [initialData, reset]);
 
   const [isDurationOpen, setIsDurationOpen] = useState(false);
@@ -34,6 +44,7 @@ const EntryForm = ({initialData, onSubmit, onCancel}) => {
 const handleFormSubmit = (data) => {
 
     onSubmit(data);
+    reset();
 }
 
     let durationContent;
@@ -110,6 +121,10 @@ const handleFormSubmit = (data) => {
               <label className="text-md text-gray-700 font-medium">
                 Duration
               </label>
+
+              <input type="hidden" {...register("hours", { valueAsNumber:true })} />
+              <input type="hidden" {...register("minutes", { valueAsNumber: true })} />
+
               {durationContent}
 
               {errors.hours && (

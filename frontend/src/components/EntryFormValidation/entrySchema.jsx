@@ -2,8 +2,8 @@ import * as yup from "yup";
 
 export const entrySchema = yup.object({
   subject: yup.string().required("Subject is required"),
-  hours: yup.number().transform((_, v) => (v === "" ? 0 : Number(v))),
-  minutes: yup.number().transform((_, v) => (v === "" ? 0 : Number(v))),
+  hours: yup.number().transform((_, v) => (v === "" || v == null ? undefined : Number(v))).nullable(),
+  minutes: yup.number().transform((_, v) => (v === "" || v == null ? undefined : Number(v))).nullable(),
   mood: yup.string().oneOf(
     ["awful", "bad", "meh", "good", "amazing"],
     "Mood is required"
@@ -13,12 +13,17 @@ export const entrySchema = yup.object({
 })
 .test(
     "duration-check",
-    "Either hours or minutes must be greater than zero",
+    "Please select duration",
     function (values) {
-        if (values.hours === 0 && values.minutes === 0) {
+        if (!values) return true;
+        
+        const hours = values.hours ?? 0;
+        const minutes = values.minutes ?? 0;
+        
+        if (hours <= 0 && minutes <= 0)     {
             return this.createError({
                 path: "hours",
-                message: "Either hours or minutes must be greater than zero",
+                message: "Please select duration",
             });
         }
         return true;
