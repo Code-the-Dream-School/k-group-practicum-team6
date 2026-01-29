@@ -1,52 +1,75 @@
-import authService from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
+import { FilePlusCorner } from "lucide-react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Entries from "./Entries";
+import NewEntry from "./NewEntry";
+import EntryModal from "../components/EntryModal";
 
 const DashBoard = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    authService.removeToken();
-    authService.removeUsername();
-    navigate("/"); // redirect to login page after logout
-  };
-
+  const [newEntriesModal, setNewEntriesModal] = useState(false);
+  const [entriesModal, setEntriesModal] = useState(false);
+  
   return (
     <>
-      <div className="master-cont">
+      <div className="dash-cont">
         {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Welcome to the Dashboard</h1>
-        <div className="header-style">
-          <button className="btn-style">+ New Entry</button>
-          <button className="btn-style">View</button>
-          <button className="btn-style" onClick={handleLogout}>
-            Log out
-          </button>
-        </div>
-        {/* placeholder entries */}
-        <div>
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 1</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
-          </div>
 
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 2</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
+        <Header setNewEntriesModal={setNewEntriesModal} />
+        <div className="flex justify-around">
+          <div className="analytics">
+              <p>Time Spent</p>
+              <br/>
+              <p>__ hrs __ mins</p>
+              <br/>
+              <p>Total Study Time</p>
+          </div>
+          <div className="analytics">
+              <p>Average Focus</p>
+              <br/>
+              <p>4/5</p>
+              <br/>
+              <p>Across all sessions</p>
+          </div>
+              <div className="analytics">
+              <p>Overall Mood</p>
+              <br/>
+              <p>Great!!</p>
+              <br/>
+              <p>Pretty, pretty good</p>
           </div>
         </div>
-        <div className="footer-style">
-          <select className="dropdown-style">
-            <option value="default">Sort</option>
-            <option value="Date">Date</option>
-            <option value="Subject">Subject</option>
-            <option value="Duration">Duration</option>
-            <option value="Mood">Mood</option>
-          </select>
-          <button className="btn-style">Search</button>
-          <button className="btn-style">Pagination</button>
-        </div>
+         <div className="flex m-2">
+           <h2 className="relative top-[10px] left-[8px] font-bold">Recent Entries</h2>
+           <button className="btn-style relative left-[695px] top-[-10px]" 
+           onClick={() => setNewEntriesModal(true)}><FilePlusCorner/></button>
+        </div> 
+        
+        <Modal
+          show={newEntriesModal}
+          onClose={() => setNewEntriesModal(false)}
+          size="md"
+          theme={{
+            content: { base: "main-modal" },
+            body: { base: "p-0 pt-0 pb-0" },
+          }}
+        >
+          <ModalBody>
+            <EntryModal 
+            mode="new"
+            onClose={() => setNewEntriesModal(false)}
+            onSave={(data) => {
+              console.log("Create entry:", data);
+            }} />
+          </ModalBody>
+        </Modal>
+
+        {/* user entries */}
+        <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
+       
+    
+        {/* <Footer /> */}
       </div>
     </>
   );
