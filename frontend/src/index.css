@@ -158,6 +158,20 @@
   padding: 0 !important;
 }
 
+.input-style {
+  @apply bg-white
+         border border-gray-200
+         rounded-lg
+         px-3 py-2
+         text-sm
+         text-gray-900
+         outline-none
+         focus:outline-none
+         focus:ring-0
+         focus:border-gray-300;
+}
+
+
 /* Force modal content to have no extra space */
 div[role="dialog"] > div {
   width: fit-content !important;

@@ -1,13 +1,11 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
-import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
 import { CircleArrowLeft, CircleArrowRight, SquarePen, Trash, CalendarDays, Hourglass } from "lucide-react"; 
 import EntryModal from "../components/EntryModal";
 import jsonData from "../utils/entries";
-import Footer from "../components/Footer";
 
-const Entries = ({}) => {
+const Entries = () => {
   const [entries, setEntries] = useState(jsonData);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);

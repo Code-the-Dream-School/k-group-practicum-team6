@@ -2,73 +2,49 @@
 
 
 
-import { useState } from "react";
-
-const EntryForm = ({initialData, onSubmit, onCancel}) => {
- 
-let initialDate = "";
-let initialSubject = "";
-let initialHours = "0";
-let initialMinutes = "0";
-let initialMood = "";
-let initialFocusLevel = "";
-let initialDetails = "";
-
-if (initialData) {
-  if (initialData.date) {
-    initialDate = initialData.date;
-  }
-
-  if (initialData.subject) {
-    initialSubject = initialData.subject;
-  }
-
-  if (initialData.hours) {
-    initialHours = initialData.hours;
-  }
-
-  if (initialData.minutes) {
-    initialMinutes = initialData.minutes;
-  }
-
-  if (initialData.mood) {
-    initialMood = initialData.mood;
-  }
-
-  if (initialData.focusLevel) {
-    initialFocusLevel = initialData.focusLevel;
-  }
-
-  if (initialData.details) {
-    initialDetails = initialData.details;
-  }
-}
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { entrySchema } from "../components/EntryFormValidation/entrySchema";  
 
 
 
-const [date, setDate] = useState(initialDate);
-const [subject, setSubject] = useState(initialSubject);
-const [hours, setHours] = useState(initialHours);
-const [minutes, setMinutes] = useState(initialMinutes);
-const [isDurationOpen, setIsDurationOpen] = useState(false);
-const [mood, setMood] = useState(initialMood);
-const [focusLevel, setFocusLevel] = useState(initialFocusLevel);
-const [details, setDetails] = useState(initialDetails);
+const EntryForm = ({initialData, onSubmit, onCancel}) => { 
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(entrySchema),
+    defaultValues: {
+    subject: "",
+    hours: 0,
+    minutes: 0,
+    mood: "",
+    focusLevel: "",
+    details: "",
+    ...initialData,
+  },
+  });
+
+  useEffect(() => {
+    if (initialData) {
+      reset(initialData);
+    }
+  }, [initialData, reset]);
+
+  const [isDurationOpen, setIsDurationOpen] = useState(false);
+  
 
 
-const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    const entryData = {
-        date,
-        subject,
-        hours,
-        minutes,
-        mood,
-        focusLevel,
-        details
-    };
-    onSubmit(entryData);
+
+
+const handleFormSubmit = (data) => {
+
+    onSubmit(data);
+    reset();
 }
 
     let durationContent;
@@ -76,21 +52,17 @@ const handleSubmit = (e) => {
     if (isDurationOpen) {
       durationContent = (
         <div className="input-style flex gap-2 items-center bg-white text-black ">
-          <select
-            value={hours}
-            onChange={(e) => setHours(e.target.value)}
-            className="bg-transparent outline-none w-1/2"
+          <select {...register("hours", { valueAsNumber: true })}
+            className="input-style"
           >
             <option value="0">0 hrs</option>
             <option value="1">1 hr</option>
             <option value="2">2 hrs</option>
             <option value="3">3 hrs</option>
           </select>
-      
-          <select
-            value={minutes}
-            onChange={(e) => setMinutes(e.target.value)}
-            className="bg-transparent outline-none w-1/2"
+
+          <select {...register("minutes", { valueAsNumber: true })}
+            className="input-style"
           >
             <option value="0">0 mins</option>
             <option value="15">15 mins</option>
@@ -122,30 +94,8 @@ const handleSubmit = (e) => {
     return (
       <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-xl relative">
       
-          <form className="relative bg-gray-50 p-6 rounded-xl space-y-5" onSubmit={handleSubmit}>
+          <form className="relative bg-gray-50 p-6 rounded-xl space-y-5" onSubmit={handleSubmit(handleFormSubmit)}>
 
-
-
-            {/* <div className="flex flex-col gap-1">
-              <label className="text-md text-gray-700 font-medium">
-                Date
-              </label>
-              <input 
-                type="text" 
-                placeholder="YYYY-MM-DD"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="bg-white
-                            border border-gray-200
-                            rounded-lg
-                            px-3 py-2
-                            text-sm
-                            text-gray-900
-                            placeholder-gray-400
-                            focus:ring-2 focus:ring-blue-400"
-              />
-  
-            </div> */}
 
             <div className="flex flex-col gap-1">
               <label className="text-md text-gray-700 font-medium">
@@ -153,20 +103,17 @@ const handleSubmit = (e) => {
               </label>
 
               <input
-              type="text"
+              {...register("subject")}
+              onKeyDown={(e) => {
+                 if (e.key === "Enter") {
+                 e.preventDefault();
+                 }
+              }}
+              className="input-style"
               placeholder="Entry subject"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              className="text-sm 
-                      text-gray-900 input-style 
-                      placeholder:text-gray-400
-                      bg-white
-                      border border-gray-300 
-                      rounded-lg px-4 py-2 
-                      shadow-sm hover:shadow-md 
-                      focus:outline-none focus:ring-2 
-                      focus:ring-blue-400"
               />
+              {errors.subject && 
+              (<p className="text-red-500 text-sm">{errors.subject.message}</p>)}
             </div>
 
 
@@ -174,7 +121,17 @@ const handleSubmit = (e) => {
               <label className="text-md text-gray-700 font-medium">
                 Duration
               </label>
+
+              <input type="hidden" {...register("hours", { valueAsNumber:true })} />
+              <input type="hidden" {...register("minutes", { valueAsNumber: true })} />
+
               {durationContent}
+
+              {errors.hours && (
+                <p className="text-red-500 text-sm">
+                {errors.hours.message}
+                </p>
+             )}
             </div>
 
 
@@ -186,32 +143,37 @@ const handleSubmit = (e) => {
                      Mood
                   </label>
                   <select
-                   value={mood}
-                   onChange={(e) => setMood(e.target.value)}
-                   className={`text-sm ${getSelectTextColor(mood)} input-style w-full bg-white  border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left`}
+                   {...register("mood")}
+                   onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                      e.preventDefault();
+                      }
+                    }}
+                   className={`input-style ${getSelectTextColor("")}`}
                   >
-                    <option value="">Mood</option>
                     <option value="awful">awful</option>
                     <option value="bad">bad</option>
                     <option value="meh">meh</option>
                     <option value="good">good</option>
-                    <option value="amazing">amazing</option>
+                    <option value="amazing">amazing</option> .
                   </select>
+                  {errors.mood && (
+                    <p className="text-red-500 text-sm">{errors.mood.message}</p>
+                  )}
+
                </div>
 
                <div className="flex flex-col gap-1">
                   <label className="text-md text-gray-700 font-medium">
                      Focus level
                   </label>
-                  <select
-                    value={focusLevel}
-                    onChange={(e) => setFocusLevel(e.target.value)}
-                    className={`input-style text-sm ${getSelectTextColor(focusLevel)}  w-full bg-white  
-                              border border-gray-300 rounded-lg px-4 py-2 
-                              shadow-sm hover:shadow-md 
-                              focus:outline-none focus:ring-2 focus:ring-blue-400 
-                              text-left`}>
-                     <option value="" text-gray-400>Focus Level</option>
+                  <select {...register("focusLevel")} 
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                    e.preventDefault();
+                   }
+                  }}
+                  className="input-style">
                      <option value="1">1</option>
                      <option value="2">2</option>
                      <option value="3">3</option>
@@ -219,6 +181,9 @@ const handleSubmit = (e) => {
                     <option value="5">5</option>
                   </select>
 
+                  {errors.focusLevel && (
+                    <p className="text-red-500 text-sm">{errors.focusLevel.message}</p>
+                  )}
                 </div>
             </div>
 
@@ -229,9 +194,8 @@ const handleSubmit = (e) => {
               </label>
 
               <textarea
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
-              className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 min-h-[140px] resize-y"
+                {...register("details")}
+                className="input-style min-h-32 resize-y"
               />
              </div>
 
