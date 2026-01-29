@@ -82,22 +82,22 @@ const LoginRegister = () => {
         <form onSubmit={handleSubmit}>
           {isRegister && (
             <>
-            <label
-            htmlFor="username"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Username
-          </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-              className="lgn-reg-field border-2 border-solid border-[black]"
-            />
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+                className="lgn-reg-field border-2 border-solid border-[black]"
+              />
             </>
           )}
           <label
