@@ -1,6 +1,6 @@
-import Model from './Modal';
-import EntryForm from './EntryForm';
-import { FaTimes } from 'react-icons/fa';
+import Modal from "./Modal";
+import EntryForm from "./EntryForm";
+import { FaTimes } from "react-icons/fa";
 
 const EntryModal = ({ mode = "new", entry, onClose, onSave }) => {
   let titleText = "New Entry";
@@ -12,7 +12,7 @@ const EntryModal = ({ mode = "new", entry, onClose, onSave }) => {
   };
 
   return (
-    <Model onClose={onClose}>
+    <Modal onClose={onClose}>
       <div className="relative bg-white p-6 space-y-4 w-[550px] rounded-xl">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-semibold text-gray-800">{titleText}</h1>
@@ -28,14 +28,13 @@ const EntryModal = ({ mode = "new", entry, onClose, onSave }) => {
             />
           </button>
         </div>
-
         <EntryForm
           initialData={entry}
           onSubmit={handleSubmit}
           onCancel={onClose}
         />
       </div>
-    </Model>
+    </Modal>
   );
 };
 
