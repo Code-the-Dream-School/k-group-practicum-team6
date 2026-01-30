@@ -1,66 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { entrySchema } from "../components/EntryFormValidation/entrySchema";
 
 const EntryForm = ({ initialData, onSubmit, onCancel }) => {
-  let initialDate = "";
-  let initialSubject = "";
-  let initialHours = "0";
-  let initialMinutes = "0";
-  let initialMood = "";
-  let initialFocusLevel = "";
-  let initialDetails = "";
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(entrySchema),
+    defaultValues: {
+      subject: "",
+      hours: 0,
+      minutes: 0,
+      mood: "",
+      focusLevel: "",
+      details: "",
+      ...initialData,
+    },
+  });
 
-  if (initialData) {
-    if (initialData.date) {
-      initialDate = initialData.date;
+  useEffect(() => {
+    if (initialData) {
+      reset(initialData);
     }
+  }, [initialData, reset]);
 
-    if (initialData.subject) {
-      initialSubject = initialData.subject;
-    }
-
-    if (initialData.hours) {
-      initialHours = initialData.hours;
-    }
-
-    if (initialData.minutes) {
-      initialMinutes = initialData.minutes;
-    }
-
-    if (initialData.mood) {
-      initialMood = initialData.mood;
-    }
-
-    if (initialData.focusLevel) {
-      initialFocusLevel = initialData.focusLevel;
-    }
-
-    if (initialData.details) {
-      initialDetails = initialData.details;
-    }
-  }
-
-  const [date, setDate] = useState(initialDate);
-  const [subject, setSubject] = useState(initialSubject);
-  const [hours, setHours] = useState(initialHours);
-  const [minutes, setMinutes] = useState(initialMinutes);
   const [isDurationOpen, setIsDurationOpen] = useState(false);
-  const [mood, setMood] = useState(initialMood);
-  const [focusLevel, setFocusLevel] = useState(initialFocusLevel);
-  const [details, setDetails] = useState(initialDetails);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const entryData = {
-      date,
-      subject,
-      hours,
-      minutes,
-      mood,
-      focusLevel,
-      details,
-    };
-    onSubmit(entryData);
+  const handleFormSubmit = (data) => {
+    onSubmit(data);
+    reset();
   };
 
   let durationContent;
@@ -69,9 +41,8 @@ const EntryForm = ({ initialData, onSubmit, onCancel }) => {
     durationContent = (
       <div className="input-style flex gap-2 items-center bg-white text-black ">
         <select
-          value={hours}
-          onChange={(e) => setHours(e.target.value)}
-          className="bg-transparent outline-none w-1/2"
+          {...register("hours", { valueAsNumber: true })}
+          className="input-style"
         >
           <option value="0">0 hrs</option>
           <option value="1">1 hr</option>
@@ -80,9 +51,8 @@ const EntryForm = ({ initialData, onSubmit, onCancel }) => {
         </select>
 
         <select
-          value={minutes}
-          onChange={(e) => setMinutes(e.target.value)}
-          className="bg-transparent outline-none w-1/2"
+          {...register("minutes", { valueAsNumber: true })}
+          className="input-style"
         >
           <option value="0">0 mins</option>
           <option value="15">15 mins</option>
@@ -113,29 +83,8 @@ const EntryForm = ({ initialData, onSubmit, onCancel }) => {
     <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-xl relative">
       <form
         className="relative bg-gray-50 p-6 rounded-xl space-y-5"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(handleFormSubmit)}
       >
-        {/* <div className="flex flex-col gap-1">
-              <label className="text-md text-gray-700 font-medium">
-                Date
-              </label>
-              <input 
-                type="text" 
-                placeholder="YYYY-MM-DD"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="bg-white
-                            border border-gray-200
-                            rounded-lg
-                            px-3 py-2
-                            text-sm
-                            text-gray-900
-                            placeholder-gray-400
-                            focus:ring-2 focus:ring-blue-400"
-              />
-  
-            </div> */}
-
         <div className="flex flex-col gap-1">
           <label className="text-md text-gray-700 font-medium">Subject</label>
 

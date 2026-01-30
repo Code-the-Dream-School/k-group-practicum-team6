@@ -3,7 +3,6 @@ import EntryForm from "./EntryForm";
 import { FaTimes } from "react-icons/fa";
 
 const EntryModal = ({ mode = "new", entry, onClose, onSave }) => {
-  // 3-й вариант: переменная для заголовка
   let titleText = "New Entry";
   if (mode === "edit") titleText = "Edit Entry";
 
