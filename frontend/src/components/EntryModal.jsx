@@ -1,6 +1,6 @@
-import Model from './Modal';
-import EntryForm from './EntryForm';
-import { FaTimes } from 'react-icons/fa';
+import Model from "./Modal";
+import EntryForm from "./EntryForm";
+import { FaTimes } from "react-icons/fa";
 
 const EntryModal = ({ mode = "new", entry, onClose, onSave }) => {
   let titleText = "New Entry";
