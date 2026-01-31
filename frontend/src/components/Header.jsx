@@ -1,11 +1,12 @@
 import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
 import authApi from "../utils/authApi";
+import { Button } from "flowbite-react";
 import { LogOut } from "lucide-react";
 
 export default function Header() {
-    const router = useRouter();
-    const { logout } = useUser();
+  const router = useRouter();
+  const { logout } = useUser();
 
   const handleLogout = async () => {
     await authApi.logout();
@@ -15,14 +16,15 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex font-bold">
-      <h1 className="relative left-[25px] top-[20px] text-2xl">Welcome, Team 6!</h1>
-      <h1 className="title-style relative left-[175px]">Brain Log</h1>
-     <button className="btn-style relative left-[420px]" onClick={handleLogout}>
-      <LogOut/>
-     </button>
-  </div>
+      <div className="flex flex-row justify-between">
+        <h2 className="text-2xl">Brain Log</h2>
+        {/* change to `Welcome ${name}`! */}
+        <h1 className="text-lg">Welcome, Team 6!</h1>
+        <Button onClick={handleLogout}>
+          <LogOut />
+          Log Out
+        </Button>
+      </div>
     </>
-  )
-
+  );
 }

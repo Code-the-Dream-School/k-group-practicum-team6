@@ -1,4 +1,4 @@
-import { Clock, BarChart3, Smile, Target } from "lucide-react";
+import { Clock, Smile, Target } from "lucide-react";
 import { StatCard } from "./StatCard";
 
 //mocked stats
@@ -19,7 +19,7 @@ const stats = [
     id: "mood",
     label: "Overall Mood",
     value: "10x!",
-    sub: "Most common this week",
+    sub: "Most common mood",
   },
 ];
 
