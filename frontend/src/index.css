@@ -1,6 +1,8 @@
 @import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 
-@layer components {
+/* @layer components {
   .master-cont {
     @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md;
   }
@@ -73,7 +75,7 @@
   }
 
   .btn-style:hover {
-    background-color: #b91c1c !important; /* tailwind red-700 */
+    background-color: #b91c1c !important;
   }
 
  .x-btn {
@@ -87,7 +89,7 @@
   }
 
   .x-btn:hover {
-    background-color: #b91c1c !important; /* tailwind red-700 */
+    background-color: #b91c1c !important;
     cursor: pointer;
   }
 
@@ -169,12 +171,11 @@
          focus:outline-none
          focus:ring-0
          focus:border-gray-300;
-}
-
+} */
 
 /* Force modal content to have no extra space */
-div[role="dialog"] > div {
+/* div[role="dialog"] > div {
   width: fit-content !important;
   margin: auto !important;
   background: transparent !important;
-}
+} */
