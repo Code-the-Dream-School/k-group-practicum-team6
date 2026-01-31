@@ -6,7 +6,10 @@ import { LogOut } from "lucide-react";
 
 export default function Header() {
   const router = useRouter();
-  const { logout } = useUser();
+  const { user, loading, logout } = useUser();
+
+  if (loading) return null;
+  if (!user) return null;
 
   const handleLogout = async () => {
     await authApi.logout();
@@ -19,7 +22,7 @@ export default function Header() {
       <div className="flex flex-row justify-between">
         <h2 className="text-2xl">Brain Log</h2>
         {/* change to `Welcome ${name}`! */}
-        <h1 className="text-lg">Welcome, Team 6!</h1>
+        <h1 className="text-lg">{`Welcome, ${user.name}!`}</h1>
         <Button onClick={handleLogout}>
           <LogOut />
           Log Out

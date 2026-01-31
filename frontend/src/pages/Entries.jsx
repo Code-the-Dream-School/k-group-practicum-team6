@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router";
-import { Button, Card } from "flowbite-react";
+import { Button, Card, Pagination } from "flowbite-react";
 import {
   CircleArrowLeft,
   CircleArrowRight,
@@ -78,11 +78,11 @@ const Entries = () => {
                         </Button>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Button onClick={() => handleEditClick(item)}>
+                        <Button size="sm" onClick={() => handleEditClick(item)}>
                           <SquarePen />
                         </Button>
 
-                        <Button>
+                        <Button size="sm">
                           <Trash />
                         </Button>
                       </div>
