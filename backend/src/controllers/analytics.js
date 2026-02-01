@@ -20,7 +20,7 @@ const getDashboardStats = async (req, res) => {
   let totalMinutes = 0;
 
   entries.forEach((entry) => {
-    totalMinutes += entry.duration;
+    totalMinutes += entry.duration || 0;
   });
 
   const hours = Math.floor(totalMinutes / 60);
@@ -30,7 +30,7 @@ const getDashboardStats = async (req, res) => {
   let focusSum = 0;
 
   entries.forEach((entry) => {
-    focusSum += entry.focus;
+    focusSum += entry.focus || 0;
   });
 
   const averageFocus = Math.round(focusSum / entries.length);
