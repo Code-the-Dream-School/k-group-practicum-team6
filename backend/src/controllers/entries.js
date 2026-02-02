@@ -1,4 +1,5 @@
 const Entry = require('../models/Entry');
+const { fetchEntries } = require("./cursor");
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
 
@@ -101,8 +102,24 @@ const deleteEntry = async(req, res, next) => {
   res.status(StatusCodes.OK).json({ msg: "Entry deleted" });
 };
 
-const loadEntries = async (req, res, next) => {
+const loadEntries = async (req, res) => {
+    try {
+      //set limit
+      const limit = Number(req.query.limit) || 5;
+      //create cursor
+      const cursor = req.query.cursor || null;
+      //call entries from cursor.js
+      const { entries, nextCursor } = await fetchEntries({ cursor, limit, userId: req.user.userId });
 
+      res.json({
+         entries,
+         pagination: {
+            nextCursor,
+         },
+      })
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
 };
 
 module.exports = {

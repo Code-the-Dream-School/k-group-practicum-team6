@@ -1,21 +1,22 @@
-const express = require('express');
-const router = express.Router();
 
+const express = require("express");
+const router = express.Router();
+const authenticateUser = require("../middleware/authentication");
 const {
   getAllEntries,
   getEntry,
   createEntry,
   updateEntry,
-  deleteEntry
-} = require('../controllers/entries');
+  deleteEntry,
+  loadEntries,
+} = require("../controllers/entries");
 
-router.route('/')
+router
+  .route("/")
   .get(getAllEntries)
-  .post(createEntry)
+  // .get(loadEntries)
+  .post(createEntry);
 
-router.route('/:id')
-  .get(getEntry)
-  .patch(updateEntry)
-  .delete(deleteEntry)
+router.route("/:id").get(getEntry).patch(updateEntry).delete(deleteEntry);
 
 module.exports = router;
