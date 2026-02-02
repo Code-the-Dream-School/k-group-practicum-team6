@@ -18,36 +18,33 @@ const getDashboardStats = async (req, res) => {
 
   // Time Spent
   let totalMinutes = 0;
+  let focusSum = 0;
+  let moodCount = {};
+  let maxCount = 0;
 
-  entries.forEach((entry) => {
+  entries.forEach(({ duration, focus, mood }) => {
+    //sum total minutes
     totalMinutes += entry.duration || 0;
+    // sum focus
+    focusSum += entry.focus || 0;
+    //sum mood counts
+    moodCount[mood] = (moodCount[mood] || 0) + 1;
   });
 
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
 
   // Average Focus
-  let focusSum = 0;
-
-  entries.forEach((entry) => {
-    focusSum += entry.focus || 0;
-  });
 
   const averageFocus = Math.round(focusSum / entries.length);
 
   // Overall Mood
-  const moodCount = {};
   let overallMood = null;
-  let maxCount = 0;
 
-  entries.forEach(({ mood }) => {
-    moodCount[mood] = (moodCount[mood] || 0) + 1;
-
-    if (moodCount[mood] > maxCount) {
-      maxCount = moodCount[mood];
-      overallMood = mood;
-    }
-  });
+  if (moodCount[mood] > maxCount) {
+    maxCount = moodCount[mood];
+    overallMood = mood;
+  }
 
   res.status(StatusCodes.OK).json({
     timeSpent: { hours, minutes },
