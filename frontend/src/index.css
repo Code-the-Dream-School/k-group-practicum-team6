@@ -2,155 +2,187 @@
 @import "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-/* @layer components {
-  .master-cont {
+@layer components {
+  /* MYSTERY CONTAINER 1 */
+  /* .master-cont {
     @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md;
-  }
-  
-  .master-cont-2 {
-    @apply  text-black p-0 m-0 bg-blue-500 rounded-lg shadow-md 
+  } */
+
+  /* MYSTERY CONTAINER 2 */
+  /* .master-cont-2 {
+    @apply text-black p-0 m-0 bg-red-500 rounded-lg shadow-md 
      border-4 border-solid border-[black];
-  }
-  
-  .dash-cont {
+  } */
+
+  /* CONTAINER FOR ENTIRE DASHBOARD */
+  /* .dash-cont {
     @apply w-225 h-245 p-1 bg-blue-500 rounded-lg shadow-md 
     relative left-[450px] top-[10px] border-4 border-solid border-[black];
-  }
+  } */
 
-  .entry-master-cont {
-    @apply bg-blue-600 rounded-lg p-1 m-1 border-2 border-solid border-[black]
-  }
+  /* MYSTERY CONTAINER FOR ENTRY? */
+  /* .entry-master-cont {
+    @apply bg-blue-600 rounded-lg p-1 m-1 border-2 border-solid border-[black];
+  } */
 
-  .lgn-reg-field {
+  /* LOGIN-REGISTER FIELDS*/
+  /* .lgn-reg-field {
     @apply w-full px-4 py-2 mb-4 border border-gray-200 rounded-lg 
         focus:outline-none focus:border-blue-500 text-black;
-  }
+  } */
 
-  .error-success {
+  /* ERROR & SUCCESS MESSAGE
+  /* .error-success {
     @apply text-green-600 mb-4;
-  }
+  } */
 
-  .error-message {
+  /* .error-message {
     @apply text-red-600 mb-4;
-  }
+  } */
 
-  .header-style {
+  /* MAIN HEADER
+  /* .header-style {
     @apply flex justify-center gap-1 text-[20px] bg-white rounded-lg 
          m-1 border-2 border-solid border-[black];
-  }
+  } */
 
-  .footer-style {
+  /* MAIN FOOTER
+  /* .footer-style {
     @apply flex justify-center gap-1 text-xl bg-white rounded-lg 
          m-1 border-2 border-solid border-[black] mt-2;
-  }
+  } */
 
-  .dropdown-style {
+  /* MYSTERY DROPDOWN STYLE */
+  /* .dropdown-style {
     @apply bg-blue-700 rounded-lg text-white
          m-2.25 border-2 border-solid border-[black] 
          items-center justify-center;
-  }
-  
-  .title-style {
-    @apply flex m-2 justify-center text-4xl m-4 rounded-lg;
-  }
+  } */
 
-  .user-title-style {
+  /* APP TITLE STYLE */
+  /* .title-style {
+    @apply flex m-2 justify-center text-4xl m-4 rounded-lg;
+  } */
+
+  /* USER NAME STYLE */
+  /* .user-title-style {
     @apply flex justify-center text-[35px] text-black
           bg-white text-3xl mb-4;
-  }
+  } */
 
-  .new-entry {
+  /* MYSTERY NEW ENTRY STYLE */
+  /* .new-entry {
     @apply bg-black text-white rounded-lg p-2 m-2 border-2 border-solid border-[black]
          cursor-pointer justify-center items-center hover:bg-red-700;
-  }
+  } */
 
-  .btn-style {
+  /* MYSTERY BUTTON STYLE NUMBER 1 */
+  /* .btn-style {
     @apply bg-blue-700 text-black rounded-lg p-2 m-2 border-2 border-solid border-[black]
          cursor-pointer justify-center items-center;
-  }
+  } */
 
-  .btn-style {
+  /* MYSTERY BUTTON STYLE NUMBER 2 */
+  /* .btn-style {
     background-color: bg-blue-500 !important;
     color: white !important;
-  }
+  } */
 
-  .btn-style:hover {
-    background-color: #b91c1c !important;
-  }
+  /* BUTTON HOVER */
+  /* .btn-style:hover {
+    background-color: #b91c1c !important; 
+  } */
 
- .x-btn {
+  /* MYSTERY MODAL X CLOSE BUTTON NUMBER 1 */
+  /* .x-btn {
     @apply relative bottom-[30px] left-[245px] p-1 pr-2 pl-2 m-0
-    bg-transparent text-xl text-black rounded-lg border-2 border-black; 
-  }
+    bg-transparent text-xl text-black rounded-lg border-2 border-black;
+  } */
 
-  .x-btn {
+  /* MYSTERY MODAL X CLOSE BUTTON NUMBER 2 */
+  /* .x-btn {
     background-color: white !important;
     color: black !important;
-  }
+  } */
 
-  .x-btn:hover {
-    background-color: #b91c1c !important;
+  /* MODAL X CLOSE BUTTON HOVER */
+  /* .x-btn:hover {
+    background-color: #b91c1c !important; 
     cursor: pointer;
-  }
+  } */
 
-  .analytics {
+  /* ANALYTICS CARDS */
+  /* .analytics {
     @apply p-4 border-2 border-solid border-[black] rounded-lg;
-  }
+  } */
 
-  .main-modal {
-    @apply bg-transparent shadow-none
-  }
+  /* MYSTERY MODAL */
+  /* .main-modal {
+    @apply bg-transparent shadow-none;
+  } */
 
-  .main-modal-2 {
-    @apply bg-transparent shadow-none relative bottom-[150px] right-[50px]
-  }
+  /* MYSTERY MODAL 2 */
+  /* .main-modal-2 {
+    @apply bg-transparent shadow-none relative bottom-[150px] right-[50px];
+  } */
 
-  .modal-body {
-    @apply px-1 !pt-0 !pb-0 !mb-0 !mt-0 relative overflow-hidden
-  }
+  /* MYSTERY MODAL BODY */
+  /* .modal-body {
+    @apply px-1 !pt-0 !pb-0 !mb-0 !mt-0 relative overflow-hidden;
+  } */
 
-  .entry-cont-style {
+  /* MYSTERY ENTRY CONTAINER STYLE */
+  /* .entry-cont-style {
     @apply flex relative text-black justify-center items-center gap-2 text-xl
          rounded-lg m-0 p-8;
-  }
+  } */
 
-  .user-entry-cont-style {
+  /* MYSTERY USER ENTRY CONTAINER STYLE */
+  /* .user-entry-cont-style {
     @apply bg-white rounded-lg m-4 p-3 border-2 border-black justify-center flex text-2xl;
-  }
+  } */
 
-  .entry-title-style {
+  /* MYSTERY ENTRY TITLE */
+  /* .entry-title-style {
     @apply flex m-5 justify-center items-center relative top-[-30px] bg-white text-black
         rounded-lg border-2 border-solid border-[black] p-1;
-  }
+  } */
 
-  .new-entry-title-style {
+  /* MYSTERY NEW ENTRY TITLE */
+  /* .new-entry-title-style {
     @apply flex mt-5 justify-center items-center relative top-[-30px] bg-blue-700 text-white
         rounded-lg border-2 border-solid border-[black] p-1;
-  }
+  } */
 
-  .solo-entry {
-    @apply flex border-2 border-solid border-[black] rounded-lg bg-white
-  }
+  /* MYSTERY SOLO ENTRY */
+  /* .solo-entry {
+    @apply flex border-2 border-solid border-[black] rounded-lg bg-white;
+  } */
 
-  .solo-entry-style {
+  /* MYSTERY SOLO ENTRY 2 */
+  /* .solo-entry-style {
     @apply bg-white rounded-lg m-4 p-3 border-2 border-black flex text-xl h-30;
-  }
+  } */
 
-  .input-style {
+  /* MYSTERY INPUT */
+  /* .input-style {
     @apply flex justify-center items-center border-2 border-solid border-[black]
         border rounded-sm mb-2 placeholder:text-gray-200 placeholder:text-center
         placeholder:items-center;
-  }
+  } */
 
-  .mood-focus {
-    @apply ml-3 text-white text-base bg-blue-700 border-2 border-solid border-[black] rounded-lg p-0.5 pl-1 pr-1
-  }
+  /* MOOD & FOCUS */
+  /* .mood-focus {
+    @apply ml-3 text-white text-base bg-blue-700 border-2 border-solid border-[black] rounded-lg p-0.5 pl-1 pr-1;
+  } */
 
-  .edit-style {
+  /* MYSTERY EDIT */
+  /* .edit-style {
     @apply text-black text-base absolute right-[100px] hover:text-xl cursor-pointer;
-  }
-  
-  .delete-style {
+  } */
+
+  /* MYSTERY DELETE */
+  /* .delete-style {
     @apply text-black text-base absolute right-[50px] hover:text-xl cursor-pointer;
   }
 }
