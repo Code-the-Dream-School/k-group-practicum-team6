@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 
 @layer components {
   /* MYSTERY CONTAINER 1 */
@@ -183,18 +185,29 @@
   /* .delete-style {
     @apply text-black text-base absolute right-[50px] hover:text-xl cursor-pointer;
   }
+}
+
+.custom-modal [class*="modal"] > div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.input-style {
+  @apply bg-white
+         border border-gray-200
+         rounded-lg
+         px-3 py-2
+         text-sm
+         text-gray-900
+         outline-none
+         focus:outline-none
+         focus:ring-0
+         focus:border-gray-300;
 } */
 
-  /* MYSTERY CUSTOM MODAL
-  /* .custom-modal [class*="modal"] > div {
-    margin: 0 !important;
-    padding: 0 !important;
-  } */
-
-  /* MYSTERY GLOBAL CSS OVERRIDE? */
-  /* Force modal content to have no extra space */
-  /* div[role="dialog"] > div {
+/* Force modal content to have no extra space */
+/* div[role="dialog"] > div {
   width: fit-content !important;
   margin: auto !important;
-  background: transparent !important; */
-}
+  background: transparent !important;
+} */
