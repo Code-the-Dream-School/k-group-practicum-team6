@@ -50,7 +50,7 @@ const DashBoard = () => {
             <EntryModal
               mode="new"
               onClose={() => setNewEntriesModal(false)}
-              onSave={handleCreateEntry}
+              onSubmit={handleCreateEntry}
             />
           </ModalBody>
         </Modal>
