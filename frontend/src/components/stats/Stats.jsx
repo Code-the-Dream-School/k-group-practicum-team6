@@ -1,62 +1,56 @@
-import { Clock, BarChart3, Smile, Target } from "lucide-react";
+import { Clock, Target, Smile } from "lucide-react";
 import { StatCard } from "./StatCard";
+import { useContext } from "react";
+import { StatsContext } from "../../contexts/StatsContext.jsx";
 
-//mocked stats
-const stats = [
-  {
-    id: "time_spent",
-    label: "Time Spent",
-    value: "10h 0m",
-    sub: "Total study time",
-  },
-  {
-    id: "avg_focus",
-    label: "Average Focus",
-    value: "3.0 / 5",
-    sub: "Across all sessions",
-  },
-  {
-    id: "mood",
-    label: "Overall Mood",
-    value: "10x!",
-    sub: "Most common this week",
-  },
-];
-
-//color mock
 const COLOR_MAP = {
-  time_spent: {
-    icon: "text-green-500",
-    bg: "#ECFDF5",
-  },
-  avg_focus: {
-    icon: "text-blue-500",
-    bg: "#EFF6FF",
-  },
-  mood: {
-    icon: "text-purple-500",
-    bg: "#F5F3FF",
-  },
+  timeSpent: { icon: "text-green-500", bg: "#ECFDF5" },
+  averageFocus: { icon: "text-blue-500", bg: "#EFF6FF" },
+  overallMood: { icon: "text-purple-500", bg: "#F5F3FF" },
 };
 
-// icons mock
 const ICONS_MAP = {
-  time_spent: Clock,
-  avg_focus: Target,
-  mood: Smile,
+  timeSpent: Clock,
+  averageFocus: Target,
+  overallMood: Smile,
 };
 
 export default function Stats() {
+  const { stats } = useContext(StatsContext);
+
+  const displayStats = [
+    {
+      key: "timeSpent",
+      label: "Time Spent",
+      value: stats
+        ? `${stats.timeSpent.hours}h ${stats.timeSpent.minutes}m`
+        : null,
+      sub: "Total study time",
+    },
+    {
+      key: "averageFocus",
+      label: "Average Focus",
+      value: stats?.averageFocus ?? "no stats",
+      sub: "Across all sessions",
+    },
+    {
+      key: "overallMood",
+      label: "Overall Mood",
+      value: stats?.overallMood || "no stats",
+      sub: "Most common this week",
+    },
+  ];
+
   return (
     <>
-      {stats.map((stat) => (
+      {displayStats.map(({ key, label, value, sub }) => (
         <StatCard
-          key={stat.id}
-          label={stat.label}
-          value={stat.value}
-          sub={stat.sub}
-          icon={ICONS_MAP[stat.id]}
-          color={COLOR_MAP[stat.id]}
+          key={key}
+          label={label}
+          value={value}
+          sub={sub}
+          icon={ICONS_MAP[key]}
+          color={COLOR_MAP[key]}
         />
       ))}
     </>

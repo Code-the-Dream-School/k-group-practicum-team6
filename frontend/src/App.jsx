@@ -4,6 +4,8 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginRegister from "./pages/LoginRegister";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashBoard from "./pages/DashBoard";
+import { EntryProvider } from "./contexts/EntryContext.jsx";
+import { StatsProvider } from "./contexts/StatsContext.jsx";
 
 const App = () => {
   return (
@@ -14,7 +16,11 @@ const App = () => {
           path="/dashboard"
           element={
             <ProtectedRoute>
-              <DashBoard />
+              <EntryProvider>
+                <StatsProvider>
+                <DashBoard />
+                </StatsProvider>
+              </EntryProvider>
             </ProtectedRoute>
           }
         />
