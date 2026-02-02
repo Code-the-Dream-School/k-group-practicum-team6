@@ -101,10 +101,15 @@ const deleteEntry = async(req, res, next) => {
   res.status(StatusCodes.OK).json({ msg: "Entry deleted" });
 };
 
+const loadEntries = async (req, res, next) => {
+
+};
+
 module.exports = {
   getAllEntries,
   getEntry,
   createEntry,
   updateEntry,
   deleteEntry,
+  loadEntries
 }
