@@ -1,17 +1,23 @@
-import { API_URL } from "../config/api";
-import { STATS_ROUTE } from "../config/api";
+import { API_URL, STATS_ROUTE } from "../config/api";
 
 const statsApi = {
   async getUserStats(signal) {
-    const res = await fetch(`${API_URL}/${STATS_ROUTE}/dashboard-stats`, {
-      credentials: "include",
-      signal,
-    });
-    if (!res.ok) throw new Error("Failed to fetch stats");
-    return await res.json();
+    try {
+      const res = await fetch(`${API_URL}/${STATS_ROUTE}/dashboard-stats`, {
+        credentials: "include",
+        signal,
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch dashboard statistics.");
+      }
+      return await res.json();
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        console.error("API Error [getUserStats]:", err.message);
+      }
+      throw err;
+    }
   },
 };
 
 export default statsApi;
-
-

@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import Layout from "./components/styles/layout/Layout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginRegister from "./pages/LoginRegister";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -10,6 +11,7 @@ import { StatsProvider } from "./contexts/StatsContext.jsx";
 const App = () => {
   return (
     <>
+    <Layout>
       <Routes>
         <Route path="/" element={<LoginRegister />} />
         <Route
@@ -26,6 +28,7 @@ const App = () => {
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      </Layout>
     </>
   );
 };

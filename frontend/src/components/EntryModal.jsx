@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import Modal from "./Modal";
 import EntryForm from "./EntryForm";
 import { FaTimes } from "react-icons/fa";
 
@@ -37,7 +36,6 @@ const EntryModal = ({ mode, entry, onClose, onSubmit }) => {
             />
           </button>
         </div>
-
         <EntryForm
           initialData={entry}
           onSubmit={handleSubmit}

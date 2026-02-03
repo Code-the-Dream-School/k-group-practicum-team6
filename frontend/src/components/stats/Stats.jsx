@@ -24,7 +24,7 @@ export default function Stats() {
       label: "Time Spent",
       value: stats
         ? `${stats.timeSpent.hours}h ${stats.timeSpent.minutes}m`
-        : null,
+        : "no stats",
       sub: "Total study time",
     },
     {
