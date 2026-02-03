@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EntryForm from "./EntryForm";
-import { FaTimes } from "react-icons/fa";
+import { Modal } from "flowbite-react";
+import { X } from "lucide-react";
 
 const EntryModal = ({ mode, entry, onClose, onSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,28 +22,28 @@ const EntryModal = ({ mode, entry, onClose, onSubmit }) => {
   };
 
   return (
-      <div className="relative bg-white p-6 space-y-4 w-[550px] rounded-xl">
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-gray-800">{titleText}</h1>
+    <div className="relative bg-white p-6 space-y-4 w-lg rounded-xl">
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold text-gray-800">{titleText}</h1>
 
-          <button
-            type="button"
-            onClick={onClose}
-            className="absolute top-4 right-4 group"
-          >
-            <FaTimes
-              size={20}
-              className="text-gray-400 group-hover:text-red-500 transition-colors"
-            />
-          </button>
-        </div>
-        <EntryForm
-          initialData={entry}
-          onSubmit={handleSubmit}
-          onCancel={onClose}
-          isLoading={isSubmitting}
-        />
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-4 right-4 group"
+        >
+          <X
+            size={25}
+            className="text-gray-400 group-hover:text-red-500 transition-colors"
+          />
+        </button>
       </div>
+      <EntryForm
+        initialData={entry}
+        onSubmit={handleSubmit}
+        onCancel={onClose}
+        isLoading={isSubmitting}
+      />
+    </div>
   );
 };
 
