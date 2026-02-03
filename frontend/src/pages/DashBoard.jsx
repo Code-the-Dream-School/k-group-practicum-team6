@@ -5,10 +5,15 @@ import Header from "../components/Header";
 import Entries from "./Entries";
 import EntryModal from "../components/EntryModal";
 import Stats from "../components/stats/Stats";
+import { useEntries } from "../hooks/useEntries";
 
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
-  const [entriesModal, setEntriesModal] = useState(false);
+  const { createEntry } = useEntries();
+
+  const handleCreateEntry = async (formData) => {
+    await createEntry(formData);
+  };
 
   return (
     <>
@@ -26,32 +31,27 @@ const DashBoard = () => {
               Add New Entry
             </Button>
           </div>
-
           <Modal
             show={newEntriesModal}
             onClose={() => setNewEntriesModal(false)}
-            size="md"
             theme={{
-              content: { base: "main-modal" },
+              content: { base: "main-modal w-fit h-fit" },
               body: { base: "p-0 pt-0 pb-0" },
             }}
+            className="bg-black/40"
           >
             <ModalBody>
               <EntryModal
                 mode="new"
                 onClose={() => setNewEntriesModal(false)}
-                onSave={(data) => {
-                  console.log("Create entry:", data);
-                }}
+                onSubmit={handleCreateEntry}
               />
             </ModalBody>
           </Modal>
         </div>
+
         {/* user entries */}
-        <Entries
-          entriesModal={entriesModal}
-          setEntriesModal={setEntriesModal}
-        />
+        <Entries />
 
         {/* <Footer /> */}
       </div>

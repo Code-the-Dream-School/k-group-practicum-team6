@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router";
+import { useSearchParams } from "react-router";
 import { Button, Card, Pagination } from "flowbite-react";
 import {
   CircleArrowLeft,
@@ -9,16 +9,22 @@ import {
   CalendarDays,
   Hourglass,
 } from "lucide-react";
+import { Modal, ModalBody } from "flowbite-react";
 import EntryModal from "../components/EntryModal";
-import jsonData from "../utils/entries";
+import { useEntries } from "../hooks/useEntries";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Entries = () => {
-  const [entries, setEntries] = useState(jsonData);
+  const { entries, loading, deleteEntry, updateEntry } = useEntries();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
 
+  //delete state for confirm modal
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [entryToDelete, setEntryToDelete] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const itemsPerPage = 5;
 
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
@@ -38,22 +44,42 @@ const Entries = () => {
   };
 
   useEffect(() => {
-    if (totalPages > 0) {
-      if (currentPage < 1 || currentPage > totalPages) {
-        navigate("/");
-      }
+    if (currentEntries.length === 0 && currentPage > 1) {
+      setSearchParams({ page: currentPage - 1 });
     }
-  }, [currentPage, totalPages, navigate]);
+  }, [currentEntries.length, currentPage, setSearchParams]);
 
   const handleEditClick = (entry) => {
     setSelectedEntry(entry);
     setEditModalOpen(true);
   };
 
-  const handleSaveEdit = (updatedEntry) => {
-    console.log("Updated Entry:", updatedEntry);
-    setEditModalOpen(false);
+  const handleDelete = (entry) => {
+    setEntryToDelete(entry);
+    setIsDeleteModalOpen(true);
   };
+
+  // delete confirmation
+  const handleConfirmDelete = async () => {
+    if (!entryToDelete) return;
+    setIsDeleting(true);
+    try {
+      await deleteEntry(entryToDelete._id || entryToDelete.id);
+      setIsDeleteModalOpen(false);
+    } catch (err) {
+      console.error("Delete failed:", err);
+    } finally {
+      setIsDeleting(false);
+      setEntryToDelete(null);
+    }
+  };
+
+  const handleSaveEdit = async (formData) => {
+    if (!selectedEntry) return;
+    await updateEntry(selectedEntry._id || selectedEntry.id, formData);
+  };
+
+  if (loading && entries.length === 0) return <div>Loading Entries...</div>;
 
   return (
     <>
@@ -82,7 +108,7 @@ const Entries = () => {
                           <SquarePen />
                         </Button>
 
-                        <Button size="sm">
+                        <Button size="sm" onClick={() => handleDelete(item)}>
                           <Trash />
                         </Button>
                       </div>
@@ -100,15 +126,45 @@ const Entries = () => {
             ))}
           </ul>
           {editModalOpen && selectedEntry && (
-            <EntryModal
-              mode="edit"
-              entry={selectedEntry}
+            <Modal
+              show={editModalOpen}
               onClose={() => setEditModalOpen(false)}
-              onSave={handleSaveEdit}
-            />
+              theme={{
+                content: { base: "main-modal w-fit h-fit" },
+                body: { base: "p-0 pt-0 pb-0" },
+              }}
+              className=" bg-black/40"
+            >
+              <ModalBody>
+                <EntryModal
+                  mode="edit"
+                  entry={selectedEntry}
+                  onClose={() => setEditModalOpen(false)}
+                  onSubmit={handleSaveEdit}
+                />
+              </ModalBody>
+            </Modal>
+          )}
+          {isDeleteModalOpen && (
+            <Modal
+              show={isDeleteModalOpen}
+              onClose={() => setIsDeleteModalOpen(false)}
+              theme={{ content: { base: "main-modal w-fit" }, body: { base: "p-0" } }}
+              className="bg-black/40"
+            >
+              <ModalBody>
+                <ConfirmModal
+                  title="Delete Entry?"
+                  message={`Are you sure you want to delete "${entryToDelete?.subject}"? This action cannot be undone.`}
+                  onConfirm={handleConfirmDelete}
+                  onCancel={() => setIsDeleteModalOpen(false)}
+                  isLoading={isDeleting}
+                />
+              </ModalBody>
+            </Modal>
           )}
         </div>
-        <div className=" flex items-center justify-center mx-2 space-x-3">
+            <div className=" flex items-center justify-center mx-2 space-x-3">
           <Button
             className="cursor-pointer"
             onClick={() => handlePreviousPage(currentPage)}
