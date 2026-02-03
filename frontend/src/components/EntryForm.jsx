@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { entrySchema } from "../components/EntryFormValidation/entrySchema";
 
-const EntryForm = ({ initialData, onSubmit, onCancel }) => {
+const EntryForm = ({ initialData, onSubmit, isLoading }) => {
   const {
     register,
     handleSubmit,
@@ -11,28 +11,29 @@ const EntryForm = ({ initialData, onSubmit, onCancel }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(entrySchema),
-    defaultValues: {
-      subject: "",
-      hours: 0,
-      minutes: 0,
-      mood: "",
-      focusLevel: "",
-      details: "",
-      ...initialData,
-    },
   });
-
-  useEffect(() => {
-    if (initialData) {
-      reset(initialData);
-    }
-  }, [initialData, reset]);
-
   const [isDurationOpen, setIsDurationOpen] = useState(false);
 
+  useEffect(() => {
+    reset({
+      subject: initialData?.subject || "",
+      hours: initialData ? Math.floor(initialData.duration / 60) : 0,
+      minutes: initialData ? initialData.duration % 60 : 0,
+      mood: initialData?.mood || "good",
+      focusLevel: initialData?.focus || "3",
+      details: initialData?.details || "",
+    });
+  }, [initialData, reset]);
+
   const handleFormSubmit = (data) => {
-    onSubmit(data);
-    reset();
+    const payload = {
+      subject: data.subject,
+      duration: Number(data.hours) * 60 + Number(data.minutes),
+      mood: data.mood,
+      focus: Number(data.focusLevel),
+      details: data.details,
+    };
+    onSubmit(payload);
   };
 
   let durationContent;
@@ -89,42 +90,60 @@ const EntryForm = ({ initialData, onSubmit, onCancel }) => {
           <label className="text-md text-gray-700 font-medium">Subject</label>
 
           <input
-            type="text"
+            {...register("subject")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+              }
+            }}
+            className="input-style"
             placeholder="Entry subject"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            className="text-sm 
-                      text-gray-900 input-style 
-                      placeholder:text-gray-400
-                      bg-white
-                      border border-gray-300 
-                      rounded-lg px-4 py-2 
-                      shadow-sm hover:shadow-md 
-                      focus:outline-none focus:ring-2 
-                      focus:ring-blue-400"
           />
+          {errors.subject && (
+            <p className="text-red-500 text-sm">{errors.subject.message}</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
           <label className="text-md text-gray-700 font-medium">Duration</label>
+
+          <input
+            type="hidden"
+            {...register("hours", { valueAsNumber: true })}
+          />
+          <input
+            type="hidden"
+            {...register("minutes", { valueAsNumber: true })}
+          />
+
           {durationContent}
+
+          {errors.hours && (
+            <p className="text-red-500 text-sm">{errors.hours.message}</p>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
             <label className="text-md text-gray-700 font-medium">Mood</label>
             <select
-              value={mood}
-              onChange={(e) => setMood(e.target.value)}
-              className={`text-sm ${getSelectTextColor(mood)} input-style w-full bg-white  border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-left`}
+              {...register("mood")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                }
+              }}
+              className={`input-style ${getSelectTextColor("")}`}
             >
-              <option value="">Mood</option>
               <option value="awful">awful</option>
               <option value="bad">bad</option>
               <option value="meh">meh</option>
               <option value="good">good</option>
               <option value="amazing">amazing</option>
             </select>
+            {errors.mood && (
+              <p className="text-red-500 text-sm">{errors.mood.message}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1">
@@ -132,23 +151,26 @@ const EntryForm = ({ initialData, onSubmit, onCancel }) => {
               Focus level
             </label>
             <select
-              value={focusLevel}
-              onChange={(e) => setFocusLevel(e.target.value)}
-              className={`input-style text-sm ${getSelectTextColor(focusLevel)}  w-full bg-white  
-                              border border-gray-300 rounded-lg px-4 py-2 
-                              shadow-sm hover:shadow-md 
-                              focus:outline-none focus:ring-2 focus:ring-blue-400 
-                              text-left`}
+              {...register("focusLevel")}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                }
+              }}
+              className="input-style"
             >
-              <option value="" text-gray-400>
-                Focus Level
-              </option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
+
+            {errors.focusLevel && (
+              <p className="text-red-500 text-sm">
+                {errors.focusLevel.message}
+              </p>
+            )}
           </div>
         </div>
 
@@ -156,15 +178,17 @@ const EntryForm = ({ initialData, onSubmit, onCancel }) => {
           <label className="text-md text-gray-700 font-medium">Details</label>
 
           <textarea
-            value={details}
-            onChange={(e) => setDetails(e.target.value)}
-            className="input-style bg-white placeholder-black border border-gray-300 rounded-lg px-4 py-2 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 min-h-[140px] resize-y"
+            {...register("details")}
+            className="input-style min-h-32 resize-y"
           />
         </div>
 
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+          disabled={isLoading}
+          className={`bg-blue-500 text-white px-4 py-2 rounded-lg transition ${
+            isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+          }`}
         >
           Submit Entry
         </button>
