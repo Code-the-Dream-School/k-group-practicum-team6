@@ -15,11 +15,14 @@ const getAllEntries = async (req, res) => {
   //prevent sorting by random fields
   const allowedFields = ["createdAt", "updatedAt", "title"];
   let sortBy = "createdAt";
-  if (sort) {
+
+  let entries = await Entry.find(query).sort("createdAt");
+    if (sort) {
     const field = sort.replace("-", "");
-    if (allowedFields.includes(field)) sortBy = sort;
+    if (allowedFields.includes(field)) {
+      entries = await Entry.find(query).sort(sort);
+    }
   }
-  const entries = await Entry.find(query).sort("createdAt");
   res
     .status(StatusCodes.OK)
     .json({ entries, count: entries.length, sort: sortBy });
