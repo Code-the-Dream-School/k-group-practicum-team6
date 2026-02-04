@@ -2,7 +2,7 @@
 @import "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-@layer components {
+@layer components {};
   /* MYSTERY CONTAINER 1 */
   /* .master-cont {
     @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md;
