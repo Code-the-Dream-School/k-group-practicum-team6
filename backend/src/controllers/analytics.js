@@ -3,6 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const getDashboardStats = async (req, res) => {
   const userId = req.user.userId;
+  console.log ("User ID in analytics controller:", userId);
 
   // get all entries for the user
   const entries = await Entry.find({ createdBy: userId });

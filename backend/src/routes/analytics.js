@@ -3,6 +3,6 @@ const router = express.Router();
 
 const { getDashboardStats } = require('../controllers/analytics');
 
-router.get('/dashboard-stats', getDashboardStats);
+router.get('/dashboard', getDashboardStats);
 
 module.exports = router;
