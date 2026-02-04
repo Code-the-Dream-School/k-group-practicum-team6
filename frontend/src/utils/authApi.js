@@ -1,7 +1,8 @@
 import { API_URL } from "../config/api";
+import { AUTH_ROUTE } from "../config/api";
 const authApi = {
   async login({ email, password }) {
-    const res = await fetch(`${API_URL}/auth/login`, {
+    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +20,7 @@ const authApi = {
   },
 
   async register(data) {
-    const res = await fetch(`${API_URL}/auth/register`, {
+    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -30,7 +31,7 @@ const authApi = {
   },
 
   async me() {
-    const res = await fetch(`${API_URL}/auth/me`, {
+    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/me`, {
       credentials: "include",
     });
 
@@ -39,7 +40,7 @@ const authApi = {
   },
 
   async logout() {
-    await fetch(`${API_URL}/auth/logout`, {
+    await fetch(`${API_URL}/${AUTH_ROUTE}/logout`, {
       method: "POST",
       credentials: "include",
     });

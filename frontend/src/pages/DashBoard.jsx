@@ -1,73 +1,58 @@
 import { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "flowbite-react";
+import { Button, Modal, ModalBody } from "flowbite-react";
 import { FilePlusCorner } from "lucide-react";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Entries from "./Entries";
 import EntryModal from "../components/EntryModal";
+import Stats from "../components/stats/Stats";
+import { useEntries } from "../hooks/useEntries";
 
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
-  const [entriesModal, setEntriesModal] = useState(false);
-  
+  const { createEntry } = useEntries();
+
+  const handleCreateEntry = async (formData) => {
+    await createEntry(formData);
+  };
+
   return (
     <>
-      <div className="dash-cont">
-        {/* change to `Welcome ${name}`! */}
+      <div>
+        <div className="mx-auto max-w-6xl px-6 py-4 font-medium">
+          <Header />
+          <div className="flex justify-around m-8">
+            <Stats />
+          </div>
 
-        <Header setNewEntriesModal={setNewEntriesModal} />
-        <div className="flex justify-around">
-          <div className="analytics">
-              <p>Time Spent</p>
-              <br/>
-              <p>__ hrs __ mins</p>
-              <br/>
-              <p>Total Study Time</p>
+          <div className="flex flex-row justify-between items-center">
+            <h2 className="text-xl">Recent Entries</h2>
+            <Button onClick={() => setNewEntriesModal(true)}>
+              <FilePlusCorner />
+              Add New Entry
+            </Button>
           </div>
-          <div className="analytics">
-              <p>Average Focus</p>
-              <br/>
-              <p>4/5</p>
-              <br/>
-              <p>Across all sessions</p>
-          </div>
-              <div className="analytics">
-              <p>Overall Mood</p>
-              <br/>
-              <p>Great!!</p>
-              <br/>
-              <p>Pretty, pretty good</p>
-          </div>
-        </div>
-         <div className="flex m-2">
-           <h2 className="relative top-[10px] left-[8px] font-bold">Recent Entries</h2>
-           <button className="btn-style relative left-[695px] top-[-10px]" 
-           onClick={() => setNewEntriesModal(true)}><FilePlusCorner/></button>
-        </div> 
-        
-        <Modal
-          show={newEntriesModal}
-          onClose={() => setNewEntriesModal(false)}
-          size="md"
-          theme={{
-            content: { base: "main-modal" },
-            body: { base: "p-0 pt-0 pb-0" },
-          }}
-        >
-          <ModalBody>
-            <EntryModal 
-            mode="new"
+          <Modal
+            show={newEntriesModal}
             onClose={() => setNewEntriesModal(false)}
-            onSave={(data) => {
-              console.log("Create entry:", data);
-            }} />
-          </ModalBody>
-        </Modal>
+            theme={{
+              content: { base: "main-modal w-fit h-fit" },
+              body: { base: "p-0 pt-0 pb-0" },
+            }}
+            className="bg-black/40"
+          >
+            <ModalBody>
+              <EntryModal
+                mode="new"
+                onClose={() => setNewEntriesModal(false)}
+                onSubmit={handleCreateEntry}
+              />
+            </ModalBody>
+          </Modal>
+        </div>
 
         {/* user entries */}
-        <Entries entriesModal={entriesModal} setEntriesModal={setEntriesModal}/>
-       
-    
+        <Entries />
+
         {/* <Footer /> */}
       </div>
     </>
