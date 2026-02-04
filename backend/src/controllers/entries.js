@@ -1,4 +1,5 @@
 const Entry = require("../models/Entry");
+const { sortEntries } = require("../utils/sort")
 const { fetchEntries } = require("./cursor");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
@@ -7,25 +8,17 @@ const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
 const getAllEntries = async (req, res) => {
   //admin role
   const { userId, role } = req.user;
-
   const query = role === "admin" ? {} : { createdBy: userId };
 
   //sorting
-  const { sort } = req.query;
-  //prevent sorting by random fields
-  const allowedFields = ["createdAt", "updatedAt", "title"];
-  let sortBy = "createdAt";
+  const sortBy = sortEntries(req.query);
+  let entriesQuery = Entry.find(query).sort("createdAt");
 
-  let entries = await Entry.find(query).sort("createdAt");
-    if (sort) {
-    const field = sort.replace("-", "");
-    if (allowedFields.includes(field)) {
-      entries = await Entry.find(query).sort(sort);
-    }
-  }
+  if (sortBy) entriesQuery = entriesQuery.sort(sortBy);
+  const entries = await entriesQuery;
   res
     .status(StatusCodes.OK)
-    .json({ entries, count: entries.length, sort: sortBy });
+    .json({ entries, count: entries.length, sort: sortBy || "createdAt" });
 };
 
 //-- GET an entry
