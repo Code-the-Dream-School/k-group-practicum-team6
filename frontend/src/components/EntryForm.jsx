@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { entrySchema } from "../components/EntryFormValidation/entrySchema";
 import { Button, Label, Select, Textarea, TextInput } from "flowbite-react";
 
-const EntryForm = ({ initialData, onSubmit, isLoading }) => {
+const EntryForm = ({ initialData, persistEntry, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -25,16 +25,32 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
     });
   }, [initialData, reset]);
 
-  const handleFormSubmit = (data) => {
-    const payload = {
-      subject: data.subject,
-      duration: Number(data.hours) * 60 + Number(data.minutes),
-      mood: data.mood,
-      focus: Number(data.focusLevel),
-      details: data.details,
-    };
-    onSubmit(payload);
-  };
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleFormSubmit = useCallback(
+    (data) => {
+      const payload = {
+        subject: data.subject,
+        duration: Number(data.hours) * 60 + Number(data.minutes),
+        mood: data.mood,
+        focus: Number(data.focusLevel),
+        details: data.details,
+      };
+      const submitEntry = async () => {
+        setIsLoading(true);
+        try {
+          await persistEntry(payload);
+          onClose();
+        } catch (err) {
+          console.log("error while saving:", err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      submitEntry();
+    },
+    [persistEntry, onClose],
+  );
 
   return (
     <div className="w-full max-w-xl rounded-xl shadow-lg">

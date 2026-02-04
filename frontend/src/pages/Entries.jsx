@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useSearchParams } from "react-router";
-import { Button, Card, Pagination } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 import {
   CircleArrowLeft,
   CircleArrowRight,
@@ -74,10 +74,13 @@ const Entries = () => {
     }
   };
 
-  const handleSaveEdit = async (formData) => {
-    if (!selectedEntry) return;
-    await updateEntry(selectedEntry._id || selectedEntry.id, formData);
-  };
+  const handleSaveEdit = useCallback(
+    async (formData) => {
+      if (!selectedEntry) return;
+      await updateEntry(selectedEntry._id || selectedEntry.id, formData);
+    },
+    [selectedEntry, updateEntry],
+  );
 
   if (loading && entries.length === 0) return <div>Loading Entries...</div>;
 
@@ -140,7 +143,7 @@ const Entries = () => {
                   mode="edit"
                   entry={selectedEntry}
                   onClose={() => setEditModalOpen(false)}
-                  onSubmit={handleSaveEdit}
+                  persistEntry={handleSaveEdit}
                 />
               </ModalBody>
             </Modal>
@@ -149,7 +152,10 @@ const Entries = () => {
             <Modal
               show={isDeleteModalOpen}
               onClose={() => setIsDeleteModalOpen(false)}
-              theme={{ content: { base: "main-modal w-fit" }, body: { base: "p-0" } }}
+              theme={{
+                content: { base: "main-modal w-fit" },
+                body: { base: "p-0" },
+              }}
               className="bg-black/40"
             >
               <ModalBody>
@@ -164,7 +170,7 @@ const Entries = () => {
             </Modal>
           )}
         </div>
-            <div className=" flex items-center justify-center mx-2 space-x-3">
+        <div className=" flex items-center justify-center mx-2 space-x-3">
           <Button
             className="cursor-pointer"
             onClick={() => handlePreviousPage(currentPage)}

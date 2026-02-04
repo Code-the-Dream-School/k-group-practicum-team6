@@ -1,25 +1,9 @@
-import { useState } from "react";
 import EntryForm from "./EntryForm";
-import { Modal } from "flowbite-react";
 import { X } from "lucide-react";
 
-const EntryModal = ({ mode, entry, onClose, onSubmit }) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+const EntryModal = ({ mode, entry, persistEntry, onClose }) => {
   let titleText = "New Entry";
   if (mode === "edit") titleText = "Edit Entry";
-
-  const handleSubmit = async (formData) => {
-    setIsSubmitting(true);
-    try {
-      await onSubmit(formData);
-      onClose();
-    } catch (err) {
-      console.log("error while saving:", err);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <div className="relative bg-white p-6 space-y-4 w-lg rounded-xl">
@@ -39,9 +23,8 @@ const EntryModal = ({ mode, entry, onClose, onSubmit }) => {
       </div>
       <EntryForm
         initialData={entry}
-        onSubmit={handleSubmit}
-        onCancel={onClose}
-        isLoading={isSubmitting}
+        persistEntry={persistEntry}
+        onClose={onClose}
       />
     </div>
   );

@@ -11,10 +11,6 @@ const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
   const { createEntry } = useEntries();
 
-  const handleCreateEntry = async (formData) => {
-    await createEntry(formData);
-  };
-
   return (
     <>
       <div>
@@ -43,8 +39,8 @@ const DashBoard = () => {
             <ModalBody>
               <EntryModal
                 mode="new"
+                persistEntry={createEntry}
                 onClose={() => setNewEntriesModal(false)}
-                onSubmit={handleCreateEntry}
               />
             </ModalBody>
           </Modal>
