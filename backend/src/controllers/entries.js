@@ -1,25 +1,35 @@
-const Entry = require('../models/Entry');
+const Entry = require("../models/Entry");
 const { fetchEntries } = require("./cursor");
-const { StatusCodes } = require('http-status-codes');
-const { BadRequestError, NotFoundError, ForbiddenError } = require('../errors');
+const { StatusCodes } = require("http-status-codes");
+const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
 
 //-- GET all entries
 const getAllEntries = async (req, res) => {
+  //admin role
   const { userId, role } = req.user;
 
-  const query = role === 'admin'
-    ? {}
-    : { createdBy: userId };
+  const query = role === "admin" ? {} : { createdBy: userId };
 
-  const entries = await Entry.find(query).sort('createdAt');
-  res.status(StatusCodes.OK).json({ entries, count: entries.length });
+  //sorting
+  const { sort } = req.query;
+  //prevent sorting by random fields
+  const allowedFields = ["createdAt", "updatedAt", "title"];
+  let sortBy = "createdAt";
+  if (sort) {
+    const field = sort.replace("-", "");
+    if (allowedFields.includes(field)) sortBy = sort;
+  }
+  const entries = await Entry.find(query).sort("createdAt");
+  res
+    .status(StatusCodes.OK)
+    .json({ entries, count: entries.length, sort: sortBy });
 };
 
 //-- GET an entry
-const getEntry = async(req, res, next) => {
+const getEntry = async (req, res, next) => {
   const {
     user: { userId, role },
-    params: { id: entryId }
+    params: { id: entryId },
   } = req;
 
   const entry = await Entry.findById(entryId);
@@ -27,15 +37,15 @@ const getEntry = async(req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== 'admin' && entry.createdBy.toString() !== userId) {
-    throw new ForbiddenError('You are not authorized to view this entry');
+  if (role !== "admin" && entry.createdBy.toString() !== userId) {
+    throw new ForbiddenError("You are not authorized to view this entry");
   }
   res.status(StatusCodes.OK).json({ entry });
 };
 
 //-- CREATE a new entry
-const createEntry = async(req, res) => {
-  const allowedFields = ['subject', 'duration', 'mood', 'focus', 'details'];
+const createEntry = async (req, res) => {
+  const allowedFields = ["subject", "duration", "mood", "focus", "details"];
   const entryData = {};
 
   allowedFields.forEach((field) => {
@@ -51,15 +61,15 @@ const createEntry = async(req, res) => {
 };
 
 //-- UPDATE an entry
-const updateEntry = async(req, res, next) => {
+const updateEntry = async (req, res, next) => {
   const {
     user: { userId, role },
     params: { id: entryId },
-    body
+    body,
   } = req;
 
   const updateData = {};
-  const allowedFields = ['subject', 'duration', 'mood', 'focus', 'details'];
+  const allowedFields = ["subject", "duration", "mood", "focus", "details"];
 
   allowedFields.forEach((field) => {
     if (body[field] !== undefined) {
@@ -68,7 +78,7 @@ const updateEntry = async(req, res, next) => {
   });
 
   if (Object.keys(updateData).length === 0) {
-    throw new BadRequestError('No valid fields provided for update');
+    throw new BadRequestError("No valid fields provided for update");
   }
 
   const entry = await Entry.findById(entryId);
@@ -76,22 +86,22 @@ const updateEntry = async(req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== 'admin' && entry.createdBy.toString() !== userId) {
-    throw new ForbiddenError('You are not authorized to update this entry');
+  if (role !== "admin" && entry.createdBy.toString() !== userId) {
+    throw new ForbiddenError("You are not authorized to update this entry");
   }
 
   // Copy fields from updateData onto entry object, run validators and update entry document
   Object.assign(entry, updateData);
-  await entry.save(); 
+  await entry.save();
 
   res.status(StatusCodes.OK).json({ entry });
 };
 
 //-- DELETE an entry
-const deleteEntry = async(req, res, next) => {
+const deleteEntry = async (req, res, next) => {
   const {
     user: { userId, role },
-    params: { id: entryId }
+    params: { id: entryId },
   } = req;
 
   const entry = await Entry.findById(entryId);
@@ -99,8 +109,8 @@ const deleteEntry = async(req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== 'admin' && entry.createdBy.toString() !== userId) {
-    throw new ForbiddenError('You are not authorized to delete this entry');
+  if (role !== "admin" && entry.createdBy.toString() !== userId) {
+    throw new ForbiddenError("You are not authorized to delete this entry");
   }
 
   await entry.deleteOne();
@@ -108,23 +118,27 @@ const deleteEntry = async(req, res, next) => {
 };
 
 const loadEntries = async (req, res) => {
-    try {
-      //set limit
-      const limit = Number(req.query.limit) || 5;
-      //create cursor
-      const cursor = req.query.cursor || null;
-      //call entries from cursor.js
-      const { entries, nextCursor } = await fetchEntries({ cursor, limit, userId: req.user.userId });
+  try {
+    //set limit
+    const limit = Number(req.query.limit) || 5;
+    //create cursor
+    const cursor = req.query.cursor || null;
+    //call entries from cursor.js
+    const { entries, nextCursor } = await fetchEntries({
+      cursor,
+      limit,
+      userId: req.user.userId,
+    });
 
-      res.json({
-         entries,
-         pagination: {
-            nextCursor,
-         },
-      })
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
+    res.json({
+      entries,
+      pagination: {
+        nextCursor,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 module.exports = {
@@ -133,5 +147,5 @@ module.exports = {
   createEntry,
   updateEntry,
   deleteEntry,
-  loadEntries
-}
+  loadEntries,
+};
