@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { entrySchema } from "../components/EntryFormValidation/entrySchema";
 import { Button, Label, Select, Textarea, TextInput } from "flowbite-react";
 
-const EntryForm = ({ initialData, onSubmit, isLoading }) => {
+const EntryForm = ({ initialData, persistEntry, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -25,16 +25,32 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
     });
   }, [initialData, reset]);
 
-  const handleFormSubmit = (data) => {
-    const payload = {
-      subject: data.subject,
-      duration: Number(data.hours) * 60 + Number(data.minutes),
-      mood: data.mood,
-      focus: Number(data.focusLevel),
-      details: data.details,
-    };
-    onSubmit(payload);
-  };
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleFormSubmit = useCallback(
+    (data) => {
+      const payload = {
+        subject: data.subject,
+        duration: Number(data.hours) * 60 + Number(data.minutes),
+        mood: data.mood,
+        focus: Number(data.focusLevel),
+        details: data.details,
+      };
+      const submitEntry = async () => {
+        setIsLoading(true);
+        try {
+          await persistEntry(payload);
+          onClose();
+        } catch (err) {
+          console.log("error while saving:", err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      submitEntry();
+    },
+    [persistEntry, onClose],
+  );
 
   return (
     <div className="w-full max-w-xl rounded-xl shadow-lg">
@@ -44,7 +60,6 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
       >
         <div className="flex flex-col gap-2">
           <Label>Subject</Label>
-
           <TextInput
             {...register("subject")}
             onKeyDown={(e) => {
@@ -98,7 +113,6 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
           </div>
         </div>
 
-        {/* MOOD STYLING */}
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
             <Label htmlFor="mood">Mood</Label>
@@ -121,7 +135,6 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
             )}
           </div>
 
-          {/* FOCUS STYLING  */}
           <div className="flex flex-col gap-1">
             <Label htmlFor="focus-level">Focus level</Label>
             <Select
@@ -147,7 +160,6 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
           </div>
         </div>
 
-        {/* DETAILS STYLING  */}
         <div className="flex flex-col gap-1">
           <Label>Details</Label>
 
@@ -157,7 +169,7 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
         <Button
           type="submit"
           disabled={isLoading}
-          className={`${
+          className={`cursor-pointer ${
             isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
           }`}
         >
