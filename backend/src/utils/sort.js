@@ -5,8 +5,8 @@ const { sort } = reqQuery;
 
    // your override logic
    if (sort) {
-     const allowedFields = ["createdAt", "updatedAt", "title"];
-     const field = sort.replace("-", "");
+     const allowedFields = ["createdAt", "updatedAt", "subject"];
+     const field = sort.replace("-", "");//overall sorting
 
      if (allowedFields.includes(field)) {
        sortBy = sort; // override ONLY if valid
