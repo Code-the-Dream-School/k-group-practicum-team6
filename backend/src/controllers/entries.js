@@ -75,7 +75,7 @@ const updateEntry = async(req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== 'admin' && entry.createdBy.toString() !== userId) {
+  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
     throw new ForbiddenError('You are not authorized to update this entry');
   }
 
@@ -97,8 +97,8 @@ const deleteEntry = async(req, res, next) => {
   if (!entry) {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
-
-  if (role !== 'admin' && entry.createdBy.toString() !== userId) {
+  
+  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
     throw new ForbiddenError('You are not authorized to delete this entry');
   }
 
