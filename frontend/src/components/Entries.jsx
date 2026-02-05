@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import { Button, Card } from "flowbite-react";
+import { Button, Card, Modal, ModalBody } from "flowbite-react";
 import { SquarePen, Trash, CalendarDays, Hourglass } from "lucide-react";
-import { Modal, ModalBody } from "flowbite-react";
-import EntryModal from "../components/EntryModal";
 import { useEntries } from "../hooks/useEntries";
+import EntryModal from "../components/EntryModal";
 import ConfirmModal from "../components/ConfirmModal";
 import Pagination from "../components/Pagination";
 
