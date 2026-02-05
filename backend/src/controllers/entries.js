@@ -18,11 +18,11 @@ const getAllEntries = async (req, res) => {
 
   //pagination
   entriesQuery = pagEntries(entriesQuery, req.query);
-  
+  const totalEntries = await Entry.countDocuments(query);
   const entries = await entriesQuery;
   res
     .status(StatusCodes.OK)
-    .json({ entries, count: entries.length, sort: sortBy || "createdAt" });
+    .json({ entries, count: entries.length, totalEntries, sort: sortBy || "createdAt" },);
 };
 
 //-- GET an entry
