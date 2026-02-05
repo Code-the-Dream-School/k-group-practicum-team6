@@ -18,7 +18,8 @@ const getAllEntries = async (req, res) => {
   if (sortBy) entriesQuery = entriesQuery.sort(sortBy);
 
   //pagination
-  entriesQuery = pagEntries(entriesQuery, req.query)
+  entriesQuery = pagEntries(entriesQuery, req.query);
+  
   const entries = await entriesQuery;
   res
     .status(StatusCodes.OK)
@@ -117,35 +118,10 @@ const deleteEntry = async (req, res, next) => {
   res.status(StatusCodes.OK).json({ msg: "Entry deleted" });
 };
 
-const loadEntries = async (req, res) => {
-  try {
-    //set limit
-    const limit = Number(req.query.limit) || 5;
-    //create cursor
-    const cursor = req.query.cursor || null;
-    //call entries from cursor.js
-    const { entries, nextCursor } = await fetchEntries({
-      cursor,
-      limit,
-      userId: req.user.userId,
-    });
-
-    res.json({
-      entries,
-      pagination: {
-        nextCursor,
-      },
-    });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
 module.exports = {
   getAllEntries,
   getEntry,
   createEntry,
   updateEntry,
   deleteEntry,
-  loadEntries,
 };
