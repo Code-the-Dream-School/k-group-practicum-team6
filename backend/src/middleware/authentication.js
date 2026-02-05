@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const { UnauthenticatedError } = require("../errors");
+const mongoose = require("mongoose");
 
 const auth = async (req, res, next) => {
   // Get token from HTTP‑only cookie instead of Authorization header
@@ -14,16 +15,20 @@ const auth = async (req, res, next) => {
     // Verify token
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Attach user to the req for the routes to use after authentication 
+    if (!mongoose.Types.ObjectId.isValid(payload.userId)) {
+      throw new UnauthenticatedError("Authentication invalid");
+    }
+
+    // Attach user to the req for the routes to use after authentication
     req.user = {
-      userId: payload.userId,
+      userId: new mongoose.Types.ObjectId(String(payload.userId)),
       name: payload.name,
       role: payload.role,
     };
     next();
-  } catch(error) {
+  } catch (error) {
     throw new UnauthenticatedError("Authentication invalid");
   }
-}
+};
 
 module.exports = auth;

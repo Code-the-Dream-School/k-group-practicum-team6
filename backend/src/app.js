@@ -16,10 +16,13 @@ const authenticateUser = require("./middleware/authentication");
 // Routers
 const authRouter = require("./routes/auth");
 const entriesRouter = require("./routes/entries");
+const analyticsRouter = require("./routes/analytics");
 
 // Error handler
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
+
+
 
 // To get access to req.body for POST routes
 app.use(express.json());
@@ -63,6 +66,7 @@ app.use(limiter);
 // Routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/entries", authenticateUser, entriesRouter);
+app.use("/api/v1/analytics", authenticateUser, analyticsRouter);
 
 // 404
 app.use(notFoundMiddleware);

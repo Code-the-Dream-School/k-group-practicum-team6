@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { entrySchema } from "../components/EntryFormValidation/entrySchema";
+import { Button, Label, Select, Textarea, TextInput } from "flowbite-react";
 
-const EntryForm = ({ initialData, onSubmit, isLoading }) => {
+const EntryForm = ({ initialData, persistEntry, onClose }) => {
   const {
     register,
     handleSubmit,
@@ -12,7 +13,6 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
   } = useForm({
     resolver: yupResolver(entrySchema),
   });
-  const [isDurationOpen, setIsDurationOpen] = useState(false);
 
   useEffect(() => {
     reset({
@@ -25,78 +25,48 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
     });
   }, [initialData, reset]);
 
-  const handleFormSubmit = (data) => {
-    const payload = {
-      subject: data.subject,
-      duration: Number(data.hours) * 60 + Number(data.minutes),
-      mood: data.mood,
-      focus: Number(data.focusLevel),
-      details: data.details,
-    };
-    onSubmit(payload);
-  };
+  const [isLoading, setIsLoading] = useState(false);
 
-  let durationContent;
-
-  if (isDurationOpen) {
-    durationContent = (
-      <div className="input-style flex gap-2 items-center bg-white text-black ">
-        <select
-          {...register("hours", { valueAsNumber: true })}
-          className="input-style"
-        >
-          <option value="0">0 hrs</option>
-          <option value="1">1 hr</option>
-          <option value="2">2 hrs</option>
-          <option value="3">3 hrs</option>
-        </select>
-
-        <select
-          {...register("minutes", { valueAsNumber: true })}
-          className="input-style"
-        >
-          <option value="0">0 mins</option>
-          <option value="15">15 mins</option>
-          <option value="30">30 mins</option>
-          <option value="45">45 mins</option>
-        </select>
-      </div>
-    );
-  } else {
-    durationContent = (
-      <div
-        onClick={() => setIsDurationOpen(true)}
-        className="bg-white border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-400 cursor-pointer"
-      >
-        Select duration
-      </div>
-    );
-  }
-
-  const getSelectTextColor = (value) => {
-    if (value === "") {
-      return "text-gray-400";
-    }
-    return "text-gray-900";
-  };
+  const handleFormSubmit = useCallback(
+    (data) => {
+      const payload = {
+        subject: data.subject,
+        duration: Number(data.hours) * 60 + Number(data.minutes),
+        mood: data.mood,
+        focus: Number(data.focusLevel),
+        details: data.details,
+      };
+      const submitEntry = async () => {
+        setIsLoading(true);
+        try {
+          await persistEntry(payload);
+          onClose();
+        } catch (err) {
+          console.log("error while saving:", err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      submitEntry();
+    },
+    [persistEntry, onClose],
+  );
 
   return (
-    <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-xl relative">
+    <div className="w-full max-w-xl rounded-xl shadow-lg">
       <form
-        className="relative bg-gray-50 p-6 rounded-xl space-y-5"
+        className="bg-gray-50 p-12 rounded-xl space-y-5"
         onSubmit={handleSubmit(handleFormSubmit)}
       >
-        <div className="flex flex-col gap-1">
-          <label className="text-md text-gray-700 font-medium">Subject</label>
-
-          <input
+        <div className="flex flex-col gap-2">
+          <Label>Subject</Label>
+          <TextInput
             {...register("subject")}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
               }
             }}
-            className="input-style"
             placeholder="Entry subject"
           />
           {errors.subject && (
@@ -104,67 +74,83 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
           )}
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label className="text-md text-gray-700 font-medium">Duration</label>
+        <Label htmlFor="duration">Duration</Label>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-1">
+            <Select
+              {...register("hours", { valueAsNumber: true })}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") e.preventDefault();
+              }}
+            >
+              <option value="0">0 hrs</option>
+              <option value="1">1 hr</option>
+              <option value="2">2 hrs</option>
+              <option value="3">3 hrs</option>
+            </Select>
 
-          <input
-            type="hidden"
-            {...register("hours", { valueAsNumber: true })}
-          />
-          <input
-            type="hidden"
-            {...register("minutes", { valueAsNumber: true })}
-          />
+            {errors.hours && (
+              <p className="text-red-500 text-sm">{errors.hours.message}</p>
+            )}
+          </div>
 
-          {durationContent}
+          <div className="flex flex-col gap-1">
+            <Select
+              {...register("minutes", { valueAsNumber: true })}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") e.preventDefault();
+              }}
+            >
+              <option value="0">0 mins</option>
+              <option value="15">15 mins</option>
+              <option value="30">30 mins</option>
+              <option value="45">45 mins</option>
+            </Select>
 
-          {errors.hours && (
-            <p className="text-red-500 text-sm">{errors.hours.message}</p>
-          )}
+            {errors.minutes && (
+              <p className="text-red-500 text-sm">{errors.minutes.message}</p>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
-            <label className="text-md text-gray-700 font-medium">Mood</label>
-            <select
+            <Label htmlFor="mood">Mood</Label>
+            <Select
               {...register("mood")}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
                 }
               }}
-              className={`input-style ${getSelectTextColor("")}`}
             >
-              <option value="awful">awful</option>
-              <option value="bad">bad</option>
-              <option value="meh">meh</option>
-              <option value="good">good</option>
-              <option value="amazing">amazing</option>
-            </select>
+              <option>awful</option>
+              <option>bad</option>
+              <option>meh</option>
+              <option>good</option>
+              <option>amazing</option>
+            </Select>
             {errors.mood && (
               <p className="text-red-500 text-sm">{errors.mood.message}</p>
             )}
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="text-md text-gray-700 font-medium">
-              Focus level
-            </label>
-            <select
+            <Label htmlFor="focus-level">Focus level</Label>
+            <Select
               {...register("focusLevel")}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
                 }
               }}
-              className="input-style"
             >
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
-            </select>
+            </Select>
 
             {errors.focusLevel && (
               <p className="text-red-500 text-sm">
@@ -175,23 +161,20 @@ const EntryForm = ({ initialData, onSubmit, isLoading }) => {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-md text-gray-700 font-medium">Details</label>
+          <Label>Details</Label>
 
-          <textarea
-            {...register("details")}
-            className="input-style min-h-32 resize-y"
-          />
+          <Textarea {...register("details")} className="min-h-40" />
         </div>
 
-        <button
+        <Button
           type="submit"
           disabled={isLoading}
-          className={`bg-blue-500 text-white px-4 py-2 rounded-lg transition ${
+          className={`cursor-pointer ${
             isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
           }`}
         >
           Submit Entry
-        </button>
+        </Button>
       </form>
     </div>
   );
