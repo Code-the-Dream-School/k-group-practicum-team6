@@ -1,5 +1,6 @@
 const Entry = require("../models/Entry");
-const { sortEntries } = require("../utils/sort")
+const { sortEntries } = require("../utils/sort");
+const pagEntries = require("../utils/pagEntries");
 const { fetchEntries } = require("./cursor");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
@@ -15,6 +16,9 @@ const getAllEntries = async (req, res) => {
   let entriesQuery = Entry.find(query).sort("createdAt");
 
   if (sortBy) entriesQuery = entriesQuery.sort(sortBy);
+
+  //pagination
+  entriesQuery = pagEntries(entriesQuery, req.query)
   const entries = await entriesQuery;
   res
     .status(StatusCodes.OK)
