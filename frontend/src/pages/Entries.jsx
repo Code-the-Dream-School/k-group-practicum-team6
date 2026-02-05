@@ -1,18 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { Button, Card } from "flowbite-react";
-import {
-  CircleArrowLeft,
-  CircleArrowRight,
-  SquarePen,
-  Trash,
-  CalendarDays,
-  Hourglass,
-} from "lucide-react";
+import { SquarePen, Trash, CalendarDays, Hourglass } from "lucide-react";
 import { Modal, ModalBody } from "flowbite-react";
 import EntryModal from "../components/EntryModal";
 import { useEntries } from "../hooks/useEntries";
 import ConfirmModal from "../components/ConfirmModal";
+import Pagination from "../components/Pagination";
 
 const Entries = () => {
   const { entries, loading, deleteEntry, updateEntry } = useEntries();
@@ -170,29 +164,13 @@ const Entries = () => {
             </Modal>
           )}
         </div>
-        <div className=" flex items-center justify-center mx-2 space-x-3">
-          <Button
-            className="cursor-pointer"
-            onClick={() => handlePreviousPage(currentPage)}
-            disabled={currentPage === 1}
-          >
-            <CircleArrowLeft />
-          </Button>
-
-          <span>
-            Page {currentPage} of {totalPages}{" "}
-          </span>
-
-          <Button
-            className="cursor-pointer"
-            onClick={() => handleNextPage(currentPage)}
-            disabled={currentPage === totalPages}
-          >
-            <CircleArrowRight />
-          </Button>
-          {/* Not working with footer right now */}
-          {/* <Footer/> */}
-        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPrevious={() => handlePreviousPage(currentPage)}
+          onNext={() => handleNextPage(currentPage)}
+          disabled={loading}
+        />
       </div>
     </>
   );
