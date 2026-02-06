@@ -11,10 +11,10 @@ const getAllEntries = async (req, res) => {
   const query = role === "admin" ? {} : { createdBy: userId };
 
   //sorting
-  const sortBy = sortEntries(req.query);
-  let entriesQuery = Entry.find(query).sort("createdAt");
-
-  if (sortBy) entriesQuery = entriesQuery.sort(sortBy);
+  let sortBy = "createdAt";
+  if (req.query.sort) sortBy = req.query.sort;
+  
+  let entriesQuery = Entry.find(query).sort(sortBy || "createdAt");
 
   //pagination
   entriesQuery = pagEntries(entriesQuery, req.query);
