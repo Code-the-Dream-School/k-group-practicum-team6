@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal, ModalBody } from "flowbite-react";
 import { FilePlusCorner } from "lucide-react";
 import Header from "../components/Header";
-import Entries from "./Entries";
+import Entries from "../components/Entries";
 import EntryModal from "../components/EntryModal";
 import Stats from "../components/stats/Stats";
 import { useEntries } from "../hooks/useEntries";
@@ -10,10 +10,6 @@ import { useEntries } from "../hooks/useEntries";
 const DashBoard = () => {
   const [newEntriesModal, setNewEntriesModal] = useState(false);
   const { createEntry } = useEntries();
-
-  const handleCreateEntry = async (formData) => {
-    await createEntry(formData);
-  };
 
   return (
     <>
@@ -23,7 +19,6 @@ const DashBoard = () => {
           <div className="flex justify-around m-8">
             <Stats />
           </div>
-
           <div className="flex flex-row justify-between items-center">
             <h2 className="text-xl">Recent Entries</h2>
             <Button onClick={() => setNewEntriesModal(true)}>
@@ -43,16 +38,13 @@ const DashBoard = () => {
             <ModalBody>
               <EntryModal
                 mode="new"
+                persistEntry={createEntry}
                 onClose={() => setNewEntriesModal(false)}
-                onSubmit={handleCreateEntry}
               />
             </ModalBody>
           </Modal>
+          <Entries />
         </div>
-
-        {/* user entries */}
-        <Entries />
-
         {/* <Footer /> */}
       </div>
     </>

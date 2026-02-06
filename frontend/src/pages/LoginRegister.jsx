@@ -73,8 +73,8 @@ const LoginRegister = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-blue-500">
-      <Card>
+    <div className="flex justify-center items-center min-h-screen">
+      <Card className="w-full max-w-md">
         <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">
           BrainLog
         </h2>
@@ -133,8 +133,7 @@ const LoginRegister = () => {
             type="submit"
             disabled={loading}
             className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md
-            hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer
-            border-2 border-solid border-[black]"
+            hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
           >
             {submitting ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -147,7 +146,7 @@ const LoginRegister = () => {
         </form>
         <Button
           type="button"
-          className="w-full text-center mt-4 text-blue-500 hover:text-blue-700 cursor-pointer "
+          className="w-full text-center mt-4 text-blue-500 bg-transparent hover:bg-transparent focus:ring-0 hover:text-blue-700 cursor-pointer"
           onClick={() => {
             setIsRegister(!isRegister);
             setError("");
