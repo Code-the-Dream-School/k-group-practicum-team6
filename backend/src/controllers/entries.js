@@ -1,5 +1,4 @@
 const Entry = require("../models/Entry");
-const { sortEntries } = require("../utils/sort");
 const pagEntries = require("../utils/pagEntries");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
