@@ -1,4 +1,5 @@
 const Entry = require("../models/Entry");
+const { sortEntries } = require("../utils/sort");
 const pagEntries = require("../utils/pagEntries");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
@@ -10,12 +11,11 @@ const getAllEntries = async (req, res) => {
   const query = role === "admin" ? {} : { createdBy: userId };
 
   //sorting
-  let sortBy = "createdAt";
-  if (req.query.sort) sortBy = req.query.sort;
-  
-  let entriesQuery = Entry.find(query).sort(sortBy || "createdAt");
+  let sortBy;
+  if (req.query.sort) sortBy = sortEntries(req.query);
 
   //pagination
+  let entriesQuery = Entry.find(query).sort(sortBy);
   entriesQuery = pagEntries(entriesQuery, req.query);
   const totalEntries = await Entry.countDocuments(query);
   const entries = await entriesQuery;
@@ -36,7 +36,7 @@ const getEntry = async (req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
+  if (role !== "admin" && entry.createdBy.toString() !== userId) {
     throw new ForbiddenError("You are not authorized to view this entry");
   }
   res.status(StatusCodes.OK).json({ entry });
@@ -85,8 +85,8 @@ const updateEntry = async (req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError("You are not authorized to update this entry");
+  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError('You are not authorized to update this entry');
   }
 
   // Copy fields from updateData onto entry object, run validators and update entry document
@@ -107,9 +107,9 @@ const deleteEntry = async (req, res, next) => {
   if (!entry) {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
-
-  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError("You are not authorized to delete this entry");
+  
+  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError('You are not authorized to delete this entry');
   }
 
   await entry.deleteOne();
