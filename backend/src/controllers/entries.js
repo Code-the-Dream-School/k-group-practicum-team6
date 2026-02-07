@@ -1,6 +1,8 @@
 const Entry = require("../models/Entry");
 const { sortEntries } = require("../utils/sort");
 const pagEntries = require("../utils/pagEntries");
+const buildSearchQuery = require("../utils/buildSearchQuery");
+const buildFiltersQuery = require("../utils/buildFiltersQuery");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
 
@@ -8,20 +10,31 @@ const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
 const getAllEntries = async (req, res) => {
   //admin role
   const { userId, role } = req.user;
-  const query = role === "admin" ? {} : { createdBy: userId };
+  const queryObject = role === "admin" ? {} : { createdBy: userId };
+  
+ //search
+  const searchQuery = buildSearchQuery(req.query.search);
+  Object.assign(queryObject, searchQuery);
+
+  //filter
+  const filtersQuery = buildFiltersQuery(req.query);
+  Object.assign(queryObject, filtersQuery)
 
   //sorting
   let sortBy;
   if (req.query.sort) sortBy = sortEntries(req.query);
 
+  //build query
+  let entriesQuery = Entry.find(queryObject).sort(sortBy);
+
   //pagination
-  let entriesQuery = Entry.find(query).sort(sortBy);
   entriesQuery = pagEntries(entriesQuery, req.query);
-  const totalEntries = await Entry.countDocuments(query);
+  const totalEntries = await Entry.countDocuments(queryObject);
+
   const entries = await entriesQuery;
   res
     .status(StatusCodes.OK)
-    .json({ entries, count: totalEntries, sort: sortBy || "createdAt" },);
+    .json({ entries, count: entries.length, total: totalEntries, sort: sortBy || "createdAt" });
 };
 
 //-- GET an entry
