@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal, ModalBody } from "flowbite-react";
 import { FilePlusCorner } from "lucide-react";
 import Header from "../components/Header";
-import Entries from "./Entries";
+import Entries from "../components/Entries";
 import EntryModal from "../components/EntryModal";
 import Stats from "../components/stats/Stats";
 import { useEntries } from "../hooks/useEntries";
@@ -43,8 +43,8 @@ const DashBoard = () => {
               />
             </ModalBody>
           </Modal>
+          <Entries />
         </div>
-        <Entries />
         {/* <Footer /> */}
       </div>
     </>
