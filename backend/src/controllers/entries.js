@@ -8,11 +8,22 @@ const buildFiltersQuery = require("../utils/buildFiltersQuery.js");
 const getAllEntries = async (req, res) => {
   const { userId, role } = req.user;
 
-  const query = role === "admin"
+  const query = role === 'admin'
     ? {}
     : { createdBy: userId };
 
-  const entries = await Entry.find(query).sort("createdAt");
+  // Apply search
+  const searchQuery = buildSearchQuery(req.query);
+
+  // Apply filters
+  const filtersQuery = buildFiltersQuery(req.query);
+
+   const queryObject = { 
+    createdBy: userId,
+     ...searchQuery,
+     ...filtersQuery };
+
+  const entries = await Entry.find(queryObject).sort('createdAt');
   res.status(StatusCodes.OK).json({ entries, count: entries.length });
 };
 
