@@ -36,7 +36,9 @@ function EntryCard({ entry, onEdit, onDelete }) {
           <p className="text-lg">{entry.duration}m</p>
         </div>
 
-        <p className="text-base">{entry.details}</p>
+        <p className="text-base whitespace-pre-wrap break-words line-clamp-2">
+          {entry.details}
+        </p>
       </div>
     </Card>
   );
