@@ -70,6 +70,29 @@ const me = async (req, res) => {
   })
 }
 
+// only set email in controller
+const sendResetPasswordLink = async (email) => {
+  try {
+    //check if email exists - gets data from frontend in array form
+    const user = await User.findOne({ email });
+    //if there's no user found - throw message
+    if (!user) return { success: false, message: "User not found" };
+    //create token encrypt user data
+    const resetToken = jwt.sign(
+      { id: user._id, email: user.email },
+      refreshToken,
+      { expiresIn: expire },
+    ); //id may need to be ._id
+    //may need to be changed for deployment
+    const resetLink = `http://localhost:5173/resetPassword?token=${resetToken}`;
+    console.log(resetLink);
+    return { success: true, message: "Reset password email sent successfully", resetLink };
+  } catch (error) {
+    console.error("Reset error:", error);
+    return { success: false, message: "Login failed. Please try again later." };
+  }
+};
+
 
 module.exports = {
   register,
