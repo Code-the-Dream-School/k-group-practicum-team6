@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <>
       <div className="flex flex-row justify-between">
-        <h2 className="text-2xl">Brain Log</h2>
+        <h2 className="text-2xl">BrainLog</h2>
         {/* change to `Welcome ${name}`! */}
         <h1 className="text-lg">{`Welcome, ${user.name}!`}</h1>
         <Button onClick={handleLogout}>
