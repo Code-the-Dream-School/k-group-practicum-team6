@@ -11,13 +11,13 @@ export default function ForgotPassword () {
     return (
       <>
         <Card className="text-white text-xl flex justify-center items-center">
-          <form className="flex max-w-md flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
             <h2 className="text-3xl font-semibold text-center 
             text-blue-600 mb-6">Forgot Password</h2>
             <div>
               <Label className="text-[20px] mb-2">Email:</Label>
-              <TextInput  
-              type="email"placeholder="Email" required/>
+              <TextInput type="email" value={email} placeholder="Email" 
+              onChange={(event => setEmail(event.target.value))} required/>
             </div>
             <Button type="submit" className="w-full py-2 px-4 
             bg-blue-500 text-white font-semibold rounded-lg shadow-md
