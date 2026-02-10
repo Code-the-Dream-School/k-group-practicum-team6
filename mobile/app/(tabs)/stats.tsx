@@ -1,16 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useAuthUser } from '@/hooks/useAuthUser';
 
 export default function Stats() {
-    const user = useAuthUser();
     const totalTime = '10h 0m';
     const avgFocus = '3.0/5';
     const mood = '10x!';
 
     return (
         <View style={styles.container}>
-            <Text>{user.name} Stats</Text>
             <View style={styles.cards}>
                 <StatCard
                     iconName="time-outline"

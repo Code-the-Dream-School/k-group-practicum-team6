@@ -38,15 +38,8 @@ export default function TabsLayout() {
                     height: 90,
                     paddingTop: 10,
                     paddingBottom: 25,
-
-
-
-
                     borderTopWidth: 0,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: -2 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 4,
+                    boxShadow: '0px -2px 4px rgba(0, 0, 0, 0.1)'
                 },
                 default: {
                     position: 'absolute',
@@ -57,19 +50,19 @@ export default function TabsLayout() {
                     elevation: 8,
                 },
             }),
-            headerShown: false,
+            headerShown: true,
         }}>
             <Tabs.Screen
                 name="dashboard"
-                options={{ title: 'Home', freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} /> }}
+                options={{ title: 'Home',  headerTitle: `Hello, ${user?.name || 'User'}`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} /> }}
             />
             <Tabs.Screen
                 name="stats"
-                options={{ title: 'Stats', freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="bar-chart" size={size} color={color} /> }}
+                options={{ title: 'Stats', headerTitle: `${user?.name || 'User'}, Stats`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="bar-chart" size={size} color={color} /> }}
             />
             <Tabs.Screen
                 name="profile"
-                options={{ title: 'Profile', freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="person" size={size} color={color} /> }}
+                options={{ title: 'Profile', headerTitle: `${user?.name || 'User'} Profile`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="person" size={size} color={color} /> }}
             />
         </Tabs>
     );

@@ -1,136 +1,57 @@
-import { View, Text, StyleSheet } from 'react-native';
-import EntriesList, { EntrielItem } from '../../components/List';
-import { useAuthUser } from '@/hooks/useAuthUser';
-const DATA: EntrielItem[] = [
-  {
-    id: '1',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '2',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '3',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '4',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '5',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '6',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '7',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '8',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '9',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '10',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '11',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '12',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-  {
-    id: '13',
-    title: 'React Hooks & State Management',
-    date: 'Jan 13, 2026',
-    duration: '3h 30m',
-    description: 'Deep dive into useReducer and custom hooks...',
-    mood: '10x!',
-    focus: 5,
-  },
-];
+import React from 'react';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import EntriesList from '../../components/List';
+import { EntrieItem } from '@/interfaces/entries';
+import { FAB } from '@/components/buttons/Fab';
+import { useRouter } from 'expo-router';
+import { useEntries } from '@/hooks/useEntries';
+import { EmptyList } from '@/components/FreshStart';
 
 export default function Dashboard() {
-  const user = useAuthUser();
+  const router = useRouter();
+  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useEntries();
+
+  const entries = data?.pages.flatMap(page => page.entries) || [];
+
+  //Create new entry (modal)
+  const handleCreate = () => {
+    router.push('/entry-modal');
+  };
+  
+  //Edit existed entry (modal)
+  const handleEdit = (item: EntrieItem) => {
+    router.push({
+      pathname: '/entry-modal',
+      params: { id: item.id }
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Welcome, {user.name}</Text>
+      {isLoading ? (
+        <View style={styles.center}>
+          <ActivityIndicator size="large" color="#3B82F6" />
+        </View>
+      ) : error ? (
+        <View style={styles.center}>
+          <Text style={styles.errorText}>Error loading entries</Text>
+        </View>
+      ) : entries && entries.length > 0 ? (
+        <EntriesList
+          data={entries}
+          onPressItem={handleEdit}
+          onEndReached={()=>{
+            if(hasNextPage && !isFetchingNextPage) {
+              fetchNextPage();
+            }
+          }}
+          isFetchingMore={isFetchingNextPage}
+        />
+      ) : (
+        <EmptyList />
+      )}
 
-      <EntriesList
-        data={DATA}
-        onPressItem={(item) => console.log('Pressed:', item.title)}
-      />
+      <FAB onPress={handleCreate} />
     </View>
   );
 }
@@ -139,13 +60,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F7F8FA',
-    paddingTop: 40,
   },
   header: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 22,
+    fontWeight: '700',
     paddingHorizontal: 16,
     marginBottom: 12,
+    color: '#1A1C1E',
+  },
+  errorText: {
+    textAlign: 'center',
+    color: '#EF4444',
+    marginTop: 20,
+    fontSize: 16,
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
-
