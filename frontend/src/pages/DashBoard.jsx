@@ -21,7 +21,15 @@ const DashBoard = () => {
           </div>
           <div className="flex flex-row justify-between items-center">
             <h2 className="text-xl">Recent Entries</h2>
-            <Button onClick={() => setNewEntriesModal(true)}>
+            <Button
+              onClick={() => setNewEntriesModal(true)}
+              className="gap-2 h-10 px-5 rounded-xl text-sm font-medium bg-primary-600/15 text-primary-900 border border-primary-600/35
+hover:bg-primary-600/20 hover:border-primary-600/45
+transition-colors duration-200
+focus:outline-none focus:ring-2 focus:ring-primary-500/35
+dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25
+dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
+            >
               <FilePlusCorner />
               Add New Entry
             </Button>
