@@ -7,11 +7,11 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { FlashList } from '@shopify/flash-list'
-import { EntrieItem } from '@/interfaces/entries';
+import { EntryItem } from '@/interfaces/entries';
 
 type Props = {
-  data: EntrieItem[];
-  onPressItem?: (item: EntrieItem) => void;
+  data: EntryItem[];
+  onPressItem?: (item: EntryItem) => void;
   onEndReached?: () => void;
   isFetchingMore?: boolean;
 };

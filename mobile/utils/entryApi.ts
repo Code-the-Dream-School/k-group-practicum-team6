@@ -1,5 +1,5 @@
 import API_URL, { ENTRIES_ROUTE } from "./endpoint";
-import { Entry, EntrieItem } from "../interfaces/entries";
+import { Entry, EntryItem } from "../interfaces/entries";
 
 // Maps raw API Entry data to a frontend-friendly structure
 const mapEntry = (item: Entry) => ({
@@ -26,7 +26,7 @@ const LIMIT = 10; // Number of entries per page
 
 //Get all entries with pagination support
 export async function getAllEntries(page = 1): Promise<{
-  entries: EntrieItem[];
+  entries: EntryItem[];
   page: number;
   totalPages: number;
 }> {
@@ -52,7 +52,7 @@ export async function getAllEntries(page = 1): Promise<{
 }
 
 //Get a single entry by ID
-export async function getEntryById(id: string): Promise<EntrieItem> {
+export async function getEntryById(id: string): Promise<EntryItem> {
   try {
     const res = await fetch(`${API_URL}/${ENTRIES_ROUTE}/${id}`, {
       method: "GET",
@@ -68,7 +68,7 @@ export async function getEntryById(id: string): Promise<EntrieItem> {
 }
 
 //Create a new entry
-export async function createEntry(data: EntrieItem): Promise<EntrieItem> {
+export async function createEntry(data: EntryItem): Promise<EntryItem> {
   try {
     const res = await fetch(`${API_URL}/${ENTRIES_ROUTE}`, {
       method: "POST",
@@ -84,7 +84,7 @@ export async function createEntry(data: EntrieItem): Promise<EntrieItem> {
 }
 
 //Update entry by ID
-export async function updateEntry(id: string, data: any): Promise<EntrieItem> {
+export async function updateEntry(id: string, data: any): Promise<EntryItem> {
   try {
     const res = await fetch(`${API_URL}/${ENTRIES_ROUTE}/${id}`, {
       method: "PATCH",

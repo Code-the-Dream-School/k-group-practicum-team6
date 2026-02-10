@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import EntriesList from '../../components/List';
-import { EntrieItem } from '@/interfaces/entries';
+import { EntryItem } from '@/interfaces/entries';
 import { FAB } from '@/components/buttons/Fab';
 import { useRouter } from 'expo-router';
 import { useEntries } from '@/hooks/useEntries';
@@ -19,7 +19,7 @@ export default function Dashboard() {
   };
   
   //Edit existed entry (modal)
-  const handleEdit = (item: EntrieItem) => {
+  const handleEdit = (item: EntryItem) => {
     router.push({
       pathname: '/entry-modal',
       params: { id: item.id }

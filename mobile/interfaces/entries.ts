@@ -16,7 +16,7 @@ export interface EntriesResponse {
   sort: string;
 }
 //entry used on the frontend
-export type EntrieItem = {
+export type EntryItem = {
   id: string;
   subject: string;
   date: string;
