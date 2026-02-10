@@ -2,6 +2,12 @@ import { useState } from "react";
 import { Button, Card, Label, TextInput } from "flowbite-react";
 
 export default function ForgotPassword () {
+    const [email, setEmail] = useState("");
+
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+    }
+    
     return (
       <>
         <Card >
