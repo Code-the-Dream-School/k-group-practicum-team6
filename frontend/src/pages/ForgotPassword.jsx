@@ -10,15 +10,19 @@ export default function ForgotPassword () {
     
     return (
       <>
-        <Card >
-          <form>
-            <h2>Forgot Password</h2>
+        <Card className="text-white text-xl flex justify-center items-center">
+          <form className="flex max-w-md flex-col gap-4">
+            <h2 className="text-3xl font-semibold text-center 
+            text-blue-600 mb-6">Forgot Password</h2>
             <div>
-              <Label className="">Email:</Label>
+              <Label className="text-[20px] mb-2">Email:</Label>
               <TextInput  
               type="email"placeholder="Email" required/>
             </div>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="w-full py-2 px-4 
+            bg-blue-500 text-white font-semibold rounded-lg shadow-md
+            hover:bg-blue-600 focus:outline-none focus:ring-2 
+            focus:ring-blue-400 cursor-pointer">Submit</Button>
           </form>
         </Card>
       </>
