@@ -95,6 +95,23 @@ const sendResetPasswordLink = async (email) => {
   }
 };
 
+const resetPasswordService = async (token, password) => {
+  try {
+    //verify token - if token's verified then user info will appear
+    const decoded = jwt.verify(token, refreshToken);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    //confirmed token & successful password change - update user password in db
+    const user = await User.findById(decoded.id);
+    if (!user) return { success: false, message: "User not found" };
+
+    user.password = hashedPassword;
+    await user.save();
+    return { success: true, message: "Password reset successfully" };
+  } catch (error) {
+    return { success: false, message: "Login failed. Please try again later." };
+  }
+};
+
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -116,5 +133,25 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  const { token, password } = req.body;
 
-module.exports = { register, login, logout, me, forgotPassword }
+  //  validate required fields
+  if (!token || !password)
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ success: false, message: "Password is required" });
+  try {
+    const response = await resetPasswordService(token, password);
+    if (response.success) return res.status(StatusCodes.OK).json(response);
+    else return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(response);
+  } catch (error) {
+    console.error("Error logging the user in:", error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Login failed. Please try again later.",
+    });
+  }
+};
+
+module.exports = { register, login, logout, me, forgotPassword, resetPassword }
