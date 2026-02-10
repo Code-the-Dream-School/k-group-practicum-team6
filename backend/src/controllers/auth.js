@@ -93,10 +93,26 @@ const sendResetPasswordLink = async (email) => {
   }
 };
 
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
 
-module.exports = {
-  register,
-  login,
-  logout,
-  me
-}
+  //  validate required fields
+  if (!email)
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ success: false, message: "Email is required" });
+  try {
+    const response = await sendResetPasswordLink(email);
+    if (response.success) return res.status(StatusCodes.OK).json(response);
+    else return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(response);
+  } catch (error) {
+    console.error("Error logging the user in:", error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Login failed. Please try again later.",
+    });
+  }
+};
+
+
+module.exports = { register, login, logout, me, forgotPassword }
