@@ -19,7 +19,7 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
       subject: initialData?.subject || "",
       hours: initialData ? Math.floor(initialData.duration / 60) : 0,
       minutes: initialData ? initialData.duration % 60 : 0,
-      mood: initialData?.mood || "good",
+      mood: initialData?.mood || "Okay",
       focusLevel: initialData?.focus || "3",
       details: initialData?.details || "",
     });
@@ -124,11 +124,11 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
                 }
               }}
             >
-              <option>awful</option>
-              <option>bad</option>
-              <option>meh</option>
-              <option>good</option>
-              <option>amazing</option>
+              <option value="Awful">Awful</option>
+              <option value="Not Great">Not Great</option>
+              <option value="Okay">Okay</option>
+              <option value="Great">Great</option>
+              <option value="Amazing">Amazing</option>
             </Select>
             {errors.mood && (
               <p className="text-red-500 text-sm">{errors.mood.message}</p>

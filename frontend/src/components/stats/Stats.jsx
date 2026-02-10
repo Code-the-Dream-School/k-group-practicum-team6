@@ -37,7 +37,7 @@ export default function Stats() {
       key: "overallMood",
       label: "Overall Mood",
       value: stats?.overallMood || "no stats",
-      sub: "Most common this week",
+      sub: "Most common mood",
     },
   ];
 
