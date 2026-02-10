@@ -1,5 +1,6 @@
 import { API_URL } from "../config/api";
 import { AUTH_ROUTE } from "../config/api";
+
 const authApi = {
   async login({ email, password }) {
     const res = await fetch(`${API_URL}/${AUTH_ROUTE}/login`, {
@@ -44,6 +45,26 @@ const authApi = {
       method: "POST",
       credentials: "include",
     });
+  },
+
+  async forgotPassword(payload) {
+    const email =
+      typeof payload === "string" ? payload : payload && payload.email;
+
+    if (!email) {
+      throw new Error("Email is required for forgotPassword");
+    }
+
+    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/forgotPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ email }),
+    });
+
+    return res.json();
   },
 };
 

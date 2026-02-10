@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, UnauthenticatedError } = require("../errors");
+const jwt = require("jsonwebtoken");
 
 // Helper to send JWT(token) in cookie
 const attachTokenCookie = (res, token) => {
@@ -80,12 +81,13 @@ const sendResetPasswordLink = async (email) => {
     //create token encrypt user data
     const resetToken = jwt.sign(
       { id: user._id, email: user.email },
-      refreshToken,
-      { expiresIn: expire },
-    ); //id may need to be ._id
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_LIFETIME || "1h" }
+    ); 
     //may need to be changed for deployment
     const resetLink = `http://localhost:5173/resetPassword?token=${resetToken}`;
     console.log(resetLink);
+
     return { success: true, message: "Reset password email sent successfully", resetLink };
   } catch (error) {
     console.error("Reset error:", error);
