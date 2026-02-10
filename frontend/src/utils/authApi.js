@@ -66,6 +66,25 @@ const authApi = {
 
     return res.json();
   },
+  async resetPassword(payload) {
+    const password =
+      typeof payload === "string" ? payload : payload && payload.password;
+
+    if (!password) {
+      throw new Error("Password is required for resetPassword");
+    }
+
+    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/resetPassword`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ password }),
+    });
+
+    return res.json();
+  },
 };
 
 export default authApi;
