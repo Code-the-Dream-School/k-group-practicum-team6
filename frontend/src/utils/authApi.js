@@ -67,11 +67,11 @@ const authApi = {
     return res.json();
   },
   async resetPassword(payload) {
-    const password =
-      typeof payload === "string" ? payload : payload && payload.password;
+    const password = payload?.password;
+    const token = payload?.token;
 
-    if (!password) {
-      throw new Error("Password is required for resetPassword");
+    if (!password || !token) {
+      throw new Error("Password and token are required for resetPassword");
     }
 
     const res = await fetch(`${API_URL}/${AUTH_ROUTE}/resetPassword`, {
@@ -80,7 +80,7 @@ const authApi = {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ token, password }),
     });
 
     return res.json();

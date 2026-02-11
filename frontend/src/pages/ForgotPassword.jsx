@@ -8,7 +8,7 @@ export default function ForgotPassword () {
     const handleSubmit = async(event) => {
         event.preventDefault();
         try {
-           const response = await authApi.forgotPassword({email});
+           const response = await authApi.forgotPassword({ email });
             console.log(response);
         } catch (error) {
             console.error(error.response?.data || error.message);

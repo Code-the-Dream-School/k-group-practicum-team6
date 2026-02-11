@@ -28,9 +28,9 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<NotFoundPage />} />
         <Route path="/forgotPassword" element={<ForgotPassword/>}/>
         <Route path="/resetPassword" element={<ResetPassword/>}/>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       </Layout>
     </>
