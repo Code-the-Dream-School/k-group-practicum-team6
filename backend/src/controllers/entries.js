@@ -49,7 +49,7 @@ const getEntry = async (req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== "admin" && entry.createdBy.toString() !== userId) {
+  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
     throw new ForbiddenError("You are not authorized to view this entry");
   }
   res.status(StatusCodes.OK).json({ entry });
