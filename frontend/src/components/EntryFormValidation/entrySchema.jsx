@@ -13,7 +13,10 @@ export const entrySchema = yup
       .nullable(),
     mood: yup
       .string()
-      .oneOf(["awful", "bad", "meh", "good", "amazing"], "Mood is required")
+      .oneOf(
+        ["Awful", "Not Great", "Okay", "Great", "Amazing"],
+        "Mood is required",
+      )
       .required("Mood is required"),
     focusLevel: yup
       .number()

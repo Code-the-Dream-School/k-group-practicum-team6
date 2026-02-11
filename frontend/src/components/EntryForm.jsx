@@ -19,7 +19,7 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
       subject: initialData?.subject || "",
       hours: initialData ? Math.floor(initialData.duration / 60) : 0,
       minutes: initialData ? initialData.duration % 60 : 0,
-      mood: initialData?.mood || "good",
+      mood: initialData?.mood || "Okay",
       focusLevel: initialData?.focus || "3",
       details: initialData?.details || "",
     });
@@ -53,9 +53,9 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
   );
 
   return (
-    <div className="w-full max-w-xl rounded-xl shadow-lg">
+    <div className="w-full max-w-xl rounded-xl">
       <form
-        className="bg-gray-50 p-12 rounded-xl space-y-5"
+        className="p-12 rounded-xl space-y-4"
         onSubmit={handleSubmit(handleFormSubmit)}
       >
         <div className="flex flex-col gap-2">
@@ -124,11 +124,11 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
                 }
               }}
             >
-              <option>awful</option>
-              <option>bad</option>
-              <option>meh</option>
-              <option>good</option>
-              <option>amazing</option>
+              <option value="Awful">Awful</option>
+              <option value="Not Great">Not Great</option>
+              <option value="Okay">Okay</option>
+              <option value="Great">Great</option>
+              <option value="Amazing">Amazing</option>
             </Select>
             {errors.mood && (
               <p className="text-red-500 text-sm">{errors.mood.message}</p>
@@ -169,8 +169,14 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
         <Button
           type="submit"
           disabled={isLoading}
-          className={`cursor-pointer ${
-            isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-600"
+          className={`inline-flex items-center justify-center gap-2 h-10 px-5 rounded-xl text-sm font-medium
+bg-primary-600/15 text-primary-900 border border-primary-600/35
+hover:bg-primary-600/20 hover:border-primary-600/45
+transition-colors duration-200
+focus:outline-none focus:ring-2 focus:ring-primary-500/35
+dark:bg-primary-400/20 dark:text-primary-200 dark:border-primary-300/25
+dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer${
+            isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-cyan-800"
           }`}
         >
           Submit Entry

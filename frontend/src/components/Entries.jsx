@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import { Modal, ModalBody } from "flowbite-react";
+import { Blockquote, Modal, ModalBody } from "flowbite-react";
 import { useEntries } from "../hooks/useEntries";
 import EntryModal from "../components/EntryModal";
 import ConfirmModal from "../components/ConfirmModal";
@@ -75,6 +75,14 @@ const Entries = () => {
   );
 
   if (loading && entries.length === 0) return <div>Loading Entries...</div>;
+
+  if (!loading && entries.length === 0) {
+    return (
+      <Blockquote className="text-3xl text-center mt-20">
+        Welcome to BrainLog! Please add your first entry.
+      </Blockquote>
+    );
+  }
 
   return (
     <>
