@@ -154,9 +154,11 @@ DELETE /api/:id -> deleteEntry
 ## 🤝 Team & Collaboration
 
 ### Team Members
-- Name — Role
-- Name — Role
-- Name — Role
+- Benjamin Ong
+- Michael McDonald
+- Brittany Price
+- Irina Khameeva
+- Daniel H.
 
 ### Workflow
 - Jira tickets for task tracking
