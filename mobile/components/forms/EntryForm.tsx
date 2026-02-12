@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { entrySchema } from './validation/EntrySchema';
 import FormInput from './FormInput';
 
-const MOODS = ['awful', 'bad', 'meh', 'good', 'amazing',];
+const MOODS = ["Awful", "Not Great", "Okay", "Great", "Amazing"];
 const FOCUS_LEVELS = [1, 2, 3, 4, 5];
 
 interface EntryFormProps {
@@ -29,7 +29,7 @@ export default function EntryForm({
         defaultValues: {
             subject: '',
             duration: 0,
-            mood: 'good',
+            mood: 'Okay',
             focus: 3,
             details: '',
         },
