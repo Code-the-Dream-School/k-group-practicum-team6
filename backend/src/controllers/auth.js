@@ -4,6 +4,7 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const SECRET = process.env.JWT_SECRET;
+const sendEmail = require("../utils/sendEmail");
 
 // Helper to send JWT(token) in cookie
 const attachTokenCookie = (res, token) => {
@@ -88,6 +89,17 @@ const sendResetPasswordLink = async (email) => {
     const resetLink = `http://localhost:5173/resetPassword?token=${resetToken}`;
     console.log(resetLink);
 
+    //sends the email
+    await sendEmail({
+      to: user.email,
+      subject: "Reset your accound password",
+      html: `
+          <p>You requested a password reset.</p>
+        <p>Click the link below to reset your password:</p>
+        <a href="${resetLink}">${resetLink}</a>
+        <p>This link expires soon.</p>
+        `,
+    });
     return {
       success: true,
       message: "Reset password email sent successfully",
