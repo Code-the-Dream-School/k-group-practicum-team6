@@ -1,11 +1,11 @@
 import { View, Pressable, Text, StyleSheet } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import FormInput from './FormInput';
 import { useLogin, useRegister } from '../../hooks/useAuth';
+import { authSchema } from './validation/AuthSchema';
 
 //Authentication form component
 export default function AuthForm() {
@@ -17,25 +17,9 @@ export default function AuthForm() {
   const defaultValues = { isLogin: true, name: '', email: '', password: '', confirmPassword: '' };
 
 
-  //Form validation schema(Yup)
-  const schema = yup.object({
-    isLogin: yup.boolean(),
-    name: yup.string().when('isLogin', (isLoginValue, schema) =>
-      isLoginValue ? schema.notRequired() : schema.required('Name is required')
-    ),
-    email: yup.string().required('Email is required').email('Invalid email'),
-    password: yup.string().required('Password is required').min(6, 'Min 6 chars'),
-    confirmPassword: yup.string().when('isLogin', (isLoginValue, schema) =>
-      isLoginValue
-        ? schema.notRequired()
-        : schema.oneOf([yup.ref('password')], 'Passwords do not match').required('Confirm password')
-    ),
-  });
-
-
   // form control 
   const { control, handleSubmit, reset, setValue } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(authSchema),
     defaultValues,
   });
 

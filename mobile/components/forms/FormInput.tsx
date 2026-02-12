@@ -25,7 +25,7 @@ export default function FormInput({ control, name, placeholder, secureTextEntry 
             value={value}
             onChangeText={onChange}
             secureTextEntry={secureTextEntry}
-            style={[styles.input, { color: TEXT_COLOR }]}
+            style={[styles.input, { color: TEXT_COLOR }, error && { borderColor: '#EF4444', borderWidth: 1.5 }]}
           />
           {error && <Text style={styles.error}>{error.message}</Text>}
         </View>
