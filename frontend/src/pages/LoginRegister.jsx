@@ -132,7 +132,7 @@ const LoginRegister = () => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 text-white font-semibold rounded-lg shadow-md transition-colors duration-200
+            className="w-full py-2 px-4 text-white font-semibold rounded-lg shadow-md transition-colors duration-300
             focus:outline-none focus:ring-2 cursor-pointer"
           >
             {submitting ? (
@@ -146,7 +146,7 @@ const LoginRegister = () => {
         </form>
         <Button
           type="button"
-          className="w-full text-center mt-4 text-cyan-600 bg-transparent transition-colors duration-200 hover:bg-transparent focus:ring-0 dark:bg-transparent dark:hover:bg-transparent dark:focus:ring-0 hover:text-cyan-700 cursor-pointer"
+          className="w-full text-center mt-4 text-cyan-600 bg-transparent transition-colors duration-300 hover:bg-transparent focus:ring-0 dark:bg-transparent dark:hover:bg-transparent dark:focus:ring-0 hover:text-cyan-700 cursor-pointer"
           onClick={() => {
             setIsRegister(!isRegister);
             setError("");

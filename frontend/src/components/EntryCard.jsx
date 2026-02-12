@@ -13,7 +13,7 @@ function EntryCard({ entry, onEdit, onDelete }) {
               pill
               outline
               className="bg-primary-600/15 text-primary-900 border-primary-600/35
-dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25"
+dark:bg-primary-400/2 dark:text-primary-200 dark:border-primary-300/35 transition-colors duration-800"
             >
               {entry.mood}
             </Button>
@@ -21,7 +21,7 @@ dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25"
               pill
               outline
               className="bg-primary-600/15 text-primary-900 border-primary-600/35
-dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25"
+dark:bg-primary-400/2 dark:text-primary-200 dark:border-primary-300/35 transition-colors duration-800"
             >
               {entry.focus}
             </Button>
@@ -31,10 +31,10 @@ dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25"
             <Button
               size="sm"
               onClick={() => onEdit(entry)}
-              className="gap-2 h-10 px-5 rounded-xl text-sm font-medium
+              className="h-10 px-3 rounded-xl text-sm font-medium
 bg-primary-600/15 text-primary-900 border border-primary-600/35
 hover:bg-primary-600/20 hover:border-primary-600/45
-transition-colors duration-200
+transition-colors duration-300
 focus:outline-none focus:ring-2 focus:ring-primary-500/35
 dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25
 dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
@@ -45,10 +45,10 @@ dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
             <Button
               size="sm"
               onClick={() => onDelete(entry)}
-              className="gap-2 h-10 px-5 rounded-xl text-sm font-medium
+              className="h-10 px-3 rounded-xl text-sm font-medium
 bg-primary-600/15 text-primary-900 border border-primary-600/35
 hover:bg-primary-600/20 hover:border-primary-600/45
-transition-colors duration-200
+transition-colors duration-300
 focus:outline-none focus:ring-2 focus:ring-primary-500/35
 dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25
 dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"

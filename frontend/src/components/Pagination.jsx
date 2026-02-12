@@ -15,7 +15,7 @@ const Pagination = ({
 
   return (
     <>
-      <div className=" flex items-center justify-center mx-2 space-x-3">
+      <div className=" flex items-center justify-center mx-2 py-4 space-x-3">
         <Button
           className="cursor-pointer"
           onClick={onPrevious}
