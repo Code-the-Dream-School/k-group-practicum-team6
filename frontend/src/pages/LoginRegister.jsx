@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
 import { Button, Card, Label, TextInput } from "flowbite-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import authApi from "../utils/authApi";
 
 const LoginRegister = () => {
@@ -130,6 +130,12 @@ const LoginRegister = () => {
             required
             autoComplete={isRegister ? "new-password" : "current-password"}
           />
+          <NavLink
+            className="flex m-2 underline relative left-[250px]"
+            to="/forgotPassword"
+          >
+            Forgot password?
+          </NavLink>
           {isRegister && (
             <TextInput
               type="password"
