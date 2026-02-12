@@ -176,12 +176,15 @@ const LoginRegister = () => {
               />
             </>
           )}
-          <NavLink
+          {!isRegister && (
+                <NavLink
             className="flex m-2 underline relative left-[250px]"
             to="/forgotPassword"
           >
             Forgot password?
           </NavLink>
+          )}
+      
           <Button
             type="submit"
             disabled={loading}
