@@ -23,8 +23,8 @@ Students often forget what they’ve studied, how long they spent, and what insi
 
 ## 📸 Screenshots
 
-![Login Screenshot](src/asssets/LoginReg.jpg)
-![Dashboard Screenshot](src/assets/Dashboard.jpg)
+![Login Screenshot](src/assets/login.jpg)
+![Dashboard Screenshot](src/assets/dashboard.jpg)
 
 ## 🛠 Tech Stack
 
