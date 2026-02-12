@@ -19,7 +19,15 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack screenOptions={{ headerShown: false }} />
+      <Stack screenOptions={{ headerShown: false }} >
+      <Stack.Screen 
+          name="entry-modal" 
+          options={{ 
+            presentation: 'modal', 
+            headerShown: true,  
+          }} 
+        />
+       </Stack> 
     </QueryClientProvider>
   );
 }
