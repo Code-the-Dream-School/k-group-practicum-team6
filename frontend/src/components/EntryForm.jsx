@@ -89,9 +89,9 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
               <option value="3">3 hrs</option>
             </Select>
 
-            {errors.hours && (
+            {/* {errors.hours && (
               <p className="text-red-500 text-sm">{errors.hours.message}</p>
-            )}
+            )} */}
           </div>
 
           <div className="flex flex-col gap-1">
@@ -107,11 +107,21 @@ const EntryForm = ({ initialData, persistEntry, onClose }) => {
               <option value="45">45 mins</option>
             </Select>
 
-            {errors.minutes && (
+            {/* {errors.minutes && (
               <p className="text-red-500 text-sm">{errors.minutes.message}</p>
-            )}
+            )} */}
           </div>
         </div>
+        {/*Error messages*/}
+        {errors.hours?.message ||
+        errors.minutes?.message ||
+        errors.root?.message ? (
+          <p className="text-red-500 text-sm">
+            {errors.hours?.message ||
+              errors.minutes?.message ||
+              errors.root?.message}
+          </p>
+        ) : null}
 
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-1">
