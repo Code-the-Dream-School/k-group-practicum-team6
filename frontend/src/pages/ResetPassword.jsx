@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Card, Label, TextInput } from "flowbite-react";
+import { Eye, EyeClosed } from "lucide-react";
 import authApi from "../utils/authApi";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+  const [showPwd, setShowPwd] = useState(true);
   const location = useLocation();
   const resetToken = new URLSearchParams(location.search).get("token"); //token after successful email
   const navigate = useNavigate();
@@ -20,12 +21,17 @@ export default function ResetPassword() {
       });
 
       if (response.success) {
-         alert("Password reset successful. Please log in");
-         navigate("/");
+        alert("Password reset successful. Please log in");
+        navigate("/");
       }
     } catch (error) {
       console.error(error.response?.data || error.message);
     }
+  };
+
+  //toggle password visibility
+  const togglePassword = () => {
+    setShowPwd(!showPwd);
   };
 
   return (
@@ -41,19 +47,43 @@ export default function ResetPassword() {
 
           <Label className="text-[16px] gap-2">New Password:</Label>
           <TextInput
-            type="text"
+            type={showPwd ? "password" : "text"}
             value={password}
             placeholder="Password"
             onChange={(event) => setPassword(event.target.value)}
             required
+            rightIcon={(props) => {
+              const Icon = showPwd ? Eye : EyeClosed;
+              return (
+                <Icon
+                  {...props}
+                  className={`${props.className ?? ""} cursor-pointer`.trim()}
+                  style={{ pointerEvents: "auto" }}
+                  onClick={togglePassword}
+                  aria-label={showPwd ? "Show password" : "Hide password"}
+                />
+              );
+            }}
           />
           <Label className="text-[15px] gap-2">Confirm Password:</Label>
           <TextInput
-            type="text"
+            type={showPwd ? "password" : "text"}
             value={confirmPassword}
             placeholder="Confirm password"
             onChange={(event) => setConfirmPassword(event.target.value)}
             required
+            rightIcon={(props) => {
+              const Icon = showPwd ? Eye : EyeClosed;
+              return (
+                <Icon
+                  {...props}
+                  className={`${props.className ?? ""} cursor-pointer`.trim()}
+                  style={{ pointerEvents: "auto" }}
+                  onClick={togglePassword}
+                  aria-label={showPwd ? "Show password" : "Hide password"}
+                />
+              );
+            }}
           />
 
           <Button
