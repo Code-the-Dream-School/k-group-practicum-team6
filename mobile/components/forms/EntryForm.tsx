@@ -41,7 +41,7 @@ export default function EntryForm({
             reset(initialData);
         }
     }, [initialData, reset]);
-    
+
     // Watch duration field (stored in minutes)
     const currentDuration = watch('duration');
 

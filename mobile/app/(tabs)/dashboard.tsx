@@ -17,7 +17,7 @@ export default function Dashboard() {
   const handleCreate = () => {
     router.push('/entry-modal');
   };
-  
+
   //Edit existed entry (modal)
   const handleEdit = (item: EntryItem) => {
     router.push({
@@ -38,10 +38,11 @@ export default function Dashboard() {
         </View>
       ) : entries && entries.length > 0 ? (
         <EntriesList
+          key={entries[0]?.id}
           data={entries}
           onPressItem={handleEdit}
-          onEndReached={()=>{
-            if(hasNextPage && !isFetchingNextPage) {
+          onEndReached={() => {
+            if (hasNextPage && !isFetchingNextPage) {
               fetchNextPage();
             }
           }}

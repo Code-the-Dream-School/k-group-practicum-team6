@@ -54,7 +54,7 @@ export default function TabsLayout() {
         }}>
             <Tabs.Screen
                 name="dashboard"
-                options={{ title: 'Home',  headerTitle: `Hello, ${user?.name || 'User'}`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} /> }}
+                options={{ title: 'Home', headerTitle: `Hello, ${user?.name || 'User'}`, tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} /> }}
             />
             <Tabs.Screen
                 name="stats"

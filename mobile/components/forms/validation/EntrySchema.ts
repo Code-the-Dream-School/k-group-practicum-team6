@@ -7,8 +7,7 @@ export const entrySchema = yup.object({
     .max(50, "Subject max 50 characters"),
   duration: yup
     .number()
-    .min(1, "Duration is required")
-    .min(1, "Duration must be at least 1 minute")
+    .min(1, "Duration is required at least 1 minute")
     .required(),
   mood: yup.string().required("Mood is required"),
   focus: yup.number().min(1).max(5).required("Focus is required"),

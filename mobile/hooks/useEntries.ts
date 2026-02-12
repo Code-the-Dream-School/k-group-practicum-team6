@@ -3,6 +3,7 @@ import {
   useQuery,
   useQueryClient,
   useInfiniteQuery,
+  QueryClient,
 } from "@tanstack/react-query";
 import {
   getAllEntries,
@@ -13,6 +14,9 @@ import {
 } from "../utils/entryApi";
 import { router } from "expo-router";
 
+function refreshStats(queryClient: QueryClient) {
+  queryClient.invalidateQueries({ queryKey: ["stats"] });
+}
 //Get all entries with scroll pagination.
 export function useEntries() {
   return useInfiniteQuery({
@@ -39,7 +43,8 @@ export function useCreateEntry() {
   return useMutation({
     mutationFn: createEntry,
     onSuccess: () => {
-      queryClient.resetQueries({ queryKey: ["entries"] }).then(() => {
+      queryClient.invalidateQueries({ queryKey: ["entries"] }).then(() => {
+        refreshStats(queryClient);
         if (router.canGoBack()) {
           router.back();
         } else {
@@ -59,6 +64,7 @@ export function useUpdateEntry() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ["entries"] });
       queryClient.invalidateQueries({ queryKey: ["entries", variables.id] });
+      refreshStats(queryClient);
       if (router.canGoBack()) {
         router.back();
       } else {
@@ -73,8 +79,10 @@ export function useDeleteEntry() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: deleteEntry,
-    onSuccess: () => {
+    onSuccess: (_data, deletedId) => {
+      queryClient.removeQueries({ queryKey: ["entries", deletedId] });
       queryClient.invalidateQueries({ queryKey: ["entries"] }).then(() => {
+        refreshStats(queryClient);
         if (router.canGoBack()) {
           router.back();
         } else {

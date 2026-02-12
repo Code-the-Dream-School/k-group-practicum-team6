@@ -12,3 +12,4 @@ if (Platform.OS === 'web') {
 export default API_URL;
 export const AUTH_ROUTE = "auth";
 export const ENTRIES_ROUTE = "entries";
+export const STATS_ROUTE = "analytics/dashboard"

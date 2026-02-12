@@ -5,7 +5,7 @@ import { Entry, EntryItem } from "../interfaces/entries";
 const mapEntry = (item: Entry) => ({
   id: item._id,
   subject: item.subject,
-  date: new Date(item.createdAt).toLocaleDateString(),
+  date: new Date(item.createdAt).toLocaleDateString('en-US'),
   createdAt: item.createdAt,
   duration: item.duration,
   durationString: `${Math.floor(item.duration / 60)}h ${item.duration % 60}m`,
@@ -22,7 +22,7 @@ async function handleResponse(res: Response) {
   return res.json();
 }
 
-const LIMIT = 10; // Number of entries per page
+const LIMIT = 5; // Number of entries per page
 
 //Get all entries with pagination support
 export async function getAllEntries(page = 1): Promise<{
