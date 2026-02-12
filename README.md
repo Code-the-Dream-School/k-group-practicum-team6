@@ -42,7 +42,6 @@ Students often forget what they’ve studied, how long they spent, and what insi
 
 ### Database
 - MongoDB (Mongoose) **or**
-- PostgreSQL (Prisma / Knex / Sequelize)
 
 ### Tooling
 - Git & GitHub
