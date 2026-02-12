@@ -11,11 +11,7 @@ const authApi = {
       credentials: "include", // REQUIRED
       body: JSON.stringify({ email, password }),
     });
-    console.log(res);
-    if (!res.ok) {
-      throw new Error("Invalid email or password");
-    }
-
+    
     const userData = await res.json();
     return userData;
   },

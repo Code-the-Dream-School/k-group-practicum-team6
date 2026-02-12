@@ -5,7 +5,7 @@ const EMAIL_PWD = process.env.EMAIL_PWD;
 const sendEmail = async ({ to, subject, html }) => {
 
     console.log("EMAIL_USER:", process.env.EMAIL_USER);
-    console.log("EMAIL_PASS:", process.env.EMAIL_PASS ? "SET" : "MISSING");
+    console.log("EMAIL_PWD:", process.env.EMAIL_PWD ? "SET" : "MISSING");
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {

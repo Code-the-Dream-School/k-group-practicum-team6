@@ -32,59 +32,63 @@ const register = async (req, res) => {
 //-- Login user
 const login = async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) {
     throw new BadRequestError("Please provide email and password");
   }
 
-  // Search for user
-  const user = await User.findOne({ email, lockUntil });
-  if (!user) {
-    throw new UnauthenticatedError("Invalid credentials");
-  }
+  const user = await User.findOne({ email }).select("+password");
 
-  // check if account is temporarily locked
-  if (user.lockUntil && user.lockUntil > Date.now()) {
-    return res.status(403).json({
-      message: "Too many failed attempts. Please reset your password.",
-      showReset: true,
+  /* 🔒 Always run bcrypt compare to prevent timing attacks
+     Prevents attackers from: timing login differences & 
+     enumerating valid emails
+  */
+  if (!user) {
+    await bcrypt.compare(password, "$2a$10$dummyhashdummyhashdummyhashdu");
+    return res.status(401).json({
+      message: "Invalid credentials",
     });
   }
 
-  // Compare password
+  // 🔒 Account permanently locked
+  if (user.isLocked) {
+    return res.status(403).json({
+      message: "Account locked. Password reset required.",
+      locked: true,
+    });
+  }
+
   const match = await bcrypt.compare(password, user.password);
-  //failed attempts - reset
+
+  // ❌ Wrong password
   if (!match) {
     user.failedLoginAttempts += 1;
 
-    // lock account after 5 attempts
     if (user.failedLoginAttempts >= 5) {
-      user.lockUntil = Date.now() + 15 * 60 * 1000; // 15 minutes
+      user.isLocked = true;
     }
 
     await user.save();
-    console.log("Login count: ", user.failedLoginAttempts);
+
     return res.status(401).json({
       message: "Invalid credentials",
       attemptsLeft: Math.max(0, 5 - user.failedLoginAttempts),
-      showReset: user.failedLoginAttempts >= 3,
+      locked: user.isLocked,
     });
   }
 
-  //successful attempts - reset failed attempts
-  else if (match) {
-    user.failedLoginAttempts = 0;
-    user.lockUntil = null;
-    await user.save();
-  }
+  // ✅ Successful login
+  user.failedLoginAttempts = 0;
+  user.isLocked = false;
+  await user.save();
 
-  // create JWT
   const token = user.createJWT();
-  attachTokenCookie(res, token); // send token in cookie
+  attachTokenCookie(res, token);
 
-  res.status(StatusCodes.OK).json({
+  res.status(200).json({
     user: { name: user.name },
   });
-};;
+};
 
 //-- Logout
 const logout = (req, res) => {
@@ -144,16 +148,17 @@ const resetPasswordService = async (token, password) => {
   try {
     //verify token - if token's verified then user info will appear
     const decoded = jwt.verify(token, SECRET);
-    const hashedPassword = await bcrypt.hash(password, 10);
+ 
     //confirmed token & successful password change - update user password in db
     const user = await User.findById(decoded.id);
-    console.log("Decoded user: ", user);
     if (!user) return { success: false, message: "User not found" };
-    console.log("User found?", user);
-    user.password = hashedPassword;
-    console.log("Hashed password: ", user.password);
+    
+    //saves when user password is changed
+    user.password = password;
+    user.failedLoginAttempts = 0;
+    user.isLocked = false;
     await user.save();
-    console.log("Saved user", user.save());
+    
     return { success: true, message: "Password reset successfully" };
   } catch (error) {
     return { success: false, message: "Reset failed. Please try again later." };

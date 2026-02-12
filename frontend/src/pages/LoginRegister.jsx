@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
 import { Button, Card, Label, TextInput } from "flowbite-react";
-
+import { useNavigate } from "react-router-dom";
 import authApi from "../utils/authApi";
 
 const LoginRegister = () => {
@@ -18,6 +18,7 @@ const LoginRegister = () => {
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const { user, login, loading } = useUser();
+  const navigate = useNavigate();
 
   // Redirect to dashboard if already logged in
   useEffect(() => {
@@ -63,7 +64,19 @@ const LoginRegister = () => {
           email: formData.email,
           password: formData.password,
         });
-        login(data);
+        if (data.locked) {
+          setError("Account locked. Please reset your password.");
+          navigate("/forgotPassword");
+          return;
+        }
+
+        if (data.attemptsLeft !== undefined) {
+           setError(`Invalid credentials. ${data.attemptsLeft} attempts remaining.`);
+           return;
+        }
+        
+        //login success
+        login(data);     
       }
     } catch (err) {
       setError(err.message);
