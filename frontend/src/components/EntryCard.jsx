@@ -1,6 +1,16 @@
 import { Button, Card } from "flowbite-react";
 import { SquarePen, Trash, CalendarDays, Hourglass } from "lucide-react";
 
+function formatDuration(totalMinutes) {
+  const mins = Number(totalMinutes) || 0;
+  const hours = Math.floor(mins / 60);
+  const minutes = mins % 60;
+
+  if (hours === 0) return `${minutes}m`;
+  if (minutes === 0) return `${hours}h`;
+  return `${hours}h ${minutes}m`;
+}
+
 function EntryCard({ entry, onEdit, onDelete }) {
   return (
     <Card className="bg-gray-50 m-2">
@@ -63,7 +73,7 @@ dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
           <p className="text-lg">{entry.date}</p>
 
           <Hourglass />
-          <p className="text-lg">{entry.duration}m</p>
+          <p className="text-lg">{formatDuration(entry.duration)}</p>
         </div>
 
         <p className="text-base whitespace-pre-wrap break-words line-clamp-2">
