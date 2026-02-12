@@ -1,15 +1,40 @@
 const Entry = require("../models/Entry");
+const { sortEntries } = require("../utils/sort");
+const pagEntries = require("../utils/pagEntries");
+const buildSearchQuery = require("../utils/buildSearchQuery");
+const buildFiltersQuery = require("../utils/buildFiltersQuery");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
 
 //-- GET all entries
 const getAllEntries = async (req, res) => {
+  //admin role
   const { userId, role } = req.user;
+  const queryObject = role === "admin" ? {} : { createdBy: userId };
+  
+ //search
+  const searchQuery = buildSearchQuery(req.query.search);
+  Object.assign(queryObject, searchQuery);
 
-  const query = role === "admin" ? {} : { createdBy: userId };
+  //filter
+  const filtersQuery = buildFiltersQuery(req.query);
+  Object.assign(queryObject, filtersQuery)
 
-  const entries = await Entry.find(query).sort("createdAt");
-  res.status(StatusCodes.OK).json({ entries, count: entries.length });
+  //sorting
+  let sortBy;
+  if (req.query.sort) sortBy = sortEntries(req.query);
+
+  //build query
+  let entriesQuery = Entry.find(queryObject).sort(sortBy || "createdAt");
+
+  //pagination
+  entriesQuery = pagEntries(entriesQuery, req.query);
+  const totalEntries = await Entry.countDocuments(queryObject);
+
+  const entries = await entriesQuery;
+  res
+    .status(StatusCodes.OK)
+    .json({ entries, count: totalEntries, sort: sortBy || "createdAt" });
 };
 
 //-- GET an entry
@@ -73,8 +98,8 @@ const updateEntry = async (req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError("You are not authorized to update this entry");
+  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError('You are not authorized to update this entry');
   }
 
   // Copy fields from updateData onto entry object, run validators and update entry document
@@ -95,9 +120,9 @@ const deleteEntry = async (req, res, next) => {
   if (!entry) {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
-
-  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError("You are not authorized to delete this entry");
+  
+  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError('You are not authorized to delete this entry');
   }
 
   await entry.deleteOne();
