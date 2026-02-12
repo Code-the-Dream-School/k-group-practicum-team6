@@ -17,7 +17,7 @@ const Pagination = ({
     <>
       <div className=" flex items-center justify-center mx-2 py-4 space-x-3">
         <Button
-          className="cursor-pointer"
+          className="bg-primary-700/70 cursor-pointer"
           onClick={onPrevious}
           disabled={isPrevDisabled}
         >
@@ -29,7 +29,7 @@ const Pagination = ({
         </span>
 
         <Button
-          className="cursor-pointer"
+          className="bg-primary-700/70 cursor-pointer"
           onClick={onNext}
           disabled={isNextDisabled}
         >
