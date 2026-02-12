@@ -37,15 +37,44 @@ const login = async (req, res) => {
   }
 
   // Search for user
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email, lockUntil });
   if (!user) {
     throw new UnauthenticatedError("Invalid credentials");
   }
 
+  // check if account is temporarily locked
+  if (user.lockUntil && user.lockUntil > Date.now()) {
+    return res.status(403).json({
+      message: "Too many failed attempts. Please reset your password.",
+      showReset: true,
+    });
+  }
+
   // Compare password
-  const isPasswordCorrect = await user.comparePassword(password);
-  if (!isPasswordCorrect) {
-    throw new UnauthenticatedError("Invalid credentials");
+  const match = await bcrypt.compare(password, user.password);
+  //failed attempts - reset
+  if (!match) {
+    user.failedLoginAttempts += 1;
+
+    // lock account after 5 attempts
+    if (user.failedLoginAttempts >= 5) {
+      user.lockUntil = Date.now() + 15 * 60 * 1000; // 15 minutes
+    }
+
+    await user.save();
+    console.log("Login count: ", user.failedLoginAttempts);
+    return res.status(401).json({
+      message: "Invalid credentials",
+      attemptsLeft: Math.max(0, 5 - user.failedLoginAttempts),
+      showReset: user.failedLoginAttempts >= 3,
+    });
+  }
+
+  //successful attempts - reset failed attempts
+  else if (match) {
+    user.failedLoginAttempts = 0;
+    user.lockUntil = null;
+    await user.save();
   }
 
   // create JWT
@@ -55,7 +84,7 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({
     user: { name: user.name },
   });
-};
+};;
 
 //-- Logout
 const logout = (req, res) => {

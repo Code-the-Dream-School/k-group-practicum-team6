@@ -19,6 +19,15 @@ const UserSchema = new mongoose.Schema({
       minlength: 6,
     },
 
+    failedLoginAttempts: {
+        type: Number,
+        default: 0,
+    },
+
+    lockUntil: {
+       type: Date,
+    },
+
     name: {
       type: String,
       required: [true, "Name is required"],

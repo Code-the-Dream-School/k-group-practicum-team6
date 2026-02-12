@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import authApi from "../utils/authApi";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  
   const location = useLocation();
   const resetToken = new URLSearchParams(location.search).get("token"); //token after successful email
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +18,11 @@ export default function ResetPassword() {
         password,
         token: resetToken,
       });
-      console.log(response);
+
+      if (response.success) {
+         alert("Password reset successful. Please log in");
+         navigate("/");
+      }
     } catch (error) {
       console.error(error.response?.data || error.message);
     }
