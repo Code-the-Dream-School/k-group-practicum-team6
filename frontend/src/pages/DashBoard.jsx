@@ -20,7 +20,7 @@ const DashBoard = () => {
             <Stats />
           </div>
           <div className="flex flex-row justify-between items-center px-8 py-4">
-            <h2 className="text-xl">Recent Entries</h2>
+            <h2 className="text-xl font-medium">Recent Entries</h2>
             <Button
               onClick={() => setNewEntriesModal(true)}
               className="gap-2 h-10 px-5 rounded-xl text-sm font-medium bg-primary-600/15 text-primary-900 border border-primary-600/35

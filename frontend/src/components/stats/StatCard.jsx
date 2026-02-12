@@ -13,7 +13,7 @@ export function StatCard({ label, value, sub, icon: Icon, color }) {
         <span>{label}</span>
       </div>
 
-      <div className="text-2xl font-semibold mt-2">{value}</div>
+      <div className="text-2xl font-medium mt-2">{value}</div>
 
       <div className="text-xs text-gray-400">{sub}</div>
     </Card>

@@ -37,7 +37,7 @@ dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
           Log Out
         </Button>
       </div>
-      <h1 className="text-xl text-center">{`Welcome, ${user.name}!`}</h1>
+      <h1 className="text-xl text-center font-normal">{`Welcome, ${user.name}!`}</h1>
     </>
   );
 }

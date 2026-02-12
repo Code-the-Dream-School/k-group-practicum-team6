@@ -17,7 +17,7 @@ function EntryCard({ entry, onEdit, onDelete }) {
       <div>
         <div className="flex justify-between">
           <div className="flex items-center space-x-3">
-            <h1 className="text-xl font-semibold">{entry.subject}</h1>
+            <h1 className="text-xl font-medium">{entry.subject}</h1>
 
             <Button
               pill
@@ -70,13 +70,15 @@ dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
 
         <div className="flex space-x-3 py-4">
           <CalendarDays />
-          <p className="text-lg">{entry.date}</p>
+          <p className="text-lg font-light">
+            {new Date(entry.createdAt).toLocaleDateString()}
+          </p>
 
           <Hourglass />
-          <p className="text-lg">{formatDuration(entry.duration)}</p>
+          <p className="text-lg font-light">{formatDuration(entry.duration)}</p>
         </div>
 
-        <p className="text-base whitespace-pre-wrap break-words line-clamp-2">
+        <p className="text-base font-normal whitespace-pre-wrap break-words line-clamp-2">
           {entry.details}
         </p>
       </div>
