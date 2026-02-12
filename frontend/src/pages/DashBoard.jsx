@@ -1,52 +1,59 @@
-import authService from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Button, Modal, ModalBody } from "flowbite-react";
+import { FilePlusCorner } from "lucide-react";
+import Header from "../components/Header";
+import Entries from "../components/Entries";
+import EntryModal from "../components/EntryModal";
+import Stats from "../components/stats/Stats";
+import { useEntries } from "../hooks/useEntries";
 
 const DashBoard = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    authService.removeToken();
-    authService.removeUsername();
-    navigate("/"); // redirect to login page after logout
-  };
+  const [newEntriesModal, setNewEntriesModal] = useState(false);
+  const { createEntry } = useEntries();
 
   return (
     <>
-      <div className="master-cont">
-        {/* change to `Welcome ${name}`! */}
-        <h1 className="title-style">Welcome to the Dashboard</h1>
-        <div className="header-style">
-          <button className="btn-style">+ New Entry</button>
-          <button className="btn-style">View</button>
-          <button className="btn-style" onClick={handleLogout}>
-            Log out
-          </button>
-        </div>
-        {/* placeholder entries */}
-        <div>
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 1</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
+      <div>
+        <div className="mx-auto max-w-6xl px-6 py-4 font-medium">
+          <Header />
+          <div className="flex justify-around m-8">
+            <Stats />
           </div>
-
-          <div className="entry-cont-style">
-            <p className="entry-title-style">Entry 2</p>
-            <button className="edit-style">Edit</button>
-            <button className="delete-style">Delete</button>
+          <div className="flex flex-row justify-between items-center">
+            <h2 className="text-xl">Recent Entries</h2>
+            <Button
+              onClick={() => setNewEntriesModal(true)}
+              className="gap-2 h-10 px-5 rounded-xl text-sm font-medium bg-primary-600/15 text-primary-900 border border-primary-600/35
+hover:bg-primary-600/20 hover:border-primary-600/45
+transition-colors duration-200
+focus:outline-none focus:ring-2 focus:ring-primary-500/35
+dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25
+dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
+            >
+              <FilePlusCorner />
+              Add New Entry
+            </Button>
           </div>
+          <Modal
+            show={newEntriesModal}
+            onClose={() => setNewEntriesModal(false)}
+            theme={{
+              content: { base: "main-modal w-fit h-fit" },
+              body: { base: "p-0 pt-0 pb-0" },
+            }}
+            className="bg-black/40"
+          >
+            <ModalBody>
+              <EntryModal
+                mode="new"
+                persistEntry={createEntry}
+                onClose={() => setNewEntriesModal(false)}
+              />
+            </ModalBody>
+          </Modal>
+          <Entries />
         </div>
-        <div className="footer-style">
-          <select className="dropdown-style">
-            <option value="default">Sort</option>
-            <option value="Date">Date</option>
-            <option value="Subject">Subject</option>
-            <option value="Duration">Duration</option>
-            <option value="Mood">Mood</option>
-          </select>
-          <button className="btn-style">Search</button>
-          <button className="btn-style">Pagination</button>
-        </div>
+        {/* <Footer /> */}
       </div>
     </>
   );

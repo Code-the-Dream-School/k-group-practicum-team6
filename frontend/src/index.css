@@ -1,64 +1,16 @@
 @import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 
-@layer components {
-    .master-cont {
-        @apply w-full max-w-md p-8 bg-white rounded-lg shadow-md
-    }
-    .lgn-reg-field {
-        @apply w-full px-4 py-2 mb-4 border border-gray-200 rounded-lg 
-        focus:outline-none focus:border-blue-500 text-black;
-    }
-    .error-success {
-        @apply text-green-600 mb-4;
-    }
-    .error-message {
-        @apply text-red-600 mb-4;
-    }
-    .header-style {
-         @apply flex justify-center gap-1 text-[20px] bg-blue-500 rounded-lg 
-         m-1 border-2 border-solid border-[black]
-    }
-    .footer-style {
-         @apply flex justify-center gap-1 text-xl bg-blue-500 rounded-lg 
-         m-1 border-2 border-solid border-[black] mt-2
-    }
-    .dropdown-style {
-        @apply bg-white rounded-lg text-black
-         m-2.25 border-2 border-solid border-[black] 
-         items-center justify-center 
-    }
-    .title-style {
-        @apply flex mb-2 justify-center text-[25px] text-white
-          bg-blue-500 border-2 border-solid border-[black] rounded-lg
-    }
-    .btn-style {
-        @apply rounded-lg p-2 m-2 border-2 border-solid border-[black] 
-        hover:bg-red-700 cursor-pointer bg-white text-black 
-        justify-center items-center
-    }
-     .entry-cont-style {
-         @apply flex relative justify-center items-center gap-2 text-xl bg-blue-500
-         rounded-lg m-1 mt-2 p-5 border-2 border-solid border-[black]
-    }
-    .entry-title-style {
-        @apply flex m-5 justify-center items-center relative top-[-30px] bg-white text-black
-        rounded-lg border-2 border-solid border-[black] p-1 
-    }
-    .new-entry-title-style {
-        @apply flex mt-5 justify-center items-center relative top-[-30px] bg-white text-black
-        rounded-lg border-2 border-solid border-[black] p-1 
-    }
-    .input-style {
-        @apply flex justify-center items-center border-2 border-solid border-[black]
-        border rounded-sm mb-2 placeholder:text-gray-200 placeholder:text-center
-        placeholder:items-center
-    }
-    .edit-style {
-        @apply absolute left-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer
-    }
-    .delete-style {
-        @apply absolute right-[40px] mt-8 rounded-lg p-2 border-2 bg-gray-100
-        text-black border-solid border-[black] hover:bg-red-700 cursor-pointer
-    }
-  }
+@theme {
+  --color-primary-50: #ecfeff;
+  --color-primary-100: #cffafe;
+  --color-primary-200: #a5f3fc;
+  --color-primary-300: #67e8f9;
+  --color-primary-400: #22d3ee;
+  --color-primary-500: #06b6d4;
+  --color-primary-600: #0891b2;
+  --color-primary-700: #0e7490;
+  --color-primary-800: #155e75;
+  --color-primary-900: #164e63;
+}

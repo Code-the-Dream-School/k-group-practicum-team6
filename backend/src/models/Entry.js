@@ -2,18 +2,19 @@ const mongoose = require("mongoose");
 
 const EntrySchema = new mongoose.Schema(
   {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
+    createdBy: {
+      // type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
       ref: "User",
       required: true,
-      index: true,
+      index: true, // ???
     },
 
-    date: {
-      type: Date,
-      require: true,
-      default: Date.now,
-    },
+    // date: {
+    //   type: Date,
+    //   require: true,
+    //   default: Date.now,
+    // },
 
     subject: {
       type: String,
@@ -31,7 +32,7 @@ const EntrySchema = new mongoose.Schema(
     mood: {
       type: String,
       required: true,
-      enum: ["amazing", "good", "meh", "bad", "awful"],
+      enum: ["Awful", "Not Great", "Okay", "Great", "Amazing"],
     },
 
     focus: {
@@ -52,7 +53,7 @@ const EntrySchema = new mongoose.Schema(
     // isPrivate: {},
   },
 
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("Entry", EntrySchema);

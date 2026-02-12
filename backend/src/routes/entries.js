@@ -1,4 +1,5 @@
-const express = require('express');
+
+const express = require("express");
 const router = express.Router();
 
 const {
@@ -6,16 +7,14 @@ const {
   getEntry,
   createEntry,
   updateEntry,
-  deleteEntry
-} = require('../controllers/entries');
+  deleteEntry,
+} = require("../controllers/entries");
 
-router.route('/')
+router
+  .route("/")
   .get(getAllEntries)
-  .post(createEntry)
+  .post(createEntry);
 
-router.route('/:id')
-  .get(getEntry)
-  .patch(updateEntry)
-  .delete(deleteEntry)
+router.route("/:id").get(getEntry).patch(updateEntry).delete(deleteEntry);
 
 module.exports = router;
