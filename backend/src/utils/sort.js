@@ -2,7 +2,7 @@ const sortEntries = (reqQuery) => {
   //sorting
 const { sort } = reqQuery;
    let sortBy;
-   const allowedFields = ["createdAt", "updatedAt", "subject", "duration"];
+   const allowedFields = ["createdAt", "updatedAt", "subject", "duration", "mood", "focus"];
 
    if (sort) {
      // Strip leading '-' so we can validate the field name.
