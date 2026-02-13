@@ -160,8 +160,8 @@ DELETE /api/:id -> deleteEntry
 ## 🤝 Team & Collaboration
 
 ### Team Members
-- Benjamin Ong
-- Michael McDonald
+- Ben Ong
+- Mike McDonald
 - Brittany Price
 - Irina Khameeva
 - Danylo Hetmanenko
