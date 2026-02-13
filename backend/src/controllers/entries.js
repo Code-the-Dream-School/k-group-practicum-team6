@@ -25,7 +25,7 @@ const getAllEntries = async (req, res) => {
   if (req.query.sort) sortBy = sortEntries(req.query);
 
   //build query
-  let entriesQuery = Entry.find(queryObject).sort(sortBy || "createdAt");
+  let entriesQuery = Entry.find(queryObject).sort(sortBy || "-createdAt");
 
   //pagination
   entriesQuery = pagEntries(entriesQuery, req.query);
@@ -34,7 +34,7 @@ const getAllEntries = async (req, res) => {
   const entries = await entriesQuery;
   res
     .status(StatusCodes.OK)
-    .json({ entries, count: totalEntries, sort: sortBy || "createdAt" });
+    .json({ entries, count: totalEntries, sort: sortBy || "-createdAt" });
 };
 
 //-- GET an entry
