@@ -10,7 +10,14 @@
 
 ## 🧠 Problem Statement
 
-Students often forget what they’ve studied, how long they spent, and what insights they uncovered along the way. Their notes can get scattered across apps, notebooks, sticky notes, etc, and this makes it hard to see their progress over time. This can also make it difficult to quickly revisit key concepts before exams and interviews.The purpose of this application is to help students keep a structured record of their study sessions and daily reflections so they can:See consistent progress and wins over weeks and months to stay motivatedRevisit key concepts, resources, and ah-ha momentsGain insight into their learning patterns (time spent, focus level, wins, struggles, etc)
+Students often forget what they’ve studied, how long they spent, and what insights they uncovered along the way. Their notes can get scattered across apps, notebooks, sticky notes, etc, and this makes it hard to see their progress over time. This can also make it difficult to quickly revisit key concepts before exams and interviews.
+
+The purpose of this application is to help students keep a structured record of their study sessions and daily reflections so they can:
+
+See consistent progress and wins over weeks and months to stay motivated
+Revisit key concepts, resources, and ah-ha moments
+Gain insight into their learning patterns (time spent, focus level, wins, struggles, etc)
+
 
 ## 🎯 Features
 
