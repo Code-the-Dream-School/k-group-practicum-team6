@@ -44,7 +44,6 @@ const login = async (req, res) => {
      enumerating valid emails
   */
   if (!user) {
-    await bcrypt.compare(password, "$2a$10$dummyhashdummyhashdummyhashdu");
     return res.status(401).json({
       message: "Invalid credentials",
     });
@@ -58,7 +57,7 @@ const login = async (req, res) => {
     });
   }
 
-  const match = await bcrypt.compare(password, user.password);
+  const match = await user.comparePassword(password);
 
   // ❌ Wrong password
   if (!match) {
