@@ -19,8 +19,8 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex flex-row justify-between px-6">
-        <h2 className="text-4xl font-extrabold tracking-tight text-center mb-6 bg-gradient-to-r from-sky-700 to-cyan-500 dark:from-sky-600 dark:to-cyan-400 bg-clip-text text-transparent">
+      <div className="flex flex-row items-start justify-between px-6 py-1">
+        <h2 className="text-4xl font-extrabold tracking-tight leading-[1.2] text-center pb-1 bg-gradient-to-r from-sky-700 to-cyan-500 dark:from-sky-600 dark:to-cyan-400 bg-clip-text text-transparent">
           BrainLog
         </h2>
         <Button
