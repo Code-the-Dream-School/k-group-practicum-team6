@@ -11,21 +11,23 @@ const getAllEntries = async (req, res) => {
   //admin role
   const { userId, role } = req.user;
   const queryObject = role === "admin" ? {} : { createdBy: userId };
-  
- //search
+
+  //search
   const searchQuery = buildSearchQuery(req.query.search);
   Object.assign(queryObject, searchQuery);
 
   //filter
   const filtersQuery = buildFiltersQuery(req.query);
-  Object.assign(queryObject, filtersQuery)
+  Object.assign(queryObject, filtersQuery);
 
   //sorting
   let sortBy;
   if (req.query.sort) sortBy = sortEntries(req.query);
 
   //build query
-  let entriesQuery = Entry.find(queryObject).sort(sortBy || "-createdAt" );
+  let entriesQuery = Entry.find(queryObject)
+    .sort(sortBy || "-createdAt")
+    .collation({ locale: "en", strength: 2 });
 
   //pagination
   entriesQuery = pagEntries(entriesQuery, req.query);
@@ -98,8 +100,8 @@ const updateEntry = async (req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError('You are not authorized to update this entry');
+  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError("You are not authorized to update this entry");
   }
 
   // Copy fields from updateData onto entry object, run validators and update entry document
@@ -120,9 +122,9 @@ const deleteEntry = async (req, res, next) => {
   if (!entry) {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
-  
-  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError('You are not authorized to delete this entry');
+
+  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError("You are not authorized to delete this entry");
   }
 
   await entry.deleteOne();
