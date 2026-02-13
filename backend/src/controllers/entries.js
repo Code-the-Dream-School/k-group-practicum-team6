@@ -25,7 +25,9 @@ const getAllEntries = async (req, res) => {
   if (req.query.sort) sortBy = sortEntries(req.query);
 
   //build query
-  let entriesQuery = Entry.find(queryObject).sort(sortBy || "-createdAt");
+  let entriesQuery = Entry.find(queryObject)
+    .sort(sortBy || "-createdAt")
+    .collation({ locale: "en", strength: 2 });
 
   //pagination
   entriesQuery = pagEntries(entriesQuery, req.query);
