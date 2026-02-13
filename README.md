@@ -164,7 +164,7 @@ DELETE /api/:id -> deleteEntry
 - Michael McDonald
 - Brittany Price
 - Irina Khameeva
-- Daniel H.
+- Danylo Hetmanenko
 
 ### Workflow
 - Jira tickets for task tracking
