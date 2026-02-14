@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
 import { Button, Card, Label, TextInput } from "flowbite-react";
-
+import { useNavigate, NavLink } from "react-router-dom";
 import authApi from "../utils/authApi";
+import { Eye, EyeClosed } from "lucide-react";
 
 const LoginRegister = () => {
   const router = useRouter();
@@ -14,11 +15,17 @@ const LoginRegister = () => {
     password: "",
     confirmPassword: "",
   });
+  const [showPwd, setShowPwd] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const { user, login, loading } = useUser();
+  const navigate = useNavigate();
 
+  //toggle password visibility
+  const togglePassword = () => {
+    setShowPwd(!showPwd)
+  }
   // Redirect to dashboard if already logged in
   useEffect(() => {
     if (!loading && user) {
@@ -63,7 +70,19 @@ const LoginRegister = () => {
           email: formData.email,
           password: formData.password,
         });
-        login(data);
+        if (data.locked) {
+          setError("Account locked. Please reset your password.");
+          navigate("/forgotPassword");
+          return;
+        }
+
+        if (data.attemptsLeft !== undefined) {
+           setError(`Invalid credentials. ${data.attemptsLeft} attempts remaining.`);
+           return;
+        }
+        
+        //login success
+        login(data);     
       }
     } catch (err) {
       setError(err.message);
@@ -108,7 +127,7 @@ const LoginRegister = () => {
           />
           <Label htmlFor="password">Password</Label>
           <TextInput
-            type="password"
+            type={showPwd ? "password" : "text"}
             id="password"
             name="password"
             placeholder="Password"
@@ -116,19 +135,56 @@ const LoginRegister = () => {
             onChange={handleChange}
             required
             autoComplete={isRegister ? "new-password" : "current-password"}
+            rightIcon={(props) => {
+              const Icon = showPwd ? Eye : EyeClosed;
+              return (
+                <Icon
+                  {...props}
+                  className={`${props.className ?? ""} cursor-pointer`.trim()}
+                  style={{ pointerEvents: "auto" }}
+                  onClick={togglePassword}
+                  aria-label={showPwd ? "Show password" : "Hide password"}
+                />
+              );
+            }}
           />
+
           {isRegister && (
-            <TextInput
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              autoComplete="new-password"
-              onChange={handleChange}
-              required
-            />
+            <>
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <TextInput
+                type={showPwd ? "password" : "text"}
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                autoComplete="new-password"
+                onChange={handleChange}
+                required
+                rightIcon={(props) => {
+                  const Icon = showPwd ? Eye : EyeClosed;
+                  return (
+                    <Icon
+                      {...props}
+                      className={`${props.className ?? ""} cursor-pointer`.trim()}
+                      style={{ pointerEvents: "auto" }}
+                      onClick={togglePassword}
+                      aria-label={showPwd ? "Show password" : "Hide password"}
+                    />
+                  );
+                }}
+              />
+            </>
           )}
+          {!isRegister && (
+                <NavLink
+            className="flex m-2 underline relative left-[250px]"
+            to="/forgotPassword"
+          >
+            Forgot password?
+          </NavLink>
+          )}
+      
           <Button
             type="submit"
             disabled={loading}
