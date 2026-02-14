@@ -19,7 +19,7 @@ const EntryModal = ({ mode, entry, persistEntry, onClose }) => {
         >
           <X
             size={25}
-            className="text-gray-400 group-hover:text-red-500 transition-colors"
+            className="text-gray-400 group-hover:text-red-500 transition-colors duration-300"
           />
         </Button>
       </div>
