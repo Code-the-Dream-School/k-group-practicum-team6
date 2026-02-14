@@ -31,6 +31,9 @@ Gain insight into their learning patterns (time spent, focus level, wins, strugg
 
 ## 📸 Screenshots
 
+![BrainLog login](frontend/src/assets/login.jpg)
+![BrainLog Dashboard](frontend/src/assets/dashboard.png)
+
 ## 🛠 Tech Stack
 
 ### Frontend
