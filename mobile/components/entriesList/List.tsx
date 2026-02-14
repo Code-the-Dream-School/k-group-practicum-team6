@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import { FlashList } from '@shopify/flash-list'
 import { EntryItem } from '@/interfaces/entries';
+import { Colors } from '@/constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
+import SmallBadge from "@/components/entriesList/SmallBadge";
 
 type Props = {
   data: EntryItem[];
@@ -18,37 +21,6 @@ type Props = {
 
 //Separator between
 const ItemSeparator = () => <View style={{ height: 12 }} />;
-
-// badge component
-const Badge = ({
-  text,
-  variant = 'focus',
-}: {
-  text: string;
-  variant?: 'mood' | 'focus';
-}) => {
-  return (
-    <View
-      style={[
-        badgeStyles.base,
-        variant === 'mood'
-          ? badgeStyles.mood
-          : badgeStyles.focus,
-      ]}
-    >
-      <Text
-        style={[
-          badgeStyles.text,
-          variant === 'mood'
-            ? badgeStyles.moodText
-            : badgeStyles.focusText,
-        ]}
-      >
-        {text}
-      </Text>
-    </View>
-  );
-}
 
 //List component
 export default function EntriesList({
@@ -77,7 +49,7 @@ export default function EntriesList({
           <Text style={styles.title}>{item.subject}</Text>
 
           <Text style={styles.meta}>
-            {item.date} · {item.durationString}
+            <Ionicons name={'calendar-outline'} size={15} color={Colors.gray[500]} /> {item.date}   <Ionicons name={'time-outline'} size={15} color={Colors.gray[500]} /> {item.durationString}
           </Text>
 
           <Text style={styles.description} numberOfLines={2}>
@@ -85,8 +57,8 @@ export default function EntriesList({
           </Text>
 
           <View style={styles.badges}>
-            <Badge text={item.mood} variant="mood" />
-            <Badge
+            <SmallBadge text={item.mood} variant="mood" />
+            <SmallBadge
               text={`Focus ${item.focus}/5`}
               variant="focus"
             />
@@ -105,7 +77,7 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 16,
     elevation: 4,
@@ -120,34 +92,18 @@ const styles = StyleSheet.create({
   },
   meta: {
     fontSize: 12,
-    color: '#6B7280',
+    color: Colors.gray[500],
     marginTop: 4,
   },
   description: {
     marginTop: 8,
-    color: '#374151',
+    color: Colors.gray[700],
   },
   badges: {
     flexDirection: 'row',
     gap: 8,
     marginTop: 12,
   },
-});
-
-const badgeStyles = StyleSheet.create({
-  base: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 999,
-  },
-  text: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  focus: { backgroundColor: '#EEF2FF' },
-  focusText: { color: '#4F46E5' },
-  mood: { backgroundColor: '#ECFDF5' },
-  moodText: { color: '#059669' },
 });
 
 

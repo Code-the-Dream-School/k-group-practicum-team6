@@ -5,6 +5,7 @@ import { View, ActivityIndicator, Platform } from 'react-native';
 import { useRequireAuth } from '../../hooks/userRequireAuth';
 import { useUserStorage } from '../../hooks/useUserStorage';
 import { UserState } from '@/interfaces/auth';
+import { Colors } from '@/constants/Colors';
 
 export default function TabsLayout() {
     const { loading } = useRequireAuth();
@@ -24,7 +25,7 @@ export default function TabsLayout() {
     return (
         <Tabs screenOptions={{
             lazy: false,
-            tabBarActiveTintColor: '#3B82F6',
+            tabBarActiveTintColor: Colors.brand,
             // Custom blurred background for the tab bar
             tabBarBackground: BlurTabBarbackground,
             tabBarItemStyle: {
@@ -46,7 +47,7 @@ export default function TabsLayout() {
                     height: 70,
                     paddingTop: 8,
                     paddingBottom: 8,
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: Colors.white,
                     elevation: 8,
                 },
             }),
@@ -54,15 +55,15 @@ export default function TabsLayout() {
         }}>
             <Tabs.Screen
                 name="dashboard"
-                options={{ title: 'Home', headerTitle: `Hello, ${user?.name || 'User'}`, tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={color} /> }}
+                options={{ title: 'Home', headerTitle: `Hello, ${user.name || 'User'}`, tabBarIcon: ({ size, color }) => <Ionicons name="home" size={size} color={Colors.brand} /> }}
             />
             <Tabs.Screen
                 name="stats"
-                options={{ title: 'Stats', headerTitle: `${user?.name || 'User'}, Stats`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="bar-chart" size={size} color={color} /> }}
+                options={{ title: 'Stats', headerTitle: `${user.name || 'User'}, Stats`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="bar-chart" size={size} color={Colors.brand} /> }}
             />
             <Tabs.Screen
                 name="profile"
-                options={{ title: 'Profile', headerTitle: `${user?.name || 'User'} Profile`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="person" size={size} color={color} /> }}
+                options={{ title: 'Profile', headerTitle: `${user.name || 'User'} Profile`, freezeOnBlur: true, tabBarIcon: ({ size, color }) => <Ionicons name="person" size={size} color={Colors.brand} /> }}
             />
         </Tabs>
     );

@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useStats } from '@/hooks/useStats';
+import { Colors } from '@/constants/Colors';
+import EmptyStats from '@/components/stats/EmptyStats';
+import StatCard from '@/components/stats/StatCard';
 
 export default function Stats() {
     const { data: stats, isLoading, error } = useStats();
@@ -10,7 +12,7 @@ export default function Stats() {
     if (isLoading) {
         return (
             <View style={[styles.container, styles.centered]}>
-                <ActivityIndicator size="large" color="#3B82F6" />
+                <ActivityIndicator size="large" color={Colors.brand} />
             </View>
         );
     }
@@ -22,13 +24,8 @@ export default function Stats() {
             !stats.overallMood);
 
     if (error || noStats) {
-        return (
-            <View style={[styles.container, styles.centered]}>
-                <Text style={styles.emptyText}>
-                    {error ? 'Error loading stats' : 'No Stats Yet'}
-                </Text>
-            </View>
-        );
+        return error ? (
+            <Text style={{ color: Colors.error }}>Error loading stats</Text>) : (<EmptyStats />)
     }
 
     const totalTime = `${stats.timeSpent.hours}h ${stats.timeSpent.minutes}m`;
@@ -67,66 +64,15 @@ export default function Stats() {
     );
 }
 
-function StatCard({
-    iconName,
-    title,
-    value,
-    subtitle,
-    accent,
-    bg,
-}: {
-    iconName: keyof typeof Ionicons.glyphMap;
-    title: string;
-    value: string;
-    subtitle: string;
-    accent: string;
-    bg: string;
-}) {
-    return (
-        <View style={styles.card}>
-            <View style={[styles.iconWrap, { backgroundColor: bg }]}>
-                <Ionicons name={iconName} size={20} color={accent} />
-            </View>
-            <Text style={styles.cardTitle}>{title}</Text>
-            <Text style={styles.cardValue}>{value}</Text>
-            <Text style={styles.cardSubtitle}>{subtitle}</Text>
-        </View>
-    );
-}
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#F9FAFB',
+        backgroundColor: Colors.gray[50],
     },
     centered: {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    emptyText: {
-        fontSize: 18,
-        color: '#64748B',
-    },
     cards: { gap: 12 },
-    card: {
-        backgroundColor: '#fff',
-        borderRadius: 16,
-        padding: 16,
-        shadowColor: '#000',
-        shadowOpacity: 0.05,
-        shadowRadius: 8,
-        elevation: 2,
-    },
-    iconWrap: {
-        width: 36,
-        height: 36,
-        borderRadius: 999,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 12,
-    },
-    cardTitle: { fontSize: 14, color: '#374151', fontWeight: '500' },
-    cardValue: { fontSize: 28, fontWeight: '700', marginTop: 4 },
-    cardSubtitle: { marginTop: 4, fontSize: 12, color: '#6B7280' },
 });
