@@ -119,7 +119,6 @@ const sendResetPasswordLink = async (email) => {
     });
     //may need to be changed for deployment
     const resetLink = `http://localhost:5173/resetPassword?token=${resetToken}`;
-    console.log(resetLink);
 
     //sends the email
     await sendEmail({

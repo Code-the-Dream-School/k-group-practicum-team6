@@ -8,6 +8,7 @@ export default function ResetPassword() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPwd, setShowPwd] = useState(true);
+  const [message, setMessage] = useState("");
   const location = useLocation();
   const resetToken = new URLSearchParams(location.search).get("token"); //token after successful email
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function ResetPassword() {
       });
 
       if (response.success) {
-        alert("Password reset successful. Please log in");
+        setMessage("Password reset successful. Please log in");
         navigate("/");
       }
     } catch (error) {
@@ -36,7 +37,9 @@ export default function ResetPassword() {
 
   return (
     <>
-      <Card className="text-white text-xl flex justify-center items-center">
+    <div className="flex items-center justify-center min-h-screen">
+      <Card className="w-full max-w-sm p-6">
+        {message}
         <form onSubmit={handleSubmit} className="flex max-w-md flex-col gap-4">
           <h2
             className="text-3xl font-semibold text-center 
@@ -97,6 +100,7 @@ export default function ResetPassword() {
           </Button>
         </form>
       </Card>
+      </div>
     </>
   );
 }
