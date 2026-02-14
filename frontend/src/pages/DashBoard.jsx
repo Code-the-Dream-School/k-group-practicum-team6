@@ -14,18 +14,18 @@ const DashBoard = () => {
   return (
     <>
       <div>
-        <div className="mx-auto max-w-6xl px-6 py-4 font-medium">
+        <div className="mx-auto max-w-6xl px-6 py-8 font-medium">
           <Header />
-          <div className="flex justify-around m-8">
+          <div className="flex justify-around p-8">
             <Stats />
           </div>
-          <div className="flex flex-row justify-between items-center">
-            <h2 className="text-xl">Recent Entries</h2>
+          <div className="flex flex-row justify-between items-center px-8 py-4">
+            <h2 className="text-xl font-medium">Recent Entries</h2>
             <Button
               onClick={() => setNewEntriesModal(true)}
               className="gap-2 h-10 px-5 rounded-xl text-sm font-medium bg-primary-600/15 text-primary-900 border border-primary-600/35
 hover:bg-primary-600/20 hover:border-primary-600/45
-transition-colors duration-200
+transition-colors duration-300
 focus:outline-none focus:ring-2 focus:ring-primary-500/35
 dark:bg-primary-400/10 dark:text-primary-200 dark:border-primary-300/25
 dark:hover:bg-primary-300/15 dark:hover:border-primary-200/35 cursor-pointer"
