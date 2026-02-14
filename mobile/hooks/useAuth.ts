@@ -51,6 +51,8 @@ export function useLogout() {
       clearUser();
       router.replace("/");
       queryClient.removeQueries({ queryKey: ["me"] });
+      queryClient.removeQueries({ queryKey: ["entries"] });
+      queryClient.removeQueries({ queryKey: ["stats"] });
     },
   });
 }
