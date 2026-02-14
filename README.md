@@ -7,6 +7,7 @@
 - **Frontend Live Site:** https://your-frontend-url.com  
 - **Frontend Repo:** /frontend  
 - **Backend Repo:** /backend
+- **Mobile Repo:** /mobile
 
 ## 🧠 Problem Statement
 
@@ -29,9 +30,6 @@ Gain insight into their learning patterns (time spent, focus level, wins, strugg
 - RESTful API integration
 
 ## 📸 Screenshots
-
-![Login Screenshot](src/assets/login.jpg)
-![Dashboard Screenshot](src/assets/dashboard.jpg)
 
 ## 🛠 Tech Stack
 
@@ -73,7 +71,7 @@ K-GROUP-PRACTICUM-TEAM6/
 │   └── package.json
 │
 ├── backend/
-|    ├── src/
+|   ├── src/
 |   │   │   ├── controllers/
 |   │   │   ├── routes/
 |   │   │   ├── models/
@@ -81,6 +79,16 @@ K-GROUP-PRACTICUM-TEAM6/
 |   │   │   ├── config/
 |   │   │   └── app.js
 |   │   ├── server.js
+|   │   └── package.json
+│
+└── README.md
+├── mobile/
+|   │   │   ├── app/
+|   │   │   ├── assets/
+|   │   │   ├── components/
+|   │   │   ├── hooks/        
+|   │   │   ├── interfaces/
+|   │   │   └── utils/
 |   │   └── package.json
 │
 └── README.md
@@ -129,6 +137,18 @@ VITE_API_URL=your_localhost_port/api/v1
 Frontend runs on:  
 http://localhost:5173
 
+Mobile:
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+   npx expo start
+   ```
 ## 🧪 Available Scripts
 
 ### Frontend
