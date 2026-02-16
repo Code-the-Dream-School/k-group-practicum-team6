@@ -1,49 +1,76 @@
-import { API_URL } from "../config/api";
-import { AUTH_ROUTE } from "../config/api";
+import { API_URL, AUTH_ROUTE } from "../config/api";
 const authApi = {
   async login({ email, password }) {
-    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // REQUIRED
-      body: JSON.stringify({ email, password }),
-    });
-    console.log(res);
-    if (!res.ok) {
-      throw new Error("Invalid email or password");
-    }
+    try {
+      const res = await fetch(`${API_URL}/${AUTH_ROUTE}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ email, password }),
+      });
 
-    const userData = await res.json();
-    return userData;
+      const userData = await res.json();
+
+      if (!res.ok) {
+        throw new Error(userData?.msg || "Invalid email or password");
+      }
+
+      return userData;
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
+    }
   },
 
   async register(data) {
-    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(data),
-    });
+    try {
+      const res = await fetch(`${API_URL}/${AUTH_ROUTE}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(data),
+      });
 
-    return res.json();
+      const userData = await res.json();
+
+      if (!res.ok) {
+        throw new Error(
+          "Registration failed: user already exist or connection problem",
+        );
+      }
+
+      return userData;
+    } catch (error) {
+      console.error("Register error:", error);
+      throw error;
+    }
   },
 
   async me() {
-    const res = await fetch(`${API_URL}/${AUTH_ROUTE}/me`, {
-      credentials: "include",
-    });
+    try {
+      const res = await fetch(`${API_URL}/${AUTH_ROUTE}/me`, {
+        credentials: "include",
+      });
 
-    if (!res.ok) return null;
-    return res.json();
+      if (!res.ok) return null;
+
+      return await res.json();
+    } catch (error) {
+      console.error("Auth check error:", error);
+      return null;
+    }
   },
 
   async logout() {
-    await fetch(`${API_URL}/${AUTH_ROUTE}/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
+    try {
+      await fetch(`${API_URL}/${AUTH_ROUTE}/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      throw error;
+    }
   },
 };
 
