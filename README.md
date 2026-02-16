@@ -167,7 +167,8 @@ EXPO_PUBLIC_WEB_API_URL=http://localhost:5000/api/v1
 # if you want to test your app with expo go on your mobile phone
 EXPO_PUBLIC_MOBILE_API_URL=http://your-local-ip-adress:5000/api/v1
 ```
-
+Mobile web by default runs on:
+http://localhost:8081
 
 ## 🧪 Available Scripts
 
