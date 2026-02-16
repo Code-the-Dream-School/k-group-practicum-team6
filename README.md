@@ -135,7 +135,7 @@ Make sure to include all frontend URLs that will access the backend.
 Separate them with commas, without spaces or a trailing comma.
 
 Backend runs on:  
-http://localhost:8080
+http://localhost:5000
 
 ### Frontend Setup
 
