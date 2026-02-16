@@ -178,6 +178,13 @@ npm run dev
 npm run build
 npm run preview
 ```
+### Mobile
+```bash
+npm run start         # Start Expo dev server
+npm run android       # Launch Android emulator (Android stuido required)
+npm run ios           # Launch iOS simulator (Mac only - Xcode required)
+npm run web           # Run as web app
+```
 
 ### Backend
 ```bash
