@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Pressable, } from 'react-native';
 import { useLogout } from '../../hooks/useAuth';
 import { useAuthUser } from '@/hooks/useAuthUser';
+import { Colors } from '@/constants/Colors';
 export default function Profile() {
     const logoutMutation = useLogout();
     const user = useAuthUser();
@@ -16,10 +17,7 @@ export default function Profile() {
                 <Text style={styles.value}>{user.email}</Text>
 
                 <Text style={styles.label}>Position</Text>
-                <Text style={styles.value}>Student/Developer</Text>
-
-                <Text style={styles.label}>Phone Number</Text>
-                <Text style={styles.value}>+1(980)2335910</Text>
+                <Text style={styles.value}>{user.role}</Text>
             </View>
 
             <Pressable
@@ -39,7 +37,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 16,
-        backgroundColor: '#F7F8FA',
+        backgroundColor: Colors.gray[50],
     },
     title: {
         fontSize: 20,
@@ -47,13 +45,13 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     card: {
-        backgroundColor: '#fff',
+        backgroundColor: Colors.white,
         borderRadius: 16,
         padding: 16,
         marginBottom: 24,
     },
     label: {
-        color: '#6B7280',
+        color: Colors.gray[500],
         fontSize: 12,
         marginTop: 12,
     },
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
     },
     logoutButton: {
         marginTop: 24,
-        backgroundColor: '#EF4444',
+        backgroundColor: Colors.red,
         paddingVertical: 14,
         borderRadius: 12,
         alignItems: 'center',
@@ -74,7 +72,7 @@ const styles = StyleSheet.create({
         transform: [{ scale: 0.98 }],
     },
     logoutText: {
-        color: '#fff',
+        color: Colors.white,
         fontSize: 16,
         fontWeight: '600',
     },
