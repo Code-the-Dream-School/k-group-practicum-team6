@@ -37,11 +37,19 @@ Gain insight into their learning patterns (time spent, focus level, wins, strugg
 ## 🛠 Tech Stack
 
 ### Frontend
-- React / React Native
+- React
 - JavaScript (ES6+)
 - HTML5
 - CSS3 / Tailwind / Bootstrap
 - Vite React App
+
+### Mobile
+- Expo/Expo-Router
+- React-Native
+- Zustand
+- React Query
+- React Hook Form
+- Yup
 
 ### Backend
 - Node.js
@@ -140,18 +148,27 @@ VITE_API_URL=your_localhost_port/api/v1
 Frontend runs on:  
 http://localhost:5173
 
-Mobile:
-1. Install dependencies
+### Mobile Setup
 
-   ```bash
+```bash
+   cd mobile
    npm install
-   ```
-
-2. Start the app
-
-   ```bash
    npx expo start
-   ```
+```
+1. Install the **Expo Go** app on your phone (available on iOS and Android).
+2. Make sure your phone and computer are connected to the same Wi-Fi network.
+3. Scan the QR code from the terminal using the Expo Go app or you Camera.
+4. Create a `.env` file inside the `mobile` folder:
+
+```env
+# if you want to test your app in the browser 
+EXPO_PUBLIC_WEB_API_URL=http://localhost:5000/api/v1
+
+# if you want to test your app with expo go on your mobile phone
+EXPO_PUBLIC_MOBILE_API_URL=http://your-local-ip-adress:5000/api/v1
+```
+
+
 ## 🧪 Available Scripts
 
 ### Frontend
