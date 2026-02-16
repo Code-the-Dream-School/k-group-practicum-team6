@@ -127,7 +127,12 @@ PORT=5000
 DATABASE_URL=your_database_url
 JWT_SECRET=your_secret_key
 JWT_LIFETIME=amount_of_time
+CLIENT_URLS=http://localhost:5173,http://localhost:8081
 ```
+CLIENT_URLS is used for CORS configuration.
+These are the default URLs(Web VITE / Mobile Expo).
+Make sure to include all frontend URLs that will access the backend.
+Separate them with commas, without spaces or a trailing comma.
 
 Backend runs on:  
 http://localhost:8080
