@@ -19,6 +19,16 @@ const UserSchema = new mongoose.Schema({
       minlength: 6,
     },
 
+    failedLoginAttempts: {
+        type: Number,
+        default: 0,
+    },
+
+    isLocked: {
+       type: Boolean,
+       default: false,
+    },
+
     name: {
       type: String,
       required: [true, "Name is required"],
@@ -40,7 +50,11 @@ const UserSchema = new mongoose.Schema({
 
 
 //-- Mongo Middleware to hash the password
-UserSchema.pre("save", async function() {
+UserSchema.pre("save", async function(next) {
+  //avoid incorrect login when user's using their reset password
+  if (!this.isModified("password")) {
+     return next;
+  }
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });

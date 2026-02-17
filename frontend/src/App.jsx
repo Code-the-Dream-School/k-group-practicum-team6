@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/styles/layout/Layout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginRegister from "./pages/LoginRegister";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import NotFoundPage from "./pages/NotFoundPage";
 import DashBoard from "./pages/DashBoard";
 import { EntryProvider } from "./contexts/EntryContext.jsx";
@@ -26,6 +28,8 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/forgotPassword" element={<ForgotPassword/>}/>
+        <Route path="/resetPassword" element={<ResetPassword/>}/>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       </Layout>
