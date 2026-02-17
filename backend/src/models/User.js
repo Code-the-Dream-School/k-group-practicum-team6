@@ -67,6 +67,7 @@ UserSchema.methods.createJWT = function() {
       userId: this._id,  // _id and name are from 'this' Mongo User document
       name: this.name,
       role: this.role,
+      email: this.email,
     },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_LIFETIME });

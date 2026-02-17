@@ -6,11 +6,13 @@ export const entrySchema = yup
     hours: yup
       .number()
       .transform((_, v) => (v === "" || v == null ? undefined : Number(v)))
-      .nullable(),
+
+      .min(0),
     minutes: yup
       .number()
       .transform((_, v) => (v === "" || v == null ? undefined : Number(v)))
-      .nullable(),
+
+      .min(0),
     mood: yup
       .string()
       .oneOf(
@@ -25,16 +27,20 @@ export const entrySchema = yup
     details: yup.string(),
   })
   .test("duration-check", "Please select duration", function (values) {
-    if (!values) return true;
+    if (!values) return false;
 
     const hours = values.hours ?? 0;
     const minutes = values.minutes ?? 0;
 
-    if (hours <= 0 && minutes <= 0) {
-      return this.createError({
-        path: "hours",
-        message: "Please select duration",
-      });
+    if (hours === 0 && minutes === 0) { 
+        return this.createError({
+      path: "hours",
+      message: "Please select duration",
+    }) && this.createError({
+      path: "minutes",
+      message: "Please select duration",
+    });
+    
     }
     return true;
   });
