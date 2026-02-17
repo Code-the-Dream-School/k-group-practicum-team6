@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useContext, useCallback } from "react";
 import statsApi from "../utils/statsApi";
-import { EntryContext } from "./EntryContext";
+import { EntryContext } from "./CreateContext";
 
 const StatsContext = createContext();
 

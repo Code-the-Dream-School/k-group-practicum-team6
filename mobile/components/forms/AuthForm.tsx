@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import FormInput from './FormInput';
 import { useLogin, useRegister } from '../../hooks/useAuth';
 import { authSchema } from './validation/AuthSchema';
+import { Colors } from '@/constants/Colors';
 
 //Authentication form component
 export default function AuthForm() {
@@ -51,10 +52,36 @@ export default function AuthForm() {
 
   return (
     <View style={{ width: '100%' }}>
-      {!isLogin && <FormInput control={control} name="name" placeholder="Name" />}
-      <FormInput control={control} name="email" placeholder="Email" />
-      <FormInput control={control} name="password" placeholder="Password" secureTextEntry />
-      {!isLogin && <FormInput control={control} name="confirmPassword" placeholder="Confirm Password" secureTextEntry />}
+      {!isLogin && (
+        <FormInput
+          control={control}
+          name="name"
+          placeholder="Name"
+          textContentType="name"
+        />
+      )}
+      <FormInput
+        control={control}
+        name="email"
+        placeholder="Email"
+        textContentType="emailAddress"
+      />
+      <FormInput
+        control={control}
+        name="password"
+        placeholder="Password"
+        secureTextEntry
+        textContentType={isLogin ? "password" : "newPassword"}
+      />
+      {!isLogin && (
+        <FormInput
+          control={control}
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          secureTextEntry
+          textContentType="newPassword"
+        />
+      )}
       <Pressable style={({ pressed }) => [styles.button, pressed && styles.pressed]} onPress={handleSubmit(onSubmit)}>
         <Text style={styles.buttonText}>{isLogin ? 'Sign In' : 'Register'}</Text>
       </Pressable>
@@ -66,13 +93,13 @@ export default function AuthForm() {
 }
 
 const styles = StyleSheet.create({
-  button: { backgroundColor: '#007bff', padding: 15, borderRadius: 8, alignItems: 'center', marginTop: 10 },
+  button: { backgroundColor: Colors.brand, padding: 15, borderRadius: 8, alignItems: 'center', marginTop: 10 },
   pressed: {
     opacity: 0.6,
     transform: [{ scale: 0.97 }],
   },
-  buttonText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
-  link: { color: '#3b82f6', marginTop: 16, textAlign: 'center' },
+  buttonText: { color: Colors.white, fontSize: 16, fontWeight: 'bold' },
+  link: { color: Colors.brandDark, marginTop: 16, textAlign: 'center' },
 });
 
 
