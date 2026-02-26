@@ -1,8 +1,7 @@
 import { API_URL, ENTRIES_ROUTE } from "../config/api";
 
 const entryApi = { 
-async getAllEntries({ page, limit, signal }) {
-  console.log("GET ALL ENTRIES PARAMS:", { page, limit });
+async getAllEntries({ page, signal }) {
   const response = await fetch(
     `${API_URL}/${ENTRIES_ROUTE}?page=${page}&limit=5`,
     { signal, credentials: "include" },
@@ -11,7 +10,6 @@ async getAllEntries({ page, limit, signal }) {
   if (!response.ok) {
     throw new Error("Failed to fetch entries");
   }
-
   return response.json();
 },
 

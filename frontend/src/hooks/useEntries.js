@@ -5,7 +5,7 @@
 import { useState, useEffect } from "react";
 import * as entryService from "../services/entryService";
 
-export function useEntries( page, limit ) {
+export function useEntries(page, limit) {
   const [entries, setEntries] = useState([]);
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(true);
