@@ -8,7 +8,7 @@ import Pagination from "../components/Pagination";
 import EntryCard from "./EntryCard";
 
 const Entries = () => {
-  const { entries, loading, deleteEntry, updateEntry } = useEntries();
+  const { entries, count, loading, deleteEntry, updateEntry } = useEntries();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
 
@@ -22,10 +22,11 @@ const Entries = () => {
   const entriesPerPage = 5;
 
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
-  const indexOfFirstEntry = (currentPage - 1) * entriesPerPage;
-  const indexOfLastEntry = indexOfFirstEntry + entriesPerPage;
-  const currentEntries = entries.slice(indexOfFirstEntry, indexOfLastEntry);
-  const totalPages = Math.ceil(entries.length / entriesPerPage);
+  // const indexOfFirstEntry = (currentPage - 1) * entriesPerPage;
+  // const indexOfLastEntry = indexOfFirstEntry + entriesPerPage;
+  //backend already paginated slice no longer needed
+  const currentEntries = entries;
+  const totalPages = Math.ceil(count / entriesPerPage);
 
   const handlePreviousPage = (page) => {
     if (page > 1) setSearchParams({ page: currentPage - 1 });

@@ -7,15 +7,17 @@ import * as entryService from "../services/entryService";
 
 export function useEntries() {
   const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchEntries = useCallback(async (signal) => {
     try {
       setLoading(true);
       setError(null);
-      const data = await entryService.fetchEntries(signal);
+      const data = await entryService.fetchEntries({ signal });
       setEntries(data);
+
     } catch (err) {
       if (err.name !== "AbortError") {
         setError(err);

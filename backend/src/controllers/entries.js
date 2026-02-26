@@ -36,7 +36,7 @@ const getAllEntries = async (req, res) => {
   const entries = await entriesQuery;
   res
     .status(StatusCodes.OK)
-    .json({ entries, count: totalEntries, sort: sortBy || "-createdAt" });
+    .json({ entries, count: totalEntries,  sort: sortBy || "-createdAt" });
 };
 
 //-- GET an entry

@@ -4,7 +4,7 @@
  */
 import entryApi from "../utils/entryApi";
 
-export async function fetchEntries(signal) {
+export async function fetchEntries({ signal }) {
   const data = await entryApi.getAllEntries(signal);
   return data.entries;
 }
