@@ -8,7 +8,12 @@ import Pagination from "../components/Pagination";
 import EntryCard from "./EntryCard";
 
 const Entries = () => {
-  const { entries, count, loading, deleteEntry, updateEntry } = useEntries();
+  // PAGINATION LOGIC
+  const [searchParams, setSearchParams] = useSearchParams();
+  const entriesPerPage = 5;
+
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  const { entries, count, loading, deleteEntry, updateEntry } = useEntries(currentPage, entriesPerPage);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedEntry, setSelectedEntry] = useState(null);
 
@@ -17,11 +22,7 @@ const Entries = () => {
   const [entryToDelete, setEntryToDelete] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // PAGINATION LOGIC
-  const [searchParams, setSearchParams] = useSearchParams();
-  const entriesPerPage = 5;
-
-  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+  
   // const indexOfFirstEntry = (currentPage - 1) * entriesPerPage;
   // const indexOfLastEntry = indexOfFirstEntry + entriesPerPage;
   //backend already paginated slice no longer needed
@@ -75,9 +76,9 @@ const Entries = () => {
     [selectedEntry, updateEntry],
   );
 
-  if (loading && entries.length === 0) return <div>Loading Entries...</div>;
+  if (loading && count === 0) return <div>Loading Entries...</div>;
 
-  if (!loading && entries.length === 0) {
+  if (!loading && count === 0) {
     return (
       <Blockquote className="text-3xl text-center mt-20">
         Welcome to BrainLog! Please add your first entry.

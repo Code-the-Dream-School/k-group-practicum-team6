@@ -1,22 +1,19 @@
 import { API_URL, ENTRIES_ROUTE } from "../config/api";
 
 const entryApi = {
-  async getAllEntries(signal) {
-    try {
-      const res = await fetch(`${API_URL}/${ENTRIES_ROUTE}`, {
-        method: "GET",
-        credentials: "include",
-        signal,
-      });
-      if (!res.ok) throw new Error("Could not fetch entries.");
-      return await res.json();
-    } catch (err) {
-      if (err.name !== "AbortError") {
-        console.error("API Error [getAllEntries]:", err.message);
-      }
-      throw err; 
-    }
-  },
+ 
+async  getAllEntries({ page, limit, signal }) {
+  const response = await fetch(
+    `${API_URL}/${ENTRIES_ROUTE}?page=${page}&limit=${limit}`,
+    { signal, credentials: "include" }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch entries");
+  }
+
+  return response.json();
+},
 
   async createEntry(data) {
     try {

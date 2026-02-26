@@ -4,9 +4,9 @@
  */
 import entryApi from "../utils/entryApi";
 
-export async function fetchEntries({ signal }) {
-  const data = await entryApi.getAllEntries(signal);
-  return data.entries;
+export async function fetchEntries({ page, limit, signal }) {
+  const data = await entryApi.getAllEntries({ page, limit, signal });
+  return data;//must return full opbject { entries, count }
 }
 
 export async function createEntry(entryData) {
