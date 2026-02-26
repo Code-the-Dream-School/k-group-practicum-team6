@@ -1,8 +1,14 @@
 const pagEntries = (mongooseQuery, reqQuery) => {
-    const page = Number(reqQuery.page) || 1;
-    const limit = Number(reqQuery.limit) || 5;
-    const skip = (page - 1) * limit;
+  const page = Math.max(Number(reqQuery.page) || 1, 1);
+  const limit = Math.min(Math.max(Number(reqQuery.limit) || 5, 1), 50);
+  const skip = (page - 1) * limit;
 
-    return mongooseQuery.skip(skip).limit(limit);
-}
+  const query = mongooseQuery.skip(skip).limit(limit);
+
+  return {
+    query,
+    page,
+    limit,
+  };
+};
 module.exports = pagEntries;
