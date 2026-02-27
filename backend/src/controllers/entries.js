@@ -11,14 +11,14 @@ const getAllEntries = async (req, res) => {
   //admin role
   const { userId, role } = req.user;
   const queryObject = role === "admin" ? {} : { createdBy: userId };
-  
- //search
+
+  //search
   const searchQuery = buildSearchQuery(req.query.search);
   Object.assign(queryObject, searchQuery);
 
   //filter
   const filtersQuery = buildFiltersQuery(req.query);
-  Object.assign(queryObject, filtersQuery)
+  Object.assign(queryObject, filtersQuery);
 
   //sorting
   let sortBy;
@@ -30,13 +30,18 @@ const getAllEntries = async (req, res) => {
     .collation({ locale: "en", strength: 2 });
 
   //pagination
-  entriesQuery = pagEntries(entriesQuery, req.query);
+  const { query, page, limit } = pagEntries(entriesQuery, req.query);
   const totalEntries = await Entry.countDocuments(queryObject);
+  const totalPages = Math.ceil(totalEntries / limit);
 
-  const entries = await entriesQuery;
-  res
-    .status(StatusCodes.OK)
-    .json({ entries, count: totalEntries,  sort: sortBy || "-createdAt" });
+  const entries = await query;
+  res.status(StatusCodes.OK).json({
+    entries,
+    count: totalEntries,
+    totalPages,
+    currentPage: page,
+    sort: sortBy || "-createdAt",
+  });
 };
 
 //-- GET an entry
@@ -100,8 +105,8 @@ const updateEntry = async (req, res, next) => {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
 
-  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError('You are not authorized to update this entry');
+  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError("You are not authorized to update this entry");
   }
 
   // Copy fields from updateData onto entry object, run validators and update entry document
@@ -122,9 +127,9 @@ const deleteEntry = async (req, res, next) => {
   if (!entry) {
     throw new NotFoundError(`No entry with ID: ${entryId}`);
   }
-  
-  if (role !== 'admin' && entry.createdBy.toString() !== userId.toString()) {
-    throw new ForbiddenError('You are not authorized to delete this entry');
+
+  if (role !== "admin" && entry.createdBy.toString() !== userId.toString()) {
+    throw new ForbiddenError("You are not authorized to delete this entry");
   }
 
   await entry.deleteOne();
