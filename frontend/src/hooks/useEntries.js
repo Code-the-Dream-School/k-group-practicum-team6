@@ -2,34 +2,39 @@
     Hook Layer (State + Side Effects)
     CRUD Operations
  */
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import * as entryService from "../services/entryService";
 
-export function useEntries() {
+export function useEntries(page, limit) {
   const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchEntries = useCallback(async (signal) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const data = await entryService.fetchEntries(signal);
-      setEntries(data);
-    } catch (err) {
-      if (err.name !== "AbortError") {
-        setError(err);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
-    fetchEntries(controller.signal);
+    const load = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await entryService.fetchEntries({ 
+            page, limit, signal: controller.signal
+        });
+        setEntries(data.entries);
+        setCount(data.count);
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          setError(err);
+        }
+      } finally {
+        setLoading(false);
+      }
+  };
+
+    load();
     return () => controller.abort();
-  }, [fetchEntries]);
+  }, [page, limit]);
 
   const createEntry = async (entryData) => {
     const newEntry = await entryService.createEntry(entryData);
@@ -52,7 +57,7 @@ export function useEntries() {
     entries,
     loading,
     error,
-    fetchEntries,
+    count,
     createEntry,
     updateEntry,
     deleteEntry,
