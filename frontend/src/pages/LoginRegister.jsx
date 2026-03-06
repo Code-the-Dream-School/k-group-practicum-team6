@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useUser } from "../hooks/useUser";
 import useRouter from "../utils/useRouter";
 import { Button, Card, Label, TextInput } from "flowbite-react";
-
+import { useNavigate, NavLink } from "react-router-dom";
 import authApi from "../utils/authApi";
+import { Eye, EyeClosed } from "lucide-react";
 
 const LoginRegister = () => {
   const router = useRouter();
@@ -14,11 +15,17 @@ const LoginRegister = () => {
     password: "",
     confirmPassword: "",
   });
+  const [showPwd, setShowPwd] = useState(true);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const { user, login, loading } = useUser();
+  const navigate = useNavigate();
 
+  //toggle password visibility
+  const togglePassword = () => {
+    setShowPwd(!showPwd)
+  }
   // Redirect to dashboard if already logged in
   useEffect(() => {
     if (!loading && user) {
@@ -63,7 +70,19 @@ const LoginRegister = () => {
           email: formData.email,
           password: formData.password,
         });
-        login(data);
+        if (data.locked) {
+          setError("Account locked. Please reset your password.");
+          navigate("/forgotPassword");
+          return;
+        }
+
+        if (data.attemptsLeft !== undefined) {
+           setError(`Invalid credentials. ${data.attemptsLeft} attempts remaining.`);
+           return;
+        }
+        
+        //login success
+        login(data);     
       }
     } catch (err) {
       setError(err.message);
@@ -75,7 +94,7 @@ const LoginRegister = () => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <Card className="w-full max-w-md">
-        <h2 className="text-3xl font-semibold text-center text-blue-600 mb-6">
+        <h2 className="text-4xl font-extrabold tracking-tight leading-[1.2] text-center pb-6 bg-gradient-to-r from-sky-700 to-cyan-500 dark:from-sky-600 dark:to-cyan-300 bg-clip-text text-transparent">
           BrainLog
         </h2>
         {error && <div className="error-message">{error}</div>}
@@ -108,7 +127,7 @@ const LoginRegister = () => {
           />
           <Label htmlFor="password">Password</Label>
           <TextInput
-            type="password"
+            type={showPwd ? "password" : "text"}
             id="password"
             name="password"
             placeholder="Password"
@@ -116,24 +135,61 @@ const LoginRegister = () => {
             onChange={handleChange}
             required
             autoComplete={isRegister ? "new-password" : "current-password"}
+            rightIcon={(props) => {
+              const Icon = showPwd ? Eye : EyeClosed;
+              return (
+                <Icon
+                  {...props}
+                  className={`${props.className ?? ""} cursor-pointer`.trim()}
+                  style={{ pointerEvents: "auto" }}
+                  onClick={togglePassword}
+                  aria-label={showPwd ? "Show password" : "Hide password"}
+                />
+              );
+            }}
           />
+
           {isRegister && (
-            <TextInput
-              type="password"
-              name="confirmPassword"
-              id="confirmPassword"
-              placeholder="Confirm Password"
-              value={formData.confirmPassword}
-              autoComplete="new-password"
-              onChange={handleChange}
-              required
-            />
+            <>
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <TextInput
+                type={showPwd ? "password" : "text"}
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                value={formData.confirmPassword}
+                autoComplete="new-password"
+                onChange={handleChange}
+                required
+                rightIcon={(props) => {
+                  const Icon = showPwd ? Eye : EyeClosed;
+                  return (
+                    <Icon
+                      {...props}
+                      className={`${props.className ?? ""} cursor-pointer`.trim()}
+                      style={{ pointerEvents: "auto" }}
+                      onClick={togglePassword}
+                      aria-label={showPwd ? "Show password" : "Hide password"}
+                    />
+                  );
+                }}
+              />
+            </>
           )}
+          {!isRegister && (
+                <NavLink
+            className="flex m-2 underline relative left-[250px]"
+            to="/forgotPassword"
+          >
+            Forgot password?
+          </NavLink>
+          )}
+      
           <Button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md
-            hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 cursor-pointer"
+            className="w-full py-2 px-4 text-white font-semibold rounded-lg shadow-md transition-colors duration-300
+            focus:outline-none focus:ring-2 cursor-pointer"
           >
             {submitting ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
@@ -146,7 +202,7 @@ const LoginRegister = () => {
         </form>
         <Button
           type="button"
-          className="w-full text-center mt-4 text-blue-500 bg-transparent hover:bg-transparent focus:ring-0 hover:text-blue-700 cursor-pointer"
+          className="w-full text-center mt-4 text-cyan-600 bg-transparent transition-colors duration-300 hover:bg-transparent focus:ring-0 dark:bg-transparent dark:hover:bg-transparent dark:focus:ring-0 hover:text-cyan-700 cursor-pointer"
           onClick={() => {
             setIsRegister(!isRegister);
             setError("");

@@ -1,15 +1,47 @@
 const Entry = require("../models/Entry");
+const { sortEntries } = require("../utils/sort");
+const pagEntries = require("../utils/pagEntries");
+const buildSearchQuery = require("../utils/buildSearchQuery");
+const buildFiltersQuery = require("../utils/buildFiltersQuery");
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, ForbiddenError } = require("../errors");
 
 //-- GET all entries
 const getAllEntries = async (req, res) => {
+  //admin role
   const { userId, role } = req.user;
+  const queryObject = role === "admin" ? {} : { createdBy: userId };
 
-  const query = role === "admin" ? {} : { createdBy: userId };
+  //search
+  const searchQuery = buildSearchQuery(req.query.search);
+  Object.assign(queryObject, searchQuery);
 
-  const entries = await Entry.find(query).sort("createdAt");
-  res.status(StatusCodes.OK).json({ entries, count: entries.length });
+  //filter
+  const filtersQuery = buildFiltersQuery(req.query);
+  Object.assign(queryObject, filtersQuery);
+
+  //sorting
+  let sortBy;
+  if (req.query.sort) sortBy = sortEntries(req.query);
+
+  //build query
+  let entriesQuery = Entry.find(queryObject)
+    .sort(sortBy || "-createdAt")
+    .collation({ locale: "en", strength: 2 });
+
+  //pagination
+  const { query, page, limit } = pagEntries(entriesQuery, req.query);
+  const totalEntries = await Entry.countDocuments(queryObject);
+  const totalPages = Math.ceil(totalEntries / limit);
+
+  const entries = await query;
+  res.status(StatusCodes.OK).json({
+    entries,
+    count: totalEntries,
+    totalPages,
+    currentPage: page,
+    sort: sortBy || "-createdAt",
+  });
 };
 
 //-- GET an entry

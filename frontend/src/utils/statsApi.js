@@ -3,7 +3,7 @@ import { API_URL, STATS_ROUTE } from "../config/api";
 const statsApi = {
   async getUserStats(signal) {
     try {
-      const res = await fetch(`${API_URL}/${STATS_ROUTE}/dashboard-stats`, {
+      const res = await fetch(`${API_URL}/${STATS_ROUTE}/dashboard`, {
         credentials: "include",
         signal,
       });

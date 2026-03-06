@@ -6,7 +6,10 @@ if (Platform.OS === 'web') {
   // 
   API_URL = process.env.EXPO_PUBLIC_WEB_API_URL || '';
 } else {
-  API_URL = process.env.EXPO_PUBLIC_MOBILE_API_KEY || '';
+  API_URL = process.env.EXPO_PUBLIC_MOBILE_API_URL || '';
 }
 
 export default API_URL;
+export const AUTH_ROUTE = "auth";
+export const ENTRIES_ROUTE = "entries";
+export const STATS_ROUTE = "analytics/dashboard"

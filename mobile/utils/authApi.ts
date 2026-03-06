@@ -1,16 +1,16 @@
 import { LoginPayload, RegisterPayload, User } from '../interfaces/auth';
-import API_URL from './endpoint';
+import API_URL, {AUTH_ROUTE} from './endpoint';
 
 async function handleResponse(res: Response) {
   if (!res.ok) {
     const err = await res.json().catch(() => ({ message: 'Unknown error' }));
-    throw new Error(err.message || 'Request failed');
+    throw new Error(err.msg || 'Request failed');
   }
   return res.json();
 }
 
 export async function login(payload: LoginPayload): Promise<User> {
-  const res = await fetch(`${API_URL}/login`, {
+  const res = await fetch(`${API_URL}/${AUTH_ROUTE}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -20,7 +20,7 @@ export async function login(payload: LoginPayload): Promise<User> {
 }
 
 export async function register(payload: RegisterPayload): Promise<User> {
-  const res = await fetch(`${API_URL}/register`, {
+  const res = await fetch(`${API_URL}/${AUTH_ROUTE}/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -30,7 +30,7 @@ export async function register(payload: RegisterPayload): Promise<User> {
 }
 
 export async function logout(): Promise<void> {
-  await fetch(`${API_URL}/logout`, {
+  await fetch(`${API_URL}/${AUTH_ROUTE}/logout`, {
     method: 'POST',
     credentials: 'include',
   });
@@ -38,7 +38,7 @@ export async function logout(): Promise<void> {
 
 //Get the currently authenticated user
 export async function getMe(): Promise<User | null> {
-  const res = await fetch(`${API_URL}/me`, {
+  const res = await fetch(`${API_URL}/${AUTH_ROUTE}/me`, {
     method: 'GET',
     credentials: 'include',
   });

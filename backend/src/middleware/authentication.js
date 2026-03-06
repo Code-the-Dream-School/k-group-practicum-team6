@@ -24,6 +24,7 @@ const auth = async (req, res, next) => {
       userId: new mongoose.Types.ObjectId(String(payload.userId)),
       name: payload.name,
       role: payload.role,
+      email: payload.email,
     };
     next();
   } catch (error) {

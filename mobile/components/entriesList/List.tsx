@@ -4,66 +4,40 @@ import {
   Text,
   StyleSheet,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
 import { FlashList } from '@shopify/flash-list'
-
-export type EntrielItem = {
-  id: string;
-  title: string;
-  date: string;
-  duration: string;
-  description: string;
-  mood: string;
-  focus: number;
-};
+import { EntryItem } from '@/interfaces/entries';
+import { Colors } from '@/constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
+import SmallBadge from "@/components/entriesList/SmallBadge";
 
 type Props = {
-  data: EntrielItem[];
-  onPressItem?: (item: EntrielItem) => void;
+  data: EntryItem[];
+  onPressItem?: (item: EntryItem) => void;
+  onEndReached?: () => void;
+  isFetchingMore?: boolean;
 };
 
-// badge component
-const Badge = ({
-  text,
-  variant = 'focus',
-}: {
-  text: string;
-  variant?: 'mood' | 'focus';
-}) => {
-  return (
-    <View
-      style={[
-        badgeStyles.base,
-        variant === 'mood'
-          ? badgeStyles.mood
-          : badgeStyles.focus,
-      ]}
-    >
-      <Text
-        style={[
-          badgeStyles.text,
-          variant === 'mood'
-            ? badgeStyles.moodText
-            : badgeStyles.focusText,
-        ]}
-      >
-        {text}
-      </Text>
-    </View>
-  );
-}
+//Separator between
+const ItemSeparator = () => <View style={{ height: 12 }} />;
 
 //List component
 export default function EntriesList({
   data,
   onPressItem,
+  onEndReached,
+  isFetchingMore,
 }: Props) {
   return (
     <FlashList
       data={data}
       keyExtractor={(item) => item.id}
       contentContainerStyle={styles.list}
-      ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+      ItemSeparatorComponent={ItemSeparator}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={isFetchingMore ? <ActivityIndicator style={{ padding: 16 }} /> : null}
       renderItem={({ item }) => (
         <Pressable
           onPress={() => onPressItem?.(item)}
@@ -72,19 +46,19 @@ export default function EntriesList({
             pressed && styles.pressed,
           ]}
         >
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.subject}</Text>
 
           <Text style={styles.meta}>
-            {item.date} · {item.duration}
+            <Ionicons name={'calendar-outline'} size={15} color={Colors.gray[500]} /> {item.date}   <Ionicons name={'time-outline'} size={15} color={Colors.gray[500]} /> {item.durationString}
           </Text>
 
           <Text style={styles.description} numberOfLines={2}>
-            {item.description}
+            {item.details}
           </Text>
 
           <View style={styles.badges}>
-            <Badge text={item.mood} variant="mood" />
-            <Badge
+            <SmallBadge text={item.mood} variant="mood" />
+            <SmallBadge
               text={`Focus ${item.focus}/5`}
               variant="focus"
             />
@@ -103,7 +77,7 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 16,
     elevation: 4,
@@ -118,34 +92,18 @@ const styles = StyleSheet.create({
   },
   meta: {
     fontSize: 12,
-    color: '#6B7280',
+    color: Colors.gray[500],
     marginTop: 4,
   },
   description: {
     marginTop: 8,
-    color: '#374151',
+    color: Colors.gray[700],
   },
   badges: {
     flexDirection: 'row',
     gap: 8,
     marginTop: 12,
   },
-});
-
-const badgeStyles = StyleSheet.create({
-  base: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 999,
-  },
-  text: {
-    fontSize: 12,
-    fontWeight: '500',
-  },
-  focus: { backgroundColor: '#EEF2FF' },
-  focusText: { color: '#4F46E5' },
-  mood: { backgroundColor: '#ECFDF5' },
-  moodText: { color: '#059669' },
 });
 
 
